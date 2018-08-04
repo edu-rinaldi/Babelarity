@@ -7,14 +7,15 @@ public enum PartOfSpeech
 
     NOUN('n'), ADV('r'), ADJ('a'), VERB('v');
 
-    char s;
-    PartOfSpeech(char s)
+    char c;
+
+    PartOfSpeech(char c)
     {
-        this.s  = s;
+        this.c  = c;
     }
 
     public static PartOfSpeech getByChar(char c)
     {
-        return Arrays.stream(PartOfSpeech.values()).filter(p->p.s == c).findFirst().get();
+        return Arrays.stream(PartOfSpeech.values()).filter(p->p.c == c).findFirst().orElse(NOUN);
     }
 }

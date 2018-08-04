@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.interfaces.RSAKey;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class MiniBabelNet implements Iterable<Synset>
 {
@@ -19,8 +19,8 @@ public class MiniBabelNet implements Iterable<Synset>
     private final Path LEMMATIZATION_FILE_PATH;
     private final Path RELATION_FILE_PATH;
 
-    private Map<String, List<Synset>> wordToSynsets;
-    private Map<String,Synset> synsetMap;
+    private Map<Word, List<Synset>> wordToSynsets;
+    private Map<String, Synset> synsetMap;
 
     private MiniBabelNet()
     {
@@ -46,7 +46,7 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public List<Synset> getSynsets(String word)
     {
-        return wordToSynsets.get(word);
+        return wordToSynsets.get(Word.fromString(word));
     }
 
     public Synset getSynset(String id)
@@ -56,20 +56,8 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public List<String> getLemmas(String word)
     {
-        List<String> lemmas = new ArrayList<>();
-        try(BufferedReader br = Files.newBufferedReader(LEMMATIZATION_FILE_PATH))
-        {
-            while(br.ready())
-            {
-                String[] line = br.readLine().split("\t");
-                if(line[0].equals(word))
-                    for(int i=1; i<line.length;i++)
-                        lemmas.add(line[i]);
-
-            }
-        }
-        catch (IOException e){e.printStackTrace(); }
-        return lemmas;
+        Word w = new Word(word);
+        return w.findLemmasFromSource(LEMMATIZATION_FILE_PATH);
     }
 
     /**
@@ -119,6 +107,19 @@ public class MiniBabelNet implements Iterable<Synset>
         return synsetMap.values().iterator();
     }
 
+    /*
+        TODO: WORK ON
+     */
+    private void parseDictionary2()
+    {
+        try(Stream<String> stream = Files.lines(DICTIONARY_FILE_PATH))
+        {
+
+        }
+        catch (IOException e){ e.printStackTrace(); }
+    }
+
+
     private void parseDictionary()
     {
         try(BufferedReader br = Files.newBufferedReader(DICTIONARY_FILE_PATH))
@@ -126,10 +127,10 @@ public class MiniBabelNet implements Iterable<Synset>
             while(br.ready())
             {
                 //prendo ogni riga, la splitto per "\t"
-                List<String> infos = new ArrayList<>(List.of(br.readLine().split("\t")));
-                BabelSynset babelSynset = new BabelSynset(infos.remove(0),infos);
+                List<Word> infos = new ArrayList<>(Word.fromListOfString(List.of(br.readLine().split("\t"))));
+                BabelSynset babelSynset = new BabelSynset(infos.remove(0).toString(), infos);
                 synsetMap.put(babelSynset.getID(), babelSynset);
-                for(String info : infos)
+                for(Word info : infos)
                 {
                     if (wordToSynsets.containsKey(info))
                         wordToSynsets.get(info).add(babelSynset);
@@ -145,6 +146,6 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public static void main(String[] args) {
         MiniBabelNet b = new MiniBabelNet();
-        System.out.println(b.getSynsets("walk"));
+        System.out.println(b.getLemmas("laughing"));
     }
 }

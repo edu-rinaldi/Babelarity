@@ -7,12 +7,12 @@ public class BabelSynset implements Synset
 {
     private String id;
     private PartOfSpeech pos;
-    private List<String> lemmas;
+    private List<Word> lemmas;
     private List<String> glosses;
     private Map<BabelSynset, String> relations;
 
 
-    public BabelSynset(String id, List<String> lemmas)
+    public BabelSynset(String id, List<Word> lemmas)
     {
         this.id = id;
         this.pos = PartOfSpeech.getByChar(id.charAt(id.length()-1));
@@ -23,7 +23,7 @@ public class BabelSynset implements Synset
 
     public String getID() {return id; }
     public PartOfSpeech getPOS() {return pos;}
-    public List<String> getLemmas() {return lemmas;}
+    public List<Word> getLemmas() {return lemmas;}
 
     private List<String> loadGloesses()
     {
