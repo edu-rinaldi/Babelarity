@@ -12,7 +12,7 @@ public class CorpusManager
 
     }
 
-    static CorpusManager getInstance()
+    public static CorpusManager getInstance()
     {
         if(instance==null)
             instance = new CorpusManager();
@@ -29,7 +29,7 @@ public class CorpusManager
         return null;
     }
 
-    void saveDocument(Document document)
+    public void saveDocument(Document document)
     {
 
     }

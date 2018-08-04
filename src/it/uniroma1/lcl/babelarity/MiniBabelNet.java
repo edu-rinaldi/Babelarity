@@ -1,23 +1,43 @@
 package it.uniroma1.lcl.babelarity;
 
-import java.util.Iterator;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.interfaces.RSAKey;
+import java.util.*;
 
 public class MiniBabelNet implements Iterable<Synset>
 {
 
     private static MiniBabelNet instance;
-    private List<Synset> synsets;
-    private List<String> lemmas;
 
+    private final Path RESOURCES_PATH;
+    private final Path DICTIONARY_FILE_PATH;
+    private final Path GLOSSES_FILE_PATH;
+    private final Path LEMMATIZATION_FILE_PATH;
+    private final Path RELATION_FILE_PATH;
 
+    private Map<String, List<Synset>> wordToSynsets;
+    private Map<String,Synset> synsetMap;
 
     private MiniBabelNet()
     {
+        //init paths constants
+        RESOURCES_PATH = Paths.get("resources/miniBabelNet/");
+        DICTIONARY_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "dictionary.txt");
+        GLOSSES_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "glosses.txt");
+        LEMMATIZATION_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "lemmatization-en.txt");
+        RELATION_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "relations.txt");
 
+        //init babelnet
+        wordToSynsets = new HashMap<>();
+        synsetMap = new HashMap<>();
+        parseDictionary();
     }
 
-    static MiniBabelNet getInstance()
+    public static MiniBabelNet getInstance()
     {
         if (instance == null)
             instance = new MiniBabelNet();
@@ -26,17 +46,30 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public List<Synset> getSynsets(String word)
     {
-        return null;
+        return wordToSynsets.get(word);
     }
 
     public Synset getSynset(String id)
     {
-        return null;
+        return synsetMap.get(id);
     }
 
     public List<String> getLemmas(String word)
     {
-        return null;
+        List<String> lemmas = new ArrayList<>();
+        try(BufferedReader br = Files.newBufferedReader(LEMMATIZATION_FILE_PATH))
+        {
+            while(br.ready())
+            {
+                String[] line = br.readLine().split("\t");
+                if(line[0].equals(word))
+                    for(int i=1; i<line.length;i++)
+                        lemmas.add(line[i]);
+
+            }
+        }
+        catch (IOException e){e.printStackTrace(); }
+        return lemmas;
     }
 
     /**
@@ -54,7 +87,8 @@ public class MiniBabelNet implements Iterable<Synset>
      */
     public String getSynsetSummary(Synset s)
     {
-        return null;
+        //da fare robe...
+        return s.toString();
     }
 
     public void setLexicalSimilarityStrategy()
@@ -64,25 +98,53 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public void setSemanticSimilarityStrategy()
     {
-
+        //da fare robe...
     }
 
     public void setDocumentSimilarityStrategy()
     {
-
+        //da fare robe...
     }
 
     public double computeSimilarity(LinguisticObject o1, LinguisticObject o2)
     {
+        //da fare robe...
         return 0;
     }
-
-
 
 
     @Override
     public Iterator<Synset> iterator()
     {
-        return null;
+        return synsetMap.values().iterator();
+    }
+
+    private void parseDictionary()
+    {
+        try(BufferedReader br = Files.newBufferedReader(DICTIONARY_FILE_PATH))
+        {
+            while(br.ready())
+            {
+                //prendo ogni riga, la splitto per "\t"
+                List<String> infos = new ArrayList<>(List.of(br.readLine().split("\t")));
+                BabelSynset babelSynset = new BabelSynset(infos.remove(0),infos);
+                synsetMap.put(babelSynset.getID(), babelSynset);
+                for(String info : infos)
+                {
+                    if (wordToSynsets.containsKey(info))
+                        wordToSynsets.get(info).add(babelSynset);
+                    else
+                        wordToSynsets.put(info, new ArrayList<>(List.of(babelSynset)));
+                }
+
+
+            }
+        }
+        catch(IOException e) {e.printStackTrace();}
+    }
+
+    public static void main(String[] args) {
+        MiniBabelNet b = new MiniBabelNet();
+        System.out.println(b.getSynsets("walk"));
     }
 }

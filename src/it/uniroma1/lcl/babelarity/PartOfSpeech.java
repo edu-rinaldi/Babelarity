@@ -1,5 +1,7 @@
 package it.uniroma1.lcl.babelarity;
 
+import java.util.Arrays;
+
 public enum PartOfSpeech
 {
 
@@ -9,5 +11,10 @@ public enum PartOfSpeech
     PartOfSpeech(char s)
     {
         this.s  = s;
+    }
+
+    public static PartOfSpeech getByChar(char c)
+    {
+        return Arrays.stream(PartOfSpeech.values()).filter(p->p.s == c).findFirst().get();
     }
 }
