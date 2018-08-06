@@ -39,4 +39,5 @@ public class BabelSynset implements Synset
         String rels  = relations.stream().map(Relation::toString).collect(joining(";"));
         return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
     }
+
 }

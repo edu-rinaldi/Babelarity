@@ -1,27 +1,22 @@
 package it.uniroma1.lcl.babelarity;
 
-public class Relation<T extends Synset>
+public class Relation<T extends Synset, R>
 {
     private T source;
     private T target;
-    private String simpleRel;
-    private String completeRel;
+    private R rel;
 
-    public Relation(T source, T target, String simpleRel, String completeRel)
+    public Relation(T source, T target, String simpleRel, R completeRel)
     {
         this.source = source;
         this.target = target;
-        this.simpleRel = simpleRel;
-        this.completeRel = completeRel;
+        this.rel = rel;
     }
 
     public T getSource() {return source; }
     public T getTarget() {return target; }
-    public String getSimpleRel() {return simpleRel; }
-    public String getCompleteRel() {return completeRel; }
+    public R getRel() {return rel; }
 
     @Override
-    public String toString() {
-        return target.getID()+"_"+simpleRel;
-    }
+    public String toString() {return target.getID()+"_"+rel; }
 }

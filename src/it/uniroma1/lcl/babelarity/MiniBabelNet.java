@@ -1,6 +1,6 @@
 package it.uniroma1.lcl.babelarity;
 
-import java.awt.*;
+import it.uniroma1.lcl.babelarity.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -142,9 +142,7 @@ public class MiniBabelNet implements Iterable<Synset>
         try(Stream<String> stream = Files.lines(GLOSSES_FILE_PATH))
         {
                     stream.map(l->new ArrayList<>(List.of(l.split("\t"))))
-                            .forEach(l->{
-                                getSynset(l.remove(0)).addGlosses(l);
-                            });
+                            .forEach(l->getSynset(l.remove(0)).addGlosses(l));
         }
         catch (IOException e) {e.printStackTrace(); }
     }
