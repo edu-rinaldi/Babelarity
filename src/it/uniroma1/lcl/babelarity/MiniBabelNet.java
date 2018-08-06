@@ -1,40 +1,36 @@
 package it.uniroma1.lcl.babelarity;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Stream;
-
 public class MiniBabelNet implements Iterable<Synset>
 {
 
     private static MiniBabelNet instance;
 
-    private final Path RESOURCES_PATH;
-    private final Path DICTIONARY_FILE_PATH;
-    private final Path GLOSSES_FILE_PATH;
-    private final Path LEMMATIZATION_FILE_PATH;
-    private final Path RELATION_FILE_PATH;
+    public static final Path RESOURCES_PATH = Paths.get("resources/miniBabelNet/");
+    public static final Path DICTIONARY_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "dictionary.txt");
+    public static final Path GLOSSES_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "glosses.txt");
+    public static final Path LEMMATIZATION_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "lemmatization-en.txt");
+    public static final Path RELATIONS_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "relations.txt");
 
     private Map<Word, List<Synset>> wordToSynsets;
     private Map<String, Synset> synsetMap;
 
     private MiniBabelNet()
     {
-        //init paths constants
-        RESOURCES_PATH = Paths.get("resources/miniBabelNet/");
-        DICTIONARY_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "dictionary.txt");
-        GLOSSES_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "glosses.txt");
-        LEMMATIZATION_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "lemmatization-en.txt");
-        RELATION_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "relations.txt");
-
-        //init babelnet
         wordToSynsets = new HashMap<>();
         synsetMap = new HashMap<>();
+        //parse dictionary
         parseDictionary();
+        parseGlosses();
+        parseRelations();
     }
 
     public static MiniBabelNet getInstance()
@@ -49,9 +45,10 @@ public class MiniBabelNet implements Iterable<Synset>
         return wordToSynsets.get(Word.fromString(word));
     }
 
-    public Synset getSynset(String id)
+    public BabelSynset getSynset(String id)
     {
-        return synsetMap.get(id);
+        Synset s = synsetMap.get(id);
+        return s instanceof BabelSynset ? (BabelSynset)s : null;
     }
 
     public List<String> getLemmas(String word)
@@ -107,9 +104,7 @@ public class MiniBabelNet implements Iterable<Synset>
         return synsetMap.values().iterator();
     }
 
-    /*
-        TODO: WORK ON
-     */
+    //todo: work on this with stream
     private void parseDictionary2()
     {
         try(Stream<String> stream = Files.lines(DICTIONARY_FILE_PATH))
@@ -137,15 +132,39 @@ public class MiniBabelNet implements Iterable<Synset>
                     else
                         wordToSynsets.put(info, new ArrayList<>(List.of(babelSynset)));
                 }
-
-
             }
         }
         catch(IOException e) {e.printStackTrace();}
     }
 
+    private void parseGlosses()
+    {
+        try(Stream<String> stream = Files.lines(GLOSSES_FILE_PATH))
+        {
+                    stream.map(l->new ArrayList<>(List.of(l.split("\t"))))
+                            .forEach(l->{
+                                getSynset(l.remove(0)).addGlosses(l);
+                            });
+        }
+        catch (IOException e) {e.printStackTrace(); }
+    }
+
+    private void parseRelations()
+    {
+        try(Stream<String> stream = Files.lines(RELATIONS_FILE_PATH))
+        {
+            stream.map(line->{
+                String[] l = line.split("\t");
+                return new Relation<>(getSynset(l[0]),getSynset(l[1]),l[2],l[3]);
+            })
+                    .forEach(r-> r.getSource().addRelation(r));
+        }
+        catch (IOException e) {e.printStackTrace(); }
+    }
+
     public static void main(String[] args) {
         MiniBabelNet b = new MiniBabelNet();
-        System.out.println(b.getLemmas("laughing"));
+        for(Synset s : b)
+            System.out.println(s);
     }
 }

@@ -39,7 +39,9 @@ public class Word implements LinguisticObject
             {
                 lemmas = stream
                         .filter(line->line.split("\t")[0].equals(word))
-                        .flatMap(line-> Arrays.stream(line.split("\t")).skip(1).collect(Collectors.toList()).stream())
+                        .flatMap(line-> Arrays.stream(line.split("\t"))
+                                        .skip(1).collect(Collectors.toList())
+                                        .stream())
                         .collect(Collectors.toList());
             }
             catch (IOException e){e.printStackTrace(); }
