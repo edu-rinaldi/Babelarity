@@ -7,16 +7,16 @@ public class BabelSynset implements Synset
 {
     private String id;
     private PartOfSpeech pos;
-    private List<Word> lemmas;
+    private List<Word> words;
     private List<String> glosses;
     private List<Relation> relations;
 
 
-    public BabelSynset(String id, List<Word> lemmas)
+    public BabelSynset(String id, List<Word> words)
     {
         this.id = id;
         this.pos = PartOfSpeech.getByChar(id.charAt(id.length()-1));
-        this.lemmas = lemmas;
+        this.words = words;
         this.glosses = new ArrayList<>();
         this.relations = new ArrayList<>();
     }
@@ -24,7 +24,8 @@ public class BabelSynset implements Synset
     @Override
     public String getID() {return id; }
     public PartOfSpeech getPOS() {return pos;}
-    public List<Word> getLemmas() {return lemmas;}
+    public List<Word> getWords() {return words;}
+    public List<List<String>> getLemmas() {return words.stream().map(Word::getLemmas).collect(toList()); }
 
     public void addGlosse(String glosse) {glosses.add(glosse); }
     public void addGlosses(List<String> glosses) {this.glosses.addAll(glosses); }
@@ -34,7 +35,7 @@ public class BabelSynset implements Synset
     @Override
     public String toString()
     {
-        String lems = lemmas.stream().map(Word::toString).collect(joining(";"));
+        String lems = String.join(";", getLemmas().get(0));
         String glos = String.join(";", glosses);
         String rels  = relations.stream().map(Relation::toString).collect(joining(";"));
         return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;

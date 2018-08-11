@@ -1,6 +1,5 @@
 package it.uniroma1.lcl.babelarity;
 
-import it.uniroma1.lcl.babelarity.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Stream;
+
 public class MiniBabelNet implements Iterable<Synset>
 {
 
@@ -23,12 +23,15 @@ public class MiniBabelNet implements Iterable<Synset>
     private Map<Word, List<Synset>> wordToSynsets;
     private Map<String, Synset> synsetMap;
 
+
     private MiniBabelNet()
     {
         wordToSynsets = new HashMap<>();
         synsetMap = new HashMap<>();
+
         //parse dictionary
         parseDictionary();
+        loadAllLemmas();
         parseGlosses();
         parseRelations();
     }
@@ -51,11 +54,7 @@ public class MiniBabelNet implements Iterable<Synset>
         return s instanceof BabelSynset ? (BabelSynset)s : null;
     }
 
-    public List<String> getLemmas(String word)
-    {
-        Word w = new Word(word);
-        return w.findLemmasFromSource(LEMMATIZATION_FILE_PATH);
-    }
+    public List<String> getLemmas(String word) {return Word.fromString(word).getLemmas(); }
 
     /**
      * Restituisce le informazioni inerenti al Synset fornito in input sotto forma di stringa.
@@ -97,23 +96,11 @@ public class MiniBabelNet implements Iterable<Synset>
         return 0;
     }
 
-
     @Override
     public Iterator<Synset> iterator()
     {
         return synsetMap.values().iterator();
     }
-
-    //todo: work on this with stream
-    private void parseDictionary2()
-    {
-        try(Stream<String> stream = Files.lines(DICTIONARY_FILE_PATH))
-        {
-
-        }
-        catch (IOException e){ e.printStackTrace(); }
-    }
-
 
     private void parseDictionary()
     {
@@ -137,11 +124,22 @@ public class MiniBabelNet implements Iterable<Synset>
         catch(IOException e) {e.printStackTrace();}
     }
 
+    private void loadAllLemmas()
+    {
+        try(Stream<String> stream = Files.lines(LEMMATIZATION_FILE_PATH))
+        {
+            stream.map(l->l.split("\t"))
+                    .forEach(l-> Word.fromString(l[0]).addLemma(l[1]));
+        }
+        catch (IOException e){e.printStackTrace();}
+    }
+
     private void parseGlosses()
     {
         try(Stream<String> stream = Files.lines(GLOSSES_FILE_PATH))
         {
                     stream.map(l->new ArrayList<>(List.of(l.split("\t"))))
+                            .filter(l-> l.get(0).startsWith("bn:"))
                             .forEach(l->getSynset(l.remove(0)).addGlosses(l));
         }
         catch (IOException e) {e.printStackTrace(); }
@@ -151,18 +149,20 @@ public class MiniBabelNet implements Iterable<Synset>
     {
         try(Stream<String> stream = Files.lines(RELATIONS_FILE_PATH))
         {
-            stream.map(line->{
+            stream.map(line->
+            {
                 String[] l = line.split("\t");
-                return new Relation<>(getSynset(l[0]),getSynset(l[1]),l[2],l[3]);
+                return new Relation<>(getSynset(l[0]),getSynset(l[1]),l[2]);
             })
                     .forEach(r-> r.getSource().addRelation(r));
         }
         catch (IOException e) {e.printStackTrace(); }
     }
 
-    public static void main(String[] args) {
-        MiniBabelNet b = new MiniBabelNet();
-        for(Synset s : b)
-            System.out.println(s);
+    public static void main(String[] args)
+    {
+        MiniBabelNet b = MiniBabelNet.getInstance();
+        CorpusManager c = CorpusManager.getInstance();
+        System.out.println(b.getSynset("bn:00034048n").getWords());
     }
 }

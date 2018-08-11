@@ -6,7 +6,7 @@ public class Relation<T extends Synset, R>
     private T target;
     private R rel;
 
-    public Relation(T source, T target, String simpleRel, R completeRel)
+    public Relation(T source, T target, R rel)
     {
         this.source = source;
         this.target = target;
