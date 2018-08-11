@@ -109,7 +109,7 @@ public class MiniBabelNet implements Iterable<Synset>
             while(br.ready())
             {
                 //prendo ogni riga, la splitto per "\t"
-                List<Word> infos = new ArrayList<>(Word.fromListOfString(List.of(br.readLine().split("\t"))));
+                List<Word> infos = new ArrayList<>(Word.fromListOfString(List.of(br.readLine().toLowerCase().split("\t"))));
                 BabelSynset babelSynset = new BabelSynset(infos.remove(0).toString(), infos);
                 synsetMap.put(babelSynset.getID(), babelSynset);
                 for(Word info : infos)
@@ -129,7 +129,7 @@ public class MiniBabelNet implements Iterable<Synset>
         try(Stream<String> stream = Files.lines(LEMMATIZATION_FILE_PATH))
         {
             stream.map(l->l.split("\t"))
-                    .forEach(l-> Word.fromString(l[0]).addLemma(l[1]));
+                    .forEach(l-> Word.fromString(l[0].toLowerCase()).addLemma(l[1].toLowerCase()));
         }
         catch (IOException e){e.printStackTrace();}
     }
@@ -159,10 +159,4 @@ public class MiniBabelNet implements Iterable<Synset>
         catch (IOException e) {e.printStackTrace(); }
     }
 
-    public static void main(String[] args)
-    {
-        MiniBabelNet b = MiniBabelNet.getInstance();
-        CorpusManager c = CorpusManager.getInstance();
-        System.out.println(b.getSynset("bn:00034048n").getWords());
-    }
 }

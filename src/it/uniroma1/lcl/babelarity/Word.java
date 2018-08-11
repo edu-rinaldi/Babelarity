@@ -1,10 +1,8 @@
 package it.uniroma1.lcl.babelarity;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class Word implements LinguisticObject
 {
@@ -29,19 +27,6 @@ public class Word implements LinguisticObject
 
     public static List<Word> fromListOfString(List<String> l) {return l.stream().map(Word::fromString).collect(Collectors.toList()); }
 
-    /*private void loadLemmas()
-    {
-        try(Stream<String> stream = Files.lines(MiniBabelNet.LEMMATIZATION_FILE_PATH))
-        {
-            lemmas = stream
-                    .filter(line->line.split("\t")[0].equals(word))
-                    .flatMap(line-> Arrays.stream(line.split("\t"))
-                            .skip(1).collect(Collectors.toList())
-                            .stream())
-                    .collect(Collectors.toList());
-        }
-        catch (IOException e){e.printStackTrace(); }
-    }*/
 
     public void addLemma(String lemma) {lemmas.add(lemma); }
     public void addLemmas(List<String> lemmas) {this.lemmas.addAll(lemmas); }
