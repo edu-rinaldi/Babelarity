@@ -12,7 +12,7 @@ public class Word implements LinguisticObject
 
     private Word(String s)
     {
-        this.word = s;
+        this.word = s.toLowerCase();
         this.lemmas = new ArrayList<>();
     }
 
