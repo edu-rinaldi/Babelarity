@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7acc284-3455-40f1-90fe-26f221b9b919" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/StopWords.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -18,50 +23,102 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="MF" value="22" />
-          <entry key="java" value="8461" />
-          <entry key="txt" value="98" />
+          <entry key="java" value="18702" />
+          <entry key="txt" value="109" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8461" />
+          <entry key="JAVA" value="18702" />
           <entry key="Manifest" value="22" />
-          <entry key="PLAIN_TEXT" value="98" />
+          <entry key="PLAIN_TEXT" value="109" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="MF" value="1" />
-          <entry key="java" value="38" />
-          <entry key="txt" value="28" />
+          <entry key="java" value="61" />
+          <entry key="txt" value="43" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Hoi4 file" value="28" />
-          <entry key="JAVA" value="38" />
+          <entry key="Hoi4 file" value="43" />
+          <entry key="JAVA" value="61" />
           <entry key="Manifest" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
-          <entry key="project.open.time.5" value="2" />
-          <entry key="project.open.time.6" value="7" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.closed" value="16" />
+          <entry key="project.open.time.5" value="4" />
+          <entry key="project.open.time.6" value="8" />
+          <entry key="project.open.time.7" value="3" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="16" />
         </counts>
       </usages-collector>
     </session>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Babelarity" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-217">
-              <caret line="111" column="99" selection-start-line="111" selection-start-column="95" selection-end-line="111" selection-end-column="99" />
+            <state relative-caret-position="514">
+              <caret line="162" column="9" lean-forward="true" selection-start-line="162" selection-start-column="9" selection-end-line="162" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2685#2686#0" expanded="true" />
+                <element signature="e#2733#2734#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="186">
+              <caret line="218" column="23" selection-start-line="218" selection-start-column="23" selection-end-line="218" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#7048#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/lemmatization-en.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="19408" column="7" selection-start-line="19408" selection-end-line="19408" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="669">
+              <caret line="145" column="29" selection-start-line="145" selection-start-column="29" selection-end-line="145" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="379">
+              <caret line="154" column="47" selection-start-line="154" selection-start-column="47" selection-end-line="154" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#502#503#0" expanded="true" />
+                <element signature="e#543#544#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,47 +127,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-383">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="814">
+              <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Main.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/StopWords.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="79" column="72" selection-start-line="79" selection-start-column="72" selection-end-line="79" selection-end-column="72" />
+            <state relative-caret-position="724">
+              <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#622#623#0" expanded="true" />
+                <element signature="e#657#658#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="42" selection-start-line="42" selection-end-line="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Document.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/corpus/13527.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -118,10 +150,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+            <state relative-caret-position="198">
+              <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#266#267#0" expanded="true" />
+                <element signature="e#309#310#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -146,11 +180,22 @@
       <find>intelligence</find>
       <find>document</find>
       <find>100214</find>
-      <find>dog</find>
       <find>word</find>
       <find>Honorificabilitudinitatibus</find>
       <find>man</find>
       <find>toLO</find>
+      <find>body</find>
+      <find>convention</find>
+      <find>dog</find>
+      <find>governa</find>
+      <find>n</find>
+      <find>bus</find>
+      <find>laptop</find>
+      <find>computer</find>
+      <find>bicycle</find>
+      <find>keysET</find>
+      <find>russian</find>
+      <find>italian</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/resources/corpus</dir>
@@ -162,19 +207,21 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/SimilarityStrategy.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarity.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/LexicalSimilarity.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Filter.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusFile.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Relation.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" />
         <option value="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/ObjectSizeFetcher.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/StopWords.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarity.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Main.java" />
       </list>
     </option>
@@ -214,7 +261,7 @@
               <item name="Babelarity" type="b2602c69:ProjectViewProjectNode" />
               <item name="Babelarity" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="miniBabelNet" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Babelarity" type="b2602c69:ProjectViewProjectNode" />
@@ -238,20 +285,20 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534530025978" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535015864298" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -382,7 +429,14 @@
       <workItem from="1533914308246" duration="1840000" />
       <workItem from="1533977876016" duration="6834000" />
       <workItem from="1533989617282" duration="3094000" />
-      <workItem from="1534508597349" duration="18716000" />
+      <workItem from="1534508597349" duration="18848000" />
+      <workItem from="1534664560898" duration="2171000" />
+      <workItem from="1534667026300" duration="120000" />
+      <workItem from="1534667159900" duration="13164000" />
+      <workItem from="1534832998576" duration="31815000" />
+      <workItem from="1534919647253" duration="17721000" />
+      <workItem from="1534938355875" duration="1535000" />
+      <workItem from="1535004808434" duration="9555000" />
     </task>
     <task id="LOCAL-00001" summary="(almost) Completed miniBabelNet initialization">
       <created>1533562274106</created>
@@ -405,12 +459,12 @@
       <option name="project" value="LOCAL" />
       <updated>1533995580463</updated>
     </task>
-    <task id="LOCAL-00004" summary="getLemmas() improved with stream">
-      <created>1533378717663</created>
+    <task id="LOCAL-00004" summary="PMI Matrix">
+      <created>1534530064841</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1533378717663</updated>
+      <updated>1534530064842</updated>
     </task>
     <task id="LOCAL-00005" summary="(almost) Completed miniBabelNet initialization">
       <created>1533545164568</created>
@@ -426,11 +480,11 @@
       <option name="project" value="LOCAL" />
       <updated>1533557398221</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50177000" />
+    <option name="totallyTimeSpent" value="126390000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -443,29 +497,30 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="991" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49944383" visible="true" weight="0.1544196" />
-      <window_info id="Structure" order="1" sideWeight="0.5005562" side_tool="true" weight="0.14110756" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.498452" visible="true" weight="0.1656017" />
+      <window_info id="Structure" order="1" sideWeight="0.501548" side_tool="true" weight="0.15601704" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Thumbnails" sideWeight="0.49946752" weight="0.32925472" />
+      <window_info id="Favorites" order="6" sideWeight="0.501548" side_tool="true" weight="0.15601704" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32925472" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.5495208" visible="true" weight="0.2814238" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.5250266" weight="0.39933258" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.53567624" visible="true" weight="0.2814238" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.5250266" weight="0.2914349" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49893504" weight="0.32925472" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49893504" weight="0.32925472" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.47497338" side_tool="true" weight="0.39933258" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.46432376" side_tool="true" weight="0.2814238" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4968051" weight="0.32925472" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49840257" weight="0.32925472" />
+      <window_info anchor="bottom" id="Thumbnails" order="12" sideWeight="0.49946752" weight="0.32925472" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24973376" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
@@ -545,25 +600,80 @@
     <MESSAGE value="(almost) Completed miniBabelNet initialization" />
     <MESSAGE value="adjusted Word class" />
     <MESSAGE value="added toLowerCase() while parsing data for MiniBabelNet" />
-    <option name="LAST_COMMIT_MESSAGE" value="added toLowerCase() while parsing data for MiniBabelNet" />
+    <MESSAGE value="PMI Matrix" />
+    <option name="LAST_COMMIT_MESSAGE" value="PMI Matrix" />
   </component>
   <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="" />
-      </configuration>
-    </watches-manager>
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Main.java</url>
+          <line>150</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>mat[36][36]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mat[0][36]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mat[]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>pmi[indexMap.get(&quot;pop&quot;)]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>pmi[indexMap.get(&quot;cow&quot;)]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mat[indexMap.get(&quot;cow&quot;)]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mat[indexMap.get(&quot;pop&quot;)]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mat[indexMap.get(&quot;pop&quot;)][indexMap.get(&quot;pop&quot;)]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mat[indexMap.get(&quot;cow&quot;)][indexMap.get(&quot;cow&quot;)]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/resources/corpus/13536.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Synset.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/CharSequence.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -572,17 +682,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1011">
-          <caret line="123" column="19" selection-start-line="123" selection-start-column="19" selection-end-line="123" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/documents/C_programming_language.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarity.java" />
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/SimilarityStrategy.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/io/BufferedReader.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -595,13 +697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1364">
           <caret line="162" column="11" selection-start-line="162" selection-start-column="11" selection-end-line="162" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/io/File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="147" column="13" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -624,76 +719,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/dictionary.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="49" selection-start-line="49" selection-end-line="49" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/relations.txt">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="594">
-          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/lemmatization-en.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="35492" column="11" lean-forward="true" selection-start-line="35492" selection-start-column="11" selection-end-line="35492" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/glosses.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="17" column="98" selection-start-line="17" selection-start-column="98" selection-end-line="17" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Relation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/Timer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="589">
           <caret line="386" column="17" selection-start-line="386" selection-start-column="17" selection-end-line="386" selection-end-column="17" />
-          <folding>
-            <element signature="e#4831#4832#0" expanded="true" />
-            <element signature="e#4878#4879#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/META-INF/MANIFEST.MF">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/META-INF/MANIFEST.MF" />
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/ObjectSizeFetcher.java" />
+    <entry file="file://$PROJECT_DIR$/lemmss.txt" />
+    <entry file="file://$PROJECT_DIR$/occorrenze.txt" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="32" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/ObjectSizeFetcher.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="291">
+          <caret line="520" column="9" selection-start-line="520" selection-start-column="9" selection-end-line="520" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -704,20 +744,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Relation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-217">
-          <caret line="111" column="99" selection-start-line="111" selection-start-column="95" selection-end-line="111" selection-end-column="99" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="396">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java">
+    <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/glosses.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        <state relative-caret-position="374">
+          <caret line="17" column="98" selection-start-line="17" selection-start-column="98" selection-end-line="17" selection-end-column="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Synset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="48" selection-start-line="2" selection-start-column="48" selection-end-line="2" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/dictionary.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/Arrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="5608" column="32" selection-start-line="5608" selection-start-column="32" selection-end-line="5608" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/relations.txt">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="22">
+          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -728,24 +793,140 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java">
+    <entry file="file://$PROJECT_DIR$/testRes.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/StrictMath.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-383">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        <state relative-caret-position="-5589">
+          <caret line="81" column="19" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lemmss.txt">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="337" column="19" lean-forward="true" selection-start-line="337" selection-start-column="19" selection-end-line="337" selection-end-column="19" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/occorrenze.txt">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/AbstractMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="345" column="24" selection-start-line="345" selection-start-column="18" selection-end-line="345" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/LinkedHashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="530" column="24" selection-start-line="530" selection-start-column="24" selection-end-line="530" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="811" column="19" selection-start-line="811" selection-start-column="19" selection-end-line="811" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/nio/file/Files.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1261">
+          <caret line="3208" column="25" selection-start-line="3208" selection-start-column="25" selection-end-line="3208" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="2123" column="29" selection-start-line="2123" selection-start-column="29" selection-end-line="2123" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/StopWords.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="724">
+          <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#622#623#0" expanded="true" />
+            <element signature="e#657#658#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="154" column="47" selection-start-line="154" selection-start-column="47" selection-end-line="154" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#502#503#0" expanded="true" />
+            <element signature="e#543#544#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="669">
+          <caret line="145" column="29" selection-start-line="145" selection-start-column="29" selection-end-line="145" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#266#267#0" expanded="true" />
+            <element signature="e#309#310#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="162" column="9" lean-forward="true" selection-start-line="162" selection-start-column="9" selection-end-line="162" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2685#2686#0" expanded="true" />
+            <element signature="e#2733#2734#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/miniBabelNet/lemmatization-en.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="19408" column="7" selection-start-line="19408" selection-end-line="19408" selection-end-column="7" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="79" column="72" selection-start-line="79" selection-start-column="72" selection-end-line="79" selection-end-column="72" />
+        <state relative-caret-position="186">
+          <caret line="218" column="23" selection-start-line="218" selection-start-column="23" selection-end-line="218" selection-end-column="23" />
           <folding>
+            <element signature="e#0#7048#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -816,6 +997,17 @@
         </settings>
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
         <settings>
           <splitter-proportions>
             <option name="proportions">

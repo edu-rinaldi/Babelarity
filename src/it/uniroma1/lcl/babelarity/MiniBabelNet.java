@@ -9,6 +9,8 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toMap;
+
 public class MiniBabelNet implements Iterable<Synset>
 {
 
@@ -21,20 +23,22 @@ public class MiniBabelNet implements Iterable<Synset>
     public static final Path RELATIONS_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "relations.txt");
 
     private Map<Word, List<Synset>> wordToSynsets;
+    private Map<Word, String> wordToLemma;
     private Map<String, Synset> synsetMap;
 
+    private BabelLexicalSimilarity bl;
 
     private MiniBabelNet()
     {
         wordToSynsets = new HashMap<>();
+        wordToLemma = new HashMap<>();
         synsetMap = new HashMap<>();
-
-        //parse dictionary
         parseDictionary();
         loadAllLemmas();
         parseGlosses();
         parseRelations();
     }
+
 
     public static MiniBabelNet getInstance()
     {
@@ -54,7 +58,7 @@ public class MiniBabelNet implements Iterable<Synset>
         return s instanceof BabelSynset ? (BabelSynset)s : null;
     }
 
-    public List<String> getLemmas(String word) {return Word.fromString(word).getLemmas(); }
+    public String getLemmas(String word) {return wordToLemma.get(Word.fromString(word)); }
 
     /**
      * Restituisce le informazioni inerenti al Synset fornito in input sotto forma di stringa.
@@ -77,7 +81,7 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public void setLexicalSimilarityStrategy()
     {
-        //da fare robe...
+        bl = new BabelLexicalSimilarity();
     }
 
     public void setSemanticSimilarityStrategy()
@@ -109,15 +113,17 @@ public class MiniBabelNet implements Iterable<Synset>
             while(br.ready())
             {
                 //prendo ogni riga, la splitto per "\t"
-                List<Word> infos = new ArrayList<>(Word.fromListOfString(List.of(br.readLine().toLowerCase().split("\t"))));
-                BabelSynset babelSynset = new BabelSynset(infos.remove(0).toString(), infos);
+                List<String> infos = new ArrayList<>(List.of(br.readLine().toLowerCase().split("\t")));
+
+                BabelSynset babelSynset = new BabelSynset(infos.remove(0), infos);
                 synsetMap.put(babelSynset.getID(), babelSynset);
-                for(Word info : infos)
+                for(String info : infos)
                 {
-                    if (wordToSynsets.containsKey(info))
-                        wordToSynsets.get(info).add(babelSynset);
+                    Word word = Word.fromString(info);
+                    if (wordToSynsets.containsKey(word))
+                        wordToSynsets.get(word).add(babelSynset);
                     else
-                        wordToSynsets.put(info, new ArrayList<>(List.of(babelSynset)));
+                        wordToSynsets.put(word, new ArrayList<>(List.of(babelSynset)));
                 }
             }
         }
@@ -128,11 +134,12 @@ public class MiniBabelNet implements Iterable<Synset>
     {
         try(Stream<String> stream = Files.lines(LEMMATIZATION_FILE_PATH))
         {
-            stream.map(l->l.split("\t"))
-                    .forEach(l-> Word.fromString(l[0].toLowerCase()).addLemma(l[1].toLowerCase()));
+            wordToLemma = stream.map(l->l.split("\t"))
+                    .collect(toMap(l->Word.fromString(l[0].toLowerCase()),l->l[1].toLowerCase(),(v1,v2)->v1));
         }
         catch (IOException e){e.printStackTrace();}
     }
+
 
     private void parseGlosses()
     {
@@ -149,12 +156,10 @@ public class MiniBabelNet implements Iterable<Synset>
     {
         try(Stream<String> stream = Files.lines(RELATIONS_FILE_PATH))
         {
-            stream.map(line->
-            {
-                String[] l = line.split("\t");
-                return new Relation<>(getSynset(l[0]),getSynset(l[1]),l[2]);
-            })
-                    .forEach(r-> r.getSource().addRelation(r));
+            stream.forEach(line->{
+                String[] rel = line.split("\t");
+                getSynset(rel[0]).addRelation(rel[2],getSynset(rel[1]));
+            });
         }
         catch (IOException e) {e.printStackTrace(); }
     }
