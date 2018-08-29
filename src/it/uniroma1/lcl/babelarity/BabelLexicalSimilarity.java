@@ -1,5 +1,8 @@
 package it.uniroma1.lcl.babelarity;
 
+import it.uniroma1.lcl.babelarity.exception.LemmaNotFoundException;
+import it.uniroma1.lcl.babelarity.utils.StopWords;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,45 +13,62 @@ public class BabelLexicalSimilarity
 {
 
     private HashMap<String, Integer> indexMap;
-    private Set<String> v;
+    private List<String> v;
     private HashMap<String, Integer> occ;
-    private List<Set<String>> docList;
+    private List<List<String>> docList;
     private short[][] coOcc;
     private float[][] pmi;
     private String corpusPath;
     private Set<String> sw;
+    private MiniBabelNet miniBabelNet;
 
-    public BabelLexicalSimilarity()
+    public BabelLexicalSimilarity(MiniBabelNet miniBabelNet)
     {
-        this("resources/corpus/");
+        this("resources/corpus/", miniBabelNet);
     }
 
-    public BabelLexicalSimilarity(String corpusPath)
+    public BabelLexicalSimilarity(String corpusPath, MiniBabelNet miniBabelNet)
     {
         this.corpusPath = corpusPath;
+        this.miniBabelNet = miniBabelNet;
+
         System.out.println("Caricamento stopwords");
         sw = StopWords.getInstance().toSet();
+
         System.out.println("Caricamento docs");
         docList = getDocumentsFiltered();
+
         System.out.println("Caricamento indexmap");
         indexMap = getIndexMap();
+
         System.out.println("Calcolo cooccorenze");
         calculateCoOccurences();
+
         System.out.println("calcolo pmi");
         calculatePMI();
     }
 
-    private List<Set<String>> getDocumentsFiltered()
+    private String checkString(String s) throws LemmaNotFoundException {
+        if(miniBabelNet.getLemmas(s)==null)
+        {
+            if(!miniBabelNet.isLemma(s))
+                throw new LemmaNotFoundException();
+        }
+        else { s = miniBabelNet.getLemmas(s); }
+        return s;
+    }
+
+    private List<List<String>> getDocumentsFiltered()
     {
         if(docList==null) docList = createDocumentsFilteredList();
         return docList;
     }
 
-    private List<Set<String>> createDocumentsFilteredList()
+    private List<List<String>> createDocumentsFilteredList()
     {
-        MiniBabelNet b = MiniBabelNet.getInstance();
         occ = new HashMap<>();
         List<Set<String>> documents = new ArrayList<>();
+        List<List<String>> document = new ArrayList<>();
         File corpus = new File(corpusPath);
         try
         {
@@ -63,32 +83,34 @@ public class BabelLexicalSimilarity
                             .filter(w->{
                                 String w1 = w.trim();
                                 //get only words that are not SW and have a lemma form
-                                return !sw.contains(w1) && b.getLemmas(w1)!=null;
+                                return !sw.contains(w1) && (miniBabelNet.getLemmas(w1)!=null || miniBabelNet.isLemma(w1));
                             })
                             .map(w->{
                                 //map into lemma and count single occurrence for each word
-                                String s = b.getLemmas(w.trim());
+                                String s = miniBabelNet.isLemma(w.trim()) ? w.trim() : miniBabelNet.getLemmas(w.trim());
                                 occ.merge(s,1,(v1,v2)->v1+v2);
                                 return s;
                             })
                             .collect(Collectors.toSet()));
                 }
+            document = documents.stream().map(ArrayList::new).collect(Collectors.toList());
+            documents = null;
         }
         catch (IOException e){e.printStackTrace();}
-        return documents;
+        return document;
     }
 
     private HashMap<String, Integer> createIndexMap()
     {
         int id = 0;
-        v = new HashSet<>();
+        v = new ArrayList<>();
         HashMap<String, Integer> indexMap = new HashMap<>();
-        for(Set<String> doc:  docList)
-            for (String w: doc)
-                if(!indexMap.containsKey(w))
+        for(int i=0; i<docList.size(); i++)
+            for (int j=0; j<docList.get(i).size(); j++)
+                if(!indexMap.containsKey(docList.get(i).get(j)))
                 {
-                    indexMap.put(w, id++);
-                    v.add(w);
+                    indexMap.put(docList.get(i).get(j), id++);
+                    v.add(docList.get(i).get(j));
                 }
         return indexMap;
     }
@@ -102,26 +124,33 @@ public class BabelLexicalSimilarity
     private void calculateCoOccurences()
     {
         coOcc = new short[indexMap.size()][indexMap.size()];
-        for(Set<String> doc: docList)
-            for(String w: doc)
-                for(String w2: doc)
-                    if(!w.equals(w2)) coOcc[indexMap.get(w)][indexMap.get(w2)]+=1;
+        for(int i=0; i<docList.size();i++)
+            for(int j=0; j<docList.get(i).size(); j++)
+                for(int k=0; k<docList.get(i).size(); k++)
+                {
+                    String w = docList.get(i).get(j);
+                    String w2 = docList.get(i).get(k);
+                    if(j!=k) coOcc[indexMap.get(w)][indexMap.get(w2)]+=1;
+                }
+
     }
 
     private void calculatePMI()
     {
         int numDocuments = docList.size();
+        docList = null;
         pmi = new float[coOcc.length][coOcc.length];
-        for(String w1: v)
-            for(String w2: v)
+        for(int n=0; n<v.size();n++)
+            for(int k=0; k<v.size(); k++)
             {
-                int i = indexMap.get(w1);
-                int j = indexMap.get(w2);
-                float pxy = i==j ? occ.get(w1) : coOcc[i][j];
+                int i = indexMap.get(v.get(n));
+                int j = indexMap.get(v.get(k));
+                float pxy = i==j ? occ.get(v.get(n)) : coOcc[i][j];
 
                 pmi[i][j] = Math.max((float)Math.log((pxy/numDocuments)/
-                        (((float)occ.get(w1)/numDocuments)*((float)occ.get(w2)/numDocuments))), 0);
+                        (((float)occ.get(v.get(n))/numDocuments)*((float)occ.get(v.get(k))/numDocuments))), 0);
             }
+        coOcc = null;
     }
 
 
@@ -138,8 +167,8 @@ public class BabelLexicalSimilarity
             double val2 = pmi[i][indexW2];
 
             numerator += val1*val2;
-            sqrt1 += Math.pow(val1, 2);
-            sqrt2 += Math.pow(val2, 2);
+            sqrt1 += val1*val1;
+            sqrt2 += val2*val2;
 
         }
         sqrt1 = Math.sqrt(sqrt1);
@@ -148,10 +177,11 @@ public class BabelLexicalSimilarity
         return numerator/(sqrt1*sqrt2);
     }
 
-    public double computeSimilarity(Word w1, Word w2)
+    public double computeSimilarity(Word w1, Word w2) throws LemmaNotFoundException
     {
-        String wo1 = w1.toString();
-        String wo2 = w2.toString();
+        String wo1 = checkString(w1.toString());
+        String wo2 = checkString(w2.toString());
+
         System.out.println("calcolo similarita'");
         return cosineSimilarity(wo1,wo2);
     }

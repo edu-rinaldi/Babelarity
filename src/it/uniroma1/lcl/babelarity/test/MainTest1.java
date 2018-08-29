@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main
+public class MainTest1
 {
     public static HashSet<String> getStopWords()
     {
@@ -190,18 +190,21 @@ public class Main
     }
 }
 */
-package it.uniroma1.lcl.babelarity;
+package it.uniroma1.lcl.babelarity.test;
 
+
+import it.uniroma1.lcl.babelarity.BabelLexicalSimilarity;
+import it.uniroma1.lcl.babelarity.MiniBabelNet;
+import it.uniroma1.lcl.babelarity.Word;
+import it.uniroma1.lcl.babelarity.exception.LemmaNotFoundException;
 import javafx.util.Pair;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 
-public class Main{
-    public static void main(String[] args) {
-        BabelLexicalSimilarity bl = new BabelLexicalSimilarity();
+public class MainTest1 {
+    public static void main(String[] args)
+    {
+        MiniBabelNet b = MiniBabelNet.getInstance();
         List<Pair<String,String>> testString = List.of(new Pair<>("test","exam"),
                 new Pair<>("pop", "rock"),
                 new Pair<>("test","pop"),
@@ -215,29 +218,19 @@ public class Main{
                 new Pair<>("government","politician"),
                 new Pair<>("politician","dog"),
                 new Pair<>("car","bus"),
-                new Pair<>("bike","dog"),
-                new Pair<>("teacher","doctor"),
-                new Pair<>("teacher","test"),
-                new Pair<>("russian","italian"),
-                new Pair<>("american","italian"),
-                new Pair<>("italian","human"));
-
-        File f = new File("testRes.txt");
-        for(Pair<String,String> p : testString)
-        {
-            String s1 = p.getKey();
-            String s2 = p.getValue();
-            double result = bl.computeSimilarity(Word.fromString(s1),Word.fromString(s2));
-            String msg = s1+" && "+s2+" ==> "+result+"\n";
-            System.out.println(msg);
-
-            try {
-                FileWriter fw = new FileWriter(f.getAbsolutePath(), true);
-                fw.append(msg);
-                fw.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                new Pair<>("bike","dog"));
+        try {
+            BabelLexicalSimilarity bl = new BabelLexicalSimilarity(b);
+            for(Pair<String,String> p : testString)
+            {
+                String w1 = p.getKey();
+                String w2 = p.getValue();
+                double result = bl.computeSimilarity(Word.fromString(w1),Word.fromString(w2));
+                String msg = w1+" && "+w2+" ==> "+result;
+                System.out.println(msg);
             }
+        } catch (LemmaNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

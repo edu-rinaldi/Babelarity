@@ -1,10 +1,10 @@
 package it.uniroma1.lcl.babelarity;
 
+import it.uniroma1.lcl.babelarity.utils.BabelPath;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Stream;
@@ -16,14 +16,9 @@ public class MiniBabelNet implements Iterable<Synset>
 
     private static MiniBabelNet instance;
 
-    public static final Path RESOURCES_PATH = Paths.get("resources/miniBabelNet/");
-    public static final Path DICTIONARY_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "dictionary.txt");
-    public static final Path GLOSSES_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "glosses.txt");
-    public static final Path LEMMATIZATION_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "lemmatization-en.txt");
-    public static final Path RELATIONS_FILE_PATH = Paths.get(RESOURCES_PATH.toString(), "relations.txt");
-
-    private Map<Word, List<Synset>> wordToSynsets;
+    private Map<Word, List<BabelSynset>> wordToSynsets;
     private Map<Word, String> wordToLemma;
+    private Set<String> lemmas;
     private Map<String, Synset> synsetMap;
 
     private BabelLexicalSimilarity bl;
@@ -32,6 +27,7 @@ public class MiniBabelNet implements Iterable<Synset>
     {
         wordToSynsets = new HashMap<>();
         wordToLemma = new HashMap<>();
+        lemmas = new HashSet<>();
         synsetMap = new HashMap<>();
         parseDictionary();
         loadAllLemmas();
@@ -47,7 +43,7 @@ public class MiniBabelNet implements Iterable<Synset>
         return instance;
     }
 
-    public List<Synset> getSynsets(String word)
+    public List<BabelSynset> getSynsets(String word)
     {
         return wordToSynsets.get(Word.fromString(word));
     }
@@ -59,6 +55,8 @@ public class MiniBabelNet implements Iterable<Synset>
     }
 
     public String getLemmas(String word) {return wordToLemma.get(Word.fromString(word)); }
+
+    public boolean isLemma(String word) {return lemmas.contains(word); }
 
     /**
      * Restituisce le informazioni inerenti al Synset fornito in input sotto forma di stringa.
@@ -79,10 +77,7 @@ public class MiniBabelNet implements Iterable<Synset>
         return s.toString();
     }
 
-    public void setLexicalSimilarityStrategy()
-    {
-        bl = new BabelLexicalSimilarity();
-    }
+    public void setLexicalSimilarityStrategy() { bl = new BabelLexicalSimilarity(this); }
 
     public void setSemanticSimilarityStrategy()
     {
@@ -108,7 +103,7 @@ public class MiniBabelNet implements Iterable<Synset>
 
     private void parseDictionary()
     {
-        try(BufferedReader br = Files.newBufferedReader(DICTIONARY_FILE_PATH))
+        try(BufferedReader br = Files.newBufferedReader(BabelPath.DICTIONARY_FILE_PATH.getPath()))
         {
             while(br.ready())
             {
@@ -132,7 +127,21 @@ public class MiniBabelNet implements Iterable<Synset>
 
     private void loadAllLemmas()
     {
-        try(Stream<String> stream = Files.lines(LEMMATIZATION_FILE_PATH))
+        try(BufferedReader br = Files.newBufferedReader(BabelPath.LEMMATIZATION_FILE_PATH.getPath()))
+        {
+            while (br.ready())
+            {
+                String[] line = br.readLine().split("\t");
+                wordToLemma.merge(Word.fromString(line[0].toLowerCase()),line[1].toLowerCase(),(v1,v2)->v1);
+                lemmas.add(line[1].toLowerCase());
+            }
+        }catch (IOException e){e.printStackTrace();}
+    }
+
+
+    private void loadAllLemmas2()
+    {
+        try(Stream<String> stream = Files.lines(BabelPath.LEMMATIZATION_FILE_PATH.getPath()))
         {
             wordToLemma = stream.map(l->l.split("\t"))
                     .collect(toMap(l->Word.fromString(l[0].toLowerCase()),l->l[1].toLowerCase(),(v1,v2)->v1));
@@ -143,7 +152,7 @@ public class MiniBabelNet implements Iterable<Synset>
 
     private void parseGlosses()
     {
-        try(Stream<String> stream = Files.lines(GLOSSES_FILE_PATH))
+        try(Stream<String> stream = Files.lines(BabelPath.GLOSSES_FILE_PATH.getPath()))
         {
                     stream.map(l->new ArrayList<>(List.of(l.split("\t"))))
                             .filter(l-> l.get(0).startsWith("bn:"))
@@ -154,12 +163,14 @@ public class MiniBabelNet implements Iterable<Synset>
 
     private void parseRelations()
     {
-        try(Stream<String> stream = Files.lines(RELATIONS_FILE_PATH))
+        try(Stream<String> stream = Files.lines(BabelPath.RELATIONS_FILE_PATH.getPath()))
         {
-            stream.forEach(line->{
-                String[] rel = line.split("\t");
-                getSynset(rel[0]).addRelation(rel[2],getSynset(rel[1]));
-            });
+            stream.map(line->line.split("\t"))
+                    .filter(rel->!rel[1].equals(rel[0]) && rel[2].equals("is-a"))
+                    .forEach(rel-> {
+                        getSynset(rel[1]).addNeighbour(getSynset(rel[0]));
+                        getSynset(rel[0]).addNeighbour(getSynset(rel[1]));
+                    });
         }
         catch (IOException e) {e.printStackTrace(); }
     }

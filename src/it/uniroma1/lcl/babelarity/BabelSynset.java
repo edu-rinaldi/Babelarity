@@ -11,7 +11,8 @@ public class BabelSynset implements Synset
     private PartOfSpeech pos;
     private List<String> words;
     private List<String> glosses;
-    private HashMap<String, List<BabelSynset>> relations;
+    private HashSet<BabelSynset> neighbours;
+    private int dist;
 
 
     public BabelSynset(String id, List<String> words)
@@ -20,32 +21,39 @@ public class BabelSynset implements Synset
         this.pos = PartOfSpeech.getByChar(id.charAt(id.length()-1));
         this.words = words;
         this.glosses = new ArrayList<>();
-        this.relations = new HashMap<>();
+        this.neighbours = new HashSet<>();
+        this.dist = Integer.MAX_VALUE;
     }
 
     @Override
     public String getID() {return id; }
     public PartOfSpeech getPOS() {return pos;}
-    public List<String> getWords() {return words;}
-    public List<String> getLemmas() {return words.stream().map(MiniBabelNet.getInstance()::getLemmas).collect(Collectors.toList()); }
+    public List<String> getLemmas() {return words;}
+
+
+    public void addNeighbour(BabelSynset n)
+    {
+        neighbours.add(n);
+    }
+    public Set<BabelSynset> getNeighbours()
+    {
+        return neighbours;
+    }
+    public void setDist(int x) {dist = x;}
+    public int getDist() {return dist;}
+
 
     public void addGlosse(String glosse) {glosses.add(glosse); }
     public void addGlosses(List<String> glosses) {this.glosses.addAll(glosses); }
-    public void addRelation(String type, BabelSynset node)
-    {
-        relations.merge(type, new ArrayList<>(List.of(node)), (v1,v2)->{
-            v1.addAll(v2);
-            return v1;
-        });
-    }
+
 
     @Override
     public String toString()
     {
-        String lems = String.join(";", getLemmas().get(0));
+        String lems = String.join(";", words);
         String glos = String.join(";", glosses);
-        String rels  = "";
-        return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
+        return id+"\t";
+//        return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
     }
 
 }
