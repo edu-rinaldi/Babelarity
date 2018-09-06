@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
@@ -45,7 +46,13 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public List<BabelSynset> getSynsets(String word)
     {
-        return wordToSynsets.get(Word.fromString(word));
+        List<BabelSynset> ls = wordToSynsets.get(Word.fromString(word));
+        return ls!=null ? ls : new ArrayList<>();
+    }
+
+    public List<BabelSynset> getSynsets()
+    {
+        return synsetMap.entrySet().stream().map(e->getSynset(e.getKey())).collect(Collectors.toList());
     }
 
     public BabelSynset getSynset(String id)
@@ -57,6 +64,8 @@ public class MiniBabelNet implements Iterable<Synset>
     public String getLemmas(String word) {return wordToLemma.get(Word.fromString(word)); }
 
     public boolean isLemma(String word) {return lemmas.contains(word); }
+
+    public int size() {return synsetMap.size(); }
 
     /**
      * Restituisce le informazioni inerenti al Synset fornito in input sotto forma di stringa.
@@ -77,7 +86,7 @@ public class MiniBabelNet implements Iterable<Synset>
         return s.toString();
     }
 
-    public void setLexicalSimilarityStrategy() { bl = new BabelLexicalSimilarity(this); }
+    public void setLexicalSimilarityStrategy() { this.bl = new BabelLexicalSimilarity(this); }
 
     public void setSemanticSimilarityStrategy()
     {
@@ -115,10 +124,8 @@ public class MiniBabelNet implements Iterable<Synset>
                 for(String info : infos)
                 {
                     Word word = Word.fromString(info);
-                    if (wordToSynsets.containsKey(word))
-                        wordToSynsets.get(word).add(babelSynset);
-                    else
-                        wordToSynsets.put(word, new ArrayList<>(List.of(babelSynset)));
+                    if (wordToSynsets.containsKey(word)) wordToSynsets.get(word).add(babelSynset);
+                    else wordToSynsets.put(word, new ArrayList<>(List.of(babelSynset)));
                 }
             }
         }
@@ -166,10 +173,11 @@ public class MiniBabelNet implements Iterable<Synset>
         try(Stream<String> stream = Files.lines(BabelPath.RELATIONS_FILE_PATH.getPath()))
         {
             stream.map(line->line.split("\t"))
-                    .filter(rel->!rel[1].equals(rel[0]) && rel[2].equals("is-a"))
+                    .filter(rel->!rel[1].equals(rel[0]))
                     .forEach(rel-> {
-                        getSynset(rel[1]).addNeighbour(getSynset(rel[0]));
-                        getSynset(rel[0]).addNeighbour(getSynset(rel[1]));
+                        getSynset(rel[0]).addRelation(rel[2], getSynset(rel[1]));
+                        if(rel[2].equals("is-a"))
+                            getSynset(rel[1]).addRelation("has-kind", getSynset(rel[0]));
                     });
         }
         catch (IOException e) {e.printStackTrace(); }

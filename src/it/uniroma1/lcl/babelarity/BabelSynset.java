@@ -11,7 +11,7 @@ public class BabelSynset implements Synset
     private PartOfSpeech pos;
     private List<String> words;
     private List<String> glosses;
-    private HashSet<BabelSynset> neighbours;
+    private Map<String, HashSet<BabelSynset>> relations;
     private int dist;
 
 
@@ -21,7 +21,7 @@ public class BabelSynset implements Synset
         this.pos = PartOfSpeech.getByChar(id.charAt(id.length()-1));
         this.words = words;
         this.glosses = new ArrayList<>();
-        this.neighbours = new HashSet<>();
+        this.relations = new HashMap<>();
         this.dist = Integer.MAX_VALUE;
     }
 
@@ -31,14 +31,28 @@ public class BabelSynset implements Synset
     public List<String> getLemmas() {return words;}
 
 
-    public void addNeighbour(BabelSynset n)
+    public Set<BabelSynset> getRelations(String typeRel)
     {
-        neighbours.add(n);
+        Set<BabelSynset> r = relations.get(typeRel);
+        return r!=null ? r: new HashSet<>();
     }
-    public Set<BabelSynset> getNeighbours()
+
+    public Set<BabelSynset> getRelations()
     {
-        return neighbours;
+        return relations.entrySet().stream().flatMap(e->e.getValue().stream())
+                .collect(toSet());
     }
+
+
+    public void addRelation(String typeRel, BabelSynset node)
+    {
+        relations.merge(typeRel, new HashSet<>(Set.of(node)), (v1,v2)->
+        {
+            v1.addAll(v2);
+            return v1;
+        } );
+    }
+
     public void setDist(int x) {dist = x;}
     public int getDist() {return dist;}
 
@@ -46,13 +60,24 @@ public class BabelSynset implements Synset
     public void addGlosse(String glosse) {glosses.add(glosse); }
     public void addGlosses(List<String> glosses) {this.glosses.addAll(glosses); }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj==this) return true;
+        if(obj==null || obj.getClass() != this.getClass()) return false;
+        BabelSynset b = (BabelSynset)obj;
+        return this.getID().equals(b.getID());
+    }
+
+    @Override
+    public int hashCode() {return getID().hashCode(); }
 
     @Override
     public String toString()
     {
         String lems = String.join(";", words);
         String glos = String.join(";", glosses);
-        return id+"\t";
+        return id;
 //        return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
     }
 

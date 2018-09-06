@@ -24,7 +24,7 @@ public class Word implements LinguisticObject
         return w;
     }
 
-    public static List<Word> fromListOfString(List<String> l) {return l.stream().map(Word::fromString).collect(Collectors.toList()); }
+    public static List<Word> fromCollection(Collection<String> c) {return c.stream().map(Word::fromString).collect(Collectors.toList()); }
 
     @Override
     public String toString(){return word; }
