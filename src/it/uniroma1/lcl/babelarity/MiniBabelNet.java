@@ -22,7 +22,7 @@ public class MiniBabelNet implements Iterable<Synset>
     private Set<String> lemmas;
     private Map<String, Synset> synsetMap;
 
-    private BabelLexicalSimilarity bl;
+    private BabelLexicalSimilarityAdvanced bl;
 
     private MiniBabelNet()
     {
@@ -86,7 +86,7 @@ public class MiniBabelNet implements Iterable<Synset>
         return s.toString();
     }
 
-    public void setLexicalSimilarityStrategy() { this.bl = new BabelLexicalSimilarity(this); }
+    public void setLexicalSimilarityStrategy() { this.bl = new BabelLexicalSimilarityAdvanced(this); }
 
     public void setSemanticSimilarityStrategy()
     {
@@ -181,6 +181,107 @@ public class MiniBabelNet implements Iterable<Synset>
                     });
         }
         catch (IOException e) {e.printStackTrace(); }
+    }
+
+    public Set<BabelSynset> getRoots()
+    {
+        return synsetMap.entrySet()
+                .stream()
+                .map(e-> (BabelSynset)e.getValue())
+                .filter(b->b.getRelations("is-a").isEmpty() && !b.getRelations("has-kind").isEmpty())
+                .collect(Collectors.toSet());
+    }
+
+    public int maxDepth(BabelSynset root, String downRelation)
+    {
+        //set default max
+        int max = Integer.MIN_VALUE;
+
+        //creating closed and open set
+        Set<BabelSynset> closedSet = new HashSet<>();
+        LinkedList<BabelSynset> openSet = new LinkedList<>();
+
+        //set distance from root (0)
+        root.setDist(0);
+
+        //add root to open set
+        openSet.add(root);
+
+        while (!openSet.isEmpty())
+        {
+            //pop a synset
+            BabelSynset current = openSet.pop();
+
+            //add current to closed set
+            closedSet.add(current);
+
+            for(BabelSynset child : current.getRelations(downRelation))
+            {
+                //set child distance from root (current.distance+1)
+                child.setDist(current.getDist()+1);
+
+                //if not in closed set then add to open set because it must be visited
+                if(!closedSet.contains(child)) openSet.add(child);
+
+                //if it finds a distance that is higher then actual, replace it
+                if(max<child.getDist()) max = child.getDist();
+            }
+        }
+        //reset distance from root
+        closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
+        return max;
+    }
+
+    public int distance(BabelSynset start, BabelSynset end)
+    {
+        //Queue of node that must be visited
+        LinkedList<BabelSynset> openSet = new LinkedList<>();
+        //Set of nodes that have been already visited
+        Set<BabelSynset> closedSet = new HashSet<>();
+
+        //set distance from root
+        start.setDist(0);
+
+        //add to openSet the root
+        openSet.add(start);
+
+        while (!openSet.isEmpty())
+        {
+            //get from the openSet the node with lower distance
+            BabelSynset current = openSet.stream().min(Comparator.comparing(BabelSynset::getDist)).get();
+
+            //remove from openSet the current node and add it to closed
+            openSet.remove(current);
+            closedSet.add(current);
+
+            //if we found the end node
+            if(current.equals(end))
+            {
+                //get current distance from root
+                int dist = current.getDist();
+                //reset current distance from root
+                closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
+                return dist;
+            }
+
+            //go down in the tree using has-kind relations
+            for(BabelSynset child :current.getRelations())
+            {
+
+                //childs distance
+                int newDist = current.getDist()+1;
+
+                //check if child has been already visited
+                if(newDist<child.getDist() && !closedSet.contains(child))
+                {
+                    openSet.add(child);
+                    child.setDist(newDist);
+                }
+            }
+        }
+        //reset distance
+        closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
+        return -1;
     }
 
 }

@@ -132,16 +132,20 @@ public class MainTest3
         {
             "C_programming_language.txt", "Java_programming_language.txt", "Cristiano_Ronaldo.txt",
             "Thomas_Muller.txt", "Eugenio_Montale.txt", "Umberto_Eco.txt", "Tourism_in_the_Netherlands.txt",
-            "Cultural_tourism.txt"
+            "Cultural_tourism.txt", "Council_of_the_European_Union.txt", "European_Union_law.txt", "Java_virtual_machine.txt"
         };
-        List<Pair<String,String>> tests = List.of(new Pair<>(paths[0],paths[1]),
-                                                new Pair<>(paths[0],paths[2]),
-                                                new Pair<>(paths[2],paths[3]),
-                                                new Pair<>(paths[1],paths[3]),
-                                                new Pair<>(paths[4], paths[5]),
-                                                new Pair<>(paths[4], paths[6]),
-                                                new Pair<>(paths[6], paths[7]),
-                                                new Pair<>(paths[5], paths[7]));
+        List<Pair<String,String>> tests = List.of(new Pair<>(paths[0],paths[1]), //c_programming & java_programming
+                                                new Pair<>(paths[0],paths[2]),  //c_programming & cristiano_ronaldo
+                                                new Pair<>(paths[2],paths[3]),  //cristiano_ronaldo & thomas_muller
+                                                new Pair<>(paths[1],paths[3]),  //java_programming & thomas_muller
+                                                new Pair<>(paths[4], paths[5]), //Eugenio_montale & Umberto_Eco
+                                                new Pair<>(paths[4], paths[6]), //Eugenio_montale && tourism_in_netherlands
+                                                new Pair<>(paths[6], paths[7]), //tourism_in_netherlands & cultural_tourism
+                                                new Pair<>(paths[5], paths[7]), //Umberto_eco & cultural_tourism
+                                                new Pair<>(paths[8], paths[9]), //Council_of_Eur & European_Union_law
+                                                new Pair<>(paths[8], paths[10]), //Council_of_Eur & Java_virtual_machine
+                                                new Pair<>(paths[10], paths[1]), //Java_virtual_machine & java_programming
+                                                new Pair<>(paths[9], paths[1])); //European_Union_law & java_programming-
 
         for(Pair<String,String> p: tests)
         {

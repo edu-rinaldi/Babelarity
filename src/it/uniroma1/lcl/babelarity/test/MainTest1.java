@@ -193,7 +193,7 @@ public class MainTest1
 package it.uniroma1.lcl.babelarity.test;
 
 
-import it.uniroma1.lcl.babelarity.BabelLexicalSimilarity;
+import it.uniroma1.lcl.babelarity.BabelLexicalSimilarityAdvanced;
 import it.uniroma1.lcl.babelarity.MiniBabelNet;
 import it.uniroma1.lcl.babelarity.Word;
 import it.uniroma1.lcl.babelarity.exception.LemmaNotFoundException;
@@ -220,12 +220,12 @@ public class MainTest1 {
                 new Pair<>("car","bus"),
                 new Pair<>("bike","dog"));
         try {
-            BabelLexicalSimilarity bl = new BabelLexicalSimilarity(b);
+            BabelLexicalSimilarityAdvanced bl = new BabelLexicalSimilarityAdvanced(b);
             for(Pair<String,String> p : testString)
             {
                 String w1 = p.getKey();
                 String w2 = p.getValue();
-                double result = bl.computeSimilarity(Word.fromString(w1),Word.fromString(w2));
+                double result = bl.compute(Word.fromString(w1),Word.fromString(w2));
                 String msg = w1+" && "+w2+" ==> "+result;
                 System.out.println(msg);
             }

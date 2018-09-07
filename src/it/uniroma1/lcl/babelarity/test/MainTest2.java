@@ -1,14 +1,14 @@
 package it.uniroma1.lcl.babelarity.test;
 
-import it.uniroma1.lcl.babelarity.BabelSynset;
-import it.uniroma1.lcl.babelarity.MiniBabelNet;
-import it.uniroma1.lcl.babelarity.PartOfSpeech;
-import it.uniroma1.lcl.babelarity.Synset;
+import it.uniroma1.lcl.babelarity.*;
+import javafx.util.Pair;
 
 import java.util.*;
 
 public class MainTest2
 {
+    public static Set<BabelSynset> closed = new HashSet<>();
+
     public static List<BabelSynset> constructPath(BabelSynset node, Map<BabelSynset,BabelSynset> meta)
     {
         ArrayList<BabelSynset> path = new ArrayList<>();
@@ -25,7 +25,7 @@ public class MainTest2
     public static int dijkstra(BabelSynset root, BabelSynset end, BabelSynset bb)
     {
         LinkedList<BabelSynset> openSet = new LinkedList<>();
-        Set<BabelSynset> closedSet = new HashSet<>();
+        //Set<BabelSynset> closedSet = new HashSet<>();
         HashMap<BabelSynset,BabelSynset> meta  = new HashMap<>();
 
         //settings iniziali
@@ -38,13 +38,12 @@ public class MainTest2
             BabelSynset u = openSet.stream().min(Comparator.comparing(BabelSynset::getDist)).get();
 
             openSet.remove(u);
-            if(closedSet.contains(u)) continue;
-            closedSet.add(u);
+            closed.add(u);
 
             if(u.getID().equals(end.getID()))
             {
                 int val = u.getDist();
-                closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
+                closed.forEach(b->b.setDist(Integer.MAX_VALUE));
 
                 return val;
             }
@@ -53,7 +52,7 @@ public class MainTest2
             {
                 if(v.getID().equals(bb.getID())) continue;
                 int alt = u.getDist()+1;
-                if(alt<v.getDist())
+                if(alt<v.getDist() && !closed.contains(v))
                 {
                     meta.put(v,u);
                     openSet.add(v);
@@ -61,7 +60,7 @@ public class MainTest2
                 }
             }
         }
-        closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
+        closed.forEach(b->b.setDist(Integer.MAX_VALUE));
         return -1;
     }
 
@@ -148,35 +147,49 @@ public class MainTest2
         BabelSynset s7 = b.getSynset("bn:00035023n");
         BabelSynset s8 = b.getSynset("bn:00010605n");
 
-        System.out.println(s1+"\t"+s3);
-        System.out.println("Inizio lcs");
+        List<Pair<BabelSynset,BabelSynset>> tests = List.of(
+                new Pair<>(s1,s2),
+                new Pair<>(s1,s3),
+                new Pair<>(s3,s4),
+                new Pair<>(s2,s4),
+                new Pair<>(s5,s6),
+                new Pair<>(s5,s7),
+                new Pair<>(s7,s8),
+                new Pair<>(s6,s8)
+        );
 
-        //calcolo lcs
-        double lcs = lcs(s1, s3);
-        System.out.println("LCS:\t"+lcs);
+        BabelSemanticSimilarityAdvanced bss = new BabelSemanticSimilarityAdvanced(b);
+        for(Pair<BabelSynset,BabelSynset> p: tests)
+            System.out.println(p.getKey()+"\t"+p.getValue()+"\t"+bss.compute(p.getKey(),p.getValue()));
+        /*for(Pair<BabelSynset,BabelSynset> p: tests)
+        {
+            System.out.println(p.getKey()+"\t"+p.getValue());
+            //calcolo lcs
+            double lcs = Math.pow(lcs(p.getKey(), p.getValue()),2);
+            System.out.println("lcs\t"+lcs);
+            //prendo tutte le radici
+            HashSet<BabelSynset> roots = getRoots(b);
 
 
+            //in depths metto per ogni pos la profondita' massima
+            Map<PartOfSpeech, Integer> depths = new HashMap<>();
+            for(BabelSynset root: roots)
+                depths.merge(root.getPOS(), maxDepth(root), Math::max);
+            System.out.println(depths);
+            double maxAbsoluteDepth = Math.pow(depths.entrySet().stream().mapToInt(Map.Entry::getValue).max().getAsInt(),2);
+            //somma maxdepth per ogni pos
+            double d = depths.entrySet().stream().map(Map.Entry::getValue).reduce((v1, v2)->v1+v2).get();
 
-        //prendo tutte le radici
-        HashSet<BabelSynset> roots = getRoots(b);
+            //calcolo profondita' media
+            double depth = d/(depths.size()+1);
+            double result = -Math.log(lcs/(2*depth));
+            //max val:   4.007333185232471
+            //min val: -17.885694519768336
+            System.out.println(map(result, -Math.log(maxAbsoluteDepth/(2*depth)), -Math.log(1/(2*depth)), 0, 1));
+            closed = new HashSet<>();
+        }*/
 
 
-        //in depths metto per ogni pos la profondita' massima
-        Map<PartOfSpeech, Integer> depths = new HashMap<>();
-        for(BabelSynset root: roots)
-            depths.merge(root.getPOS(), maxDepth(root), Math::max);
-
-        //somma maxdepth per ogni pos
-        double d = depths.entrySet().stream().map(Map.Entry::getValue).reduce((v1, v2)->v1+v2).get();
-        System.out.println(d+"\t"+depths.size());
-
-        //calcolo profondita' media
-        double depth = d/depths.size();
-        System.out.println(depth);
-        double result = -Math.log(lcs/(2*depth));
-        //max val: 4.007333185232471
-        //min val: -0.301
-        System.out.println(map(result, -0.301, 4.007333185232471, 0, 1));
     }
 
 
