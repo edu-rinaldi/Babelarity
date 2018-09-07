@@ -161,6 +161,8 @@ public class MainTest2
         BabelSemanticSimilarityAdvanced bss = new BabelSemanticSimilarityAdvanced(b);
         for(Pair<BabelSynset,BabelSynset> p: tests)
             System.out.println(p.getKey()+"\t"+p.getValue()+"\t"+bss.compute(p.getKey(),p.getValue()));
+
+
         /*for(Pair<BabelSynset,BabelSynset> p: tests)
         {
             System.out.println(p.getKey()+"\t"+p.getValue());

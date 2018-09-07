@@ -107,7 +107,6 @@ public class MainTest3
     }
 
     //random walk del doc
-    //TODO: controllare con Gianmarco l'    if(random<r)
     public static int[] randomWalk(double r, int k, Map<BabelSynset, Set<BabelSynset>> graph, Map<BabelSynset, Integer> indexMap)
     {
         int[] v = new int[indexMap.size()];

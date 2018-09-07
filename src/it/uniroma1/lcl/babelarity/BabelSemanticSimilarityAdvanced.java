@@ -118,8 +118,9 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
         double lcs = lcsLength(s1, s2);
         if(lcs == Integer.MAX_VALUE)
         {
-            System.out.println(miniBabelNet.distance(s1,s2));
-            return 1.0/(miniBabelNet.distance(s1,s2)+1);
+            int distance = miniBabelNet.distance(s1,s2);
+            System.out.println(distance);
+            return 1.0/(distance+1);
         }
         return map(-Math.log(Math.pow(lcs,2)/(2*averageDepth)), 0, 1);
     }
