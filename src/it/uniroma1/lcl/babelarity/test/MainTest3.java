@@ -12,6 +12,12 @@ public class MainTest3
     public static Set<BabelSynset> getParole(Document d, Set<String> sw)
     {
         MiniBabelNet b = MiniBabelNet.getInstance();
+        /*
+            1) Prende le singole parole
+            2) Trimma
+            3) mappa in synset
+            4) mette tutto in un set
+         */
         return Arrays.stream(d.getContent().replaceAll("^[A-Za-z0-9]"," ").toLowerCase().split(" "))
                 .map(String::trim)
                 .filter(w-> !sw.contains(w) && b.getSynsets(w).size()>0)
@@ -22,35 +28,58 @@ public class MainTest3
 
     public static Set<BabelSynset> bfsDist(BabelSynset start, int dist,int curDist, Set<BabelSynset> visited)
     {
+        //caso base: nodo visitato o distanzaCorrente>distanzaMax
         if(curDist>dist || visited.contains(start)) return visited;
+
+        //nodo appena visitato e aggiunto alla lista di visitati così da escluderlo successivamente
         visited.add(start);
+
         for(BabelSynset n: start.getRelations())
+            //aggiorno i visitati ricorsivamente sui figli del nodo corrente
             visited = bfsDist(n,dist,curDist+1, visited);
+
+        //restituisco i visitati
         return visited;
     }
 
+    //TODO: Usa questo al posto di bfsDist()
     public static Set<BabelSynset> vicini(BabelSynset s)
     {
+        //Inizializzo i visitati con i figli/vicini di s
         Set<BabelSynset> v = new HashSet<>(s.getRelations());
+
+        //per ogni figlio aggiungo ai visitati i loro figli (nipoti di s)
         for(BabelSynset s2: s.getRelations())
-        {
             v.addAll(s2.getRelations());
-        }
+
+        //restituisco i vicini
         return v;
     }
 
     public static HashMap<BabelSynset, Set<BabelSynset>> getGraph(Set<BabelSynset> bsd)
     {
+
+        //inizializzo mappa del grafo
         HashMap<BabelSynset, Set<BabelSynset>> g1 = new HashMap<>();
+
+
+        /*
+            Per ogni synset nel doc faccio una intersezione fra i suoi vicini a dist. 2
+            e gli altri synset del doc
+         */
         for(BabelSynset s1: bsd)
         {
             Set<BabelSynset> intersection = new HashSet<>(bsd);
-//            System.out.println(bfsDist(s1,2,0,new HashSet<>()));
 //            Set<BabelSynset> visited = bfsDist(s1,2,0,new HashSet<>());
             Set<BabelSynset> visited = vicini(s1);
             visited.remove(s1);
             intersection.retainAll(visited);
-//            System.out.println(intersection);
+
+            /*
+                Se c'e intersezione, metto s1 in collegamento con
+                gli altri nodi (quelli nel set) e viceversa, cosi'
+                da avere un grafo bidirezionale.
+             */
             if(!intersection.isEmpty())
             {
                 g1.merge(s1, intersection,(v1,v2)->{
@@ -69,13 +98,16 @@ public class MainTest3
 
     public static BabelSynset randomNode(Collection<BabelSynset> s)
     {
+        //mappo la collezione in lista
         List<BabelSynset> keys = new ArrayList<>(s);
+        //numero a random che fungera' da indice
         int ran = new Random().nextInt(keys.size());
-        if(ran>= keys.size())
-            System.out.println(ran);
+        //prendi un elemento a caso nella lista
         return keys.get(ran);
     }
 
+    //random walk del doc
+    //TODO: controllare con Gianmarco l'    if(random<r)
     public static int[] randomWalk(double r, int k, Map<BabelSynset, Set<BabelSynset>> graph, Map<BabelSynset, Integer> indexMap)
     {
         int[] v = new int[indexMap.size()];
@@ -117,31 +149,43 @@ public class MainTest3
             String s2 = p.getValue();
 
             System.out.println("Similarita tra: "+s1+"\t"+s2);
+
+            //parse dei docs
             Document d1 = cm.parseDocument("resources/documents/"+s1);
             Document d2 = cm.parseDocument("resources/documents/"+s2);
+
+            //istanza di StopWords
             StopWords sw = StopWords.getInstance();
-//            System.out.println("Creando set di synset per documento1");
+
+
+            //prendo parole->synset nei due doc
             Set<BabelSynset> bsd1 = getParole(d1, sw.toSet());
-//            System.out.println("Creando set di synset per documento2");
             Set<BabelSynset> bsd2 = getParole(d2, sw.toSet());
 
-//            System.out.println("Creando Grafo 1");
+            //costruisco il grafo per il primo doc ed il secondo
             HashMap<BabelSynset, Set<BabelSynset>> g1 = getGraph(bsd1);
-//            System.out.println("Creando Grafo 2");
             HashMap<BabelSynset, Set<BabelSynset>> g2 = getGraph(bsd2);
 
+
+            //creo una mappa di indici per i due vettori che mi serviranno dopo
             Map<BabelSynset, Integer> indexMap = new HashMap<>();
             int index = 0;
             for(BabelSynset b : mb.getSynsets())
                 indexMap.put(b,index++);
 
+            //r :   probabilita di restart
             double r = 0.9;
+            //k :   numero iterazioni
             int k = 100000;
-//            System.out.println("Random Walk g1");
+
+
+            //randomWalk() su i due grafi
             int[] v1 = randomWalk(r, k, g1, indexMap);
-//            System.out.println("Random Walk g2");
             int[] v2 = randomWalk(r, k, g2, indexMap);
 
+
+            //cosine similarity
+            //todo: fare funzione generale
             double numerator = 0;
             double sqrt1 = 0;
             double sqrt2 = 0;

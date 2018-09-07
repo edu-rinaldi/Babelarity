@@ -27,6 +27,8 @@ public class MainTest2
         LinkedList<BabelSynset> openSet = new LinkedList<>();
         Set<BabelSynset> closedSet = new HashSet<>();
         HashMap<BabelSynset,BabelSynset> meta  = new HashMap<>();
+
+        //settings iniziali
         meta.put(root, null);
         root.setDist(0);
         openSet.add(root);
@@ -84,7 +86,7 @@ public class MainTest2
     }
 
 
-    public static float map(float x, float in_min, float in_max, float out_min, float out_max)
+    public static double map(double x, double in_min, double in_max, double out_min, double out_max)
     {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
@@ -132,57 +134,9 @@ public class MainTest2
     }
 
 
-    /*public static List<BabelSynset> bfs(BabelSynset root, BabelSynset end)
-    {
-        //a FIFO openSet
-        LinkedList<BabelSynset> openSet = new LinkedList<>();
-
-        //an empty set to maintain visited nodes
-        Set<BabelSynset> closedSet = new HashSet<>();
-
-        // a dictionary to maintain meta information (used for path formation)
-        // key -> (parent state, action to reach child)
-        HashMap<BabelSynset,BabelSynset> meta = new HashMap<>();
-
-        //initialize
-        meta.put(root,null);
-        openSet.add(root);
-
-        // For each node on the current level expand and process, if no children
-        // (leaf) then unwind
-        while(!(openSet.size()==0))
-        {
-            BabelSynset newRoot = openSet.poll();
-
-            // We found the node we wanted so stop and emit a path.
-            if(newRoot.getID().equals(end.getID()))
-                return constructPath(newRoot,meta);
-
-            // For each child of the current tree process
-            for(BabelSynset child : newRoot.getNeighbours())
-            {
-                //The node has already been processed
-                if(closedSet.contains(child))
-                    continue;
-
-                // The child is not enqueued to be processed, so enqueue this level of
-                // children to be expanded
-                if(!openSet.contains(child))
-                {
-                    meta.put(child,newRoot);
-                    openSet.add(child);
-                }
-            }
-            //We finished processing the root of this subtree, so add it to the closed set
-            closedSet.add(newRoot);
-        }
-        return new ArrayList<>();
-    }*/
-
     public static void main(String[] args) {
         MiniBabelNet b = MiniBabelNet.getInstance();
 
-        BabelSynset entity = b.getSynsets("Entity").get(0);
 
         BabelSynset s1 = b.getSynset("bn:00034472n");
         BabelSynset s2 = b.getSynset("bn:00015008n");
@@ -194,20 +148,35 @@ public class MainTest2
         BabelSynset s7 = b.getSynset("bn:00035023n");
         BabelSynset s8 = b.getSynset("bn:00010605n");
 
-        System.out.println(s3+"\t"+s4);
-//        System.out.println(s3.getRelations("is-a"));
+        System.out.println(s1+"\t"+s3);
         System.out.println("Inizio lcs");
-        int lcs = lcs(s3, s4);
+
+        //calcolo lcs
+        double lcs = lcs(s1, s3);
         System.out.println("LCS:\t"+lcs);
+
+
+
+        //prendo tutte le radici
         HashSet<BabelSynset> roots = getRoots(b);
-//        int depths = 0;
+
+
+        //in depths metto per ogni pos la profondita' massima
         Map<PartOfSpeech, Integer> depths = new HashMap<>();
         for(BabelSynset root: roots)
             depths.merge(root.getPOS(), maxDepth(root), Math::max);
-        float d = depths.entrySet().stream().map(Map.Entry::getValue).reduce((v1, v2)->v1+v2).get();
+
+        //somma maxdepth per ogni pos
+        double d = depths.entrySet().stream().map(Map.Entry::getValue).reduce((v1, v2)->v1+v2).get();
         System.out.println(d+"\t"+depths.size());
-        float depth = d/depths.size();
-        System.out.println(-Math.log(lcs/2*depth));
+
+        //calcolo profondita' media
+        double depth = d/depths.size();
+        System.out.println(depth);
+        double result = -Math.log(lcs/(2*depth));
+        //max val: 4.007333185232471
+        //min val: -0.301
+        System.out.println(map(result, -0.301, 4.007333185232471, 0, 1));
     }
 
 

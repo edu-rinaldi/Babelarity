@@ -77,7 +77,7 @@ public class BabelSynset implements Synset
     {
         String lems = String.join(";", words);
         String glos = String.join(";", glosses);
-        return id;
+        return id+"\t"+lems;
 //        return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
     }
 
