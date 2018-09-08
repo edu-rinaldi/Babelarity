@@ -1,7 +1,7 @@
 package it.uniroma1.lcl.babelarity;
 
 @FunctionalInterface
-public interface SimilarityStrategy<T extends LinguisticObject>
+public interface SimilarityStrategy
 {
-    double compute(T o1, T o2) throws Exception;
+    double compute(LinguisticObject o1, LinguisticObject o2) throws Exception;
 }

@@ -33,7 +33,7 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
         this.miniBabelNet = miniBabelNet;
 
         System.out.println("Caricamento stopwords");
-        sw = StopWords.getInstance().toSet();
+        sw = new StopWords().toSet();
 
         System.out.println("Caricamento docs");
         docList = getDocumentsFiltered();
@@ -67,8 +67,7 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     private List<List<String>> createDocumentsFilteredList()
     {
         occ = new HashMap<>();
-        List<Set<String>> documents = new ArrayList<>();
-        List<List<String>> document = new ArrayList<>();
+        List<List<String>> documents = new ArrayList<>();
         File corpus = new File(corpusPath);
         try
         {
@@ -76,7 +75,7 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
                 for(File f : corpus.listFiles())
                 {
                     //read text and filter it
-                    String txt = new String(Files.readAllBytes(f.toPath())).replaceAll("^[a-zA-Z0-9]"," ");
+                    String txt = new String(Files.readAllBytes(f.toPath())).replaceAll("\\W"," ");
 
                     //split into words
                     documents.add(Arrays.stream(txt.split(" "))
@@ -91,13 +90,12 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
                                 occ.merge(s,1,(v1,v2)->v1+v2);
                                 return s;
                             })
-                            .collect(Collectors.toSet()));
+                            .distinct()
+                            .collect(Collectors.toList()));
                 }
-            document = documents.stream().map(ArrayList::new).collect(Collectors.toList());
-            documents = null;
         }
         catch (IOException e){e.printStackTrace();}
-        return document;
+        return documents;
     }
 
     private HashMap<String, Integer> createIndexMap()
@@ -118,6 +116,7 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     private HashMap<String,Integer> getIndexMap()
     {
         if(indexMap == null) indexMap = createIndexMap();
+        System.out.println(indexMap.size());
         return indexMap;
     }
 
@@ -126,12 +125,15 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
         coOcc = new short[indexMap.size()][indexMap.size()];
         for(int i=0; i<docList.size();i++)
             for(int j=0; j<docList.get(i).size(); j++)
+            {
+                String w = docList.get(i).get(j);
+                int i1 = indexMap.get(w);
                 for(int k=0; k<docList.get(i).size(); k++)
                 {
-                    String w = docList.get(i).get(j);
                     String w2 = docList.get(i).get(k);
-                    if(j!=k) coOcc[indexMap.get(w)][indexMap.get(w2)]+=1;
+                    if(j!=k) coOcc[i1][indexMap.get(w2)]+=1;
                 }
+            }
 
     }
 
@@ -178,13 +180,11 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     }
 
     @Override
-    public double compute(Word w1, Word w2) throws LemmaNotFoundException
+    public double compute(LinguisticObject w1, LinguisticObject w2) throws LemmaNotFoundException
     {
         String wo1 = checkString(w1.toString());
         String wo2 = checkString(w2.toString());
-
-        System.out.println("calcolo similarita'");
-        return cosineSimilarity(wo1,wo2);
+        return wo1.equals(wo2)? 1 : cosineSimilarity(wo1,wo2);
     }
 
 }

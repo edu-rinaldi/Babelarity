@@ -1,4 +1,4 @@
 package it.uniroma1.lcl.babelarity;
 
-public interface BabelSemanticSimilarity extends SimilarityStrategy<BabelSynset> {
+public interface BabelSemanticSimilarity extends SimilarityStrategy {
 }

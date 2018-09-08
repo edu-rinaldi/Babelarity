@@ -15,13 +15,8 @@ public class StopWords
 {
     private Set<String> sw;
     private Path path;
-    private static Map<Path, StopWords> instances;
 
-    static {
-        instances = new HashMap<>();
-    }
-
-    private StopWords(Path p)
+    public StopWords(Path p)
     {
         sw = new HashSet<>();
         path = p;
@@ -33,17 +28,7 @@ public class StopWords
         catch (IOException e){e.printStackTrace();}
     }
 
-    public static StopWords getInstance()
-    {
-        return getInstance(Paths.get("resources/utils/english-stop-words-large.txt"));
-    }
-
-    public static StopWords getInstance(Path p)
-    {
-        if(instances.get(p)!=null) return instances.get(p);
-        instances.put(p, new StopWords(p));
-        return instances.get(p);
-    }
+    public StopWords() {this(Paths.get("resources/utils/english-stop-words-large.txt")); }
 
     public boolean isStopWord(String w)
     {

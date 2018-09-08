@@ -1,6 +1,7 @@
 package it.uniroma1.lcl.babelarity.test;
 
 import it.uniroma1.lcl.babelarity.*;
+import it.uniroma1.lcl.babelarity.exception.NotABabelSynsetException;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -141,6 +142,7 @@ public class MainTest2
         BabelSynset s2 = b.getSynset("bn:00015008n");
         BabelSynset s3 = b.getSynset("bn:00081546n");
         BabelSynset s4 = b.getSynset("bn:00070528n");
+        BabelSynset ss = b.getSynset("bn:00036821n");
 
         BabelSynset s5 = b.getSynset("bn:00024712n");
         BabelSynset s6 = b.getSynset("bn:00029345n");
@@ -148,6 +150,7 @@ public class MainTest2
         BabelSynset s8 = b.getSynset("bn:00010605n");
 
         List<Pair<BabelSynset,BabelSynset>> tests = List.of(
+                new Pair<>(ss,ss),
                 new Pair<>(s1,s2),
                 new Pair<>(s1,s3),
                 new Pair<>(s3,s4),
@@ -159,8 +162,13 @@ public class MainTest2
         );
 
         BabelSemanticSimilarityAdvanced bss = new BabelSemanticSimilarityAdvanced(b);
-        for(Pair<BabelSynset,BabelSynset> p: tests)
-            System.out.println(p.getKey()+"\t"+p.getValue()+"\t"+bss.compute(p.getKey(),p.getValue()));
+        for(Pair<BabelSynset,BabelSynset> p: tests) {
+            try {
+                System.out.println(bss.compute(p.getKey(),p.getValue()));
+            } catch (NotABabelSynsetException e) {
+                e.printStackTrace();
+            }
+        }
 
 
         /*for(Pair<BabelSynset,BabelSynset> p: tests)

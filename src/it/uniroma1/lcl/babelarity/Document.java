@@ -1,5 +1,9 @@
 package it.uniroma1.lcl.babelarity;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class Document implements LinguisticObject
 {
     private String id;
@@ -26,5 +30,18 @@ public class Document implements LinguisticObject
     public String getContent()
     {
         return content;
+    }
+
+    public Set<String> getWords(Set<String> sw)
+    {
+        return Arrays.stream(getContent().replaceAll("\\W"," ").toLowerCase().split(" "))
+                .map(String::trim)
+                .filter(w-> !sw.contains(w))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<String> getWords()
+    {
+        return getWords(Set.of());
     }
 }

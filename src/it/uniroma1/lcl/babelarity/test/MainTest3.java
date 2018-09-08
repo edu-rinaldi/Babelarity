@@ -1,7 +1,8 @@
 package it.uniroma1.lcl.babelarity.test;
 
 import it.uniroma1.lcl.babelarity.*;
-import it.uniroma1.lcl.babelarity.utils.StopWords;
+
+import it.uniroma1.lcl.babelarity.exception.NotADocumentException;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -96,7 +97,7 @@ public class MainTest3
         return g1;
     }
 
-    public static BabelSynset randomNode(Collection<BabelSynset> s)
+    /*public static BabelSynset randomNode(Collection<BabelSynset> s)
     {
         //mappo la collezione in lista
         List<BabelSynset> keys = new ArrayList<>(s);
@@ -104,19 +105,19 @@ public class MainTest3
         int ran = new Random().nextInt(keys.size());
         //prendi un elemento a caso nella lista
         return keys.get(ran);
-    }
+    }*/
 
     //random walk del doc
     public static int[] randomWalk(double r, int k, Map<BabelSynset, Set<BabelSynset>> graph, Map<BabelSynset, Integer> indexMap)
     {
         int[] v = new int[indexMap.size()];
-        BabelSynset start = randomNode(graph.keySet());
+        BabelSynset start = BabelSynset.randomNode(graph.keySet());
         while(k>0)
         {
             double random = Math.random();
-            if(random<r) start = randomNode(graph.keySet());
+            if(random<r) start = BabelSynset.randomNode(graph.keySet());
             v[indexMap.get(start)]++;
-            start = randomNode(graph.get(start));
+            start = BabelSynset.randomNode(graph.get(start));
             k--;
         }
         return v;
@@ -146,6 +147,8 @@ public class MainTest3
                                                 new Pair<>(paths[10], paths[1]), //Java_virtual_machine & java_programming
                                                 new Pair<>(paths[9], paths[1])); //European_Union_law & java_programming-
 
+        BabelDocumentSimilarityAdvanced ba = new BabelDocumentSimilarityAdvanced(mb);
+
         for(Pair<String,String> p: tests)
         {
             String s1 = p.getKey();
@@ -157,8 +160,14 @@ public class MainTest3
             Document d1 = cm.parseDocument("resources/documents/"+s1);
             Document d2 = cm.parseDocument("resources/documents/"+s2);
 
-            //istanza di StopWords
-            StopWords sw = StopWords.getInstance();
+            try {
+                System.out.println(ba.compute(d1,d2));
+            } catch (NotADocumentException e) {
+                e.printStackTrace();
+            }
+
+            /*//istanza di StopWords
+            StopWords sw = new StopWords();
 
 
             //prendo parole->synset nei due doc
@@ -169,11 +178,13 @@ public class MainTest3
             HashMap<BabelSynset, Set<BabelSynset>> g1 = getGraph(bsd1);
             HashMap<BabelSynset, Set<BabelSynset>> g2 = getGraph(bsd2);
 
+            Set<BabelSynset> graphsNodes = g1.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
+            graphsNodes.addAll(g2.values().stream().flatMap(Collection::stream).collect(Collectors.toSet()));
 
             //creo una mappa di indici per i due vettori che mi serviranno dopo
             Map<BabelSynset, Integer> indexMap = new HashMap<>();
             int index = 0;
-            for(BabelSynset b : mb.getSynsets())
+            for(BabelSynset b : graphsNodes)
                 indexMap.put(b,index++);
 
             //r :   probabilita di restart
@@ -207,7 +218,7 @@ public class MainTest3
 
             double result = numerator/(sqrt1*sqrt2);
 
-            System.out.println(result);
+            System.out.println(result);*/
         }
 
 

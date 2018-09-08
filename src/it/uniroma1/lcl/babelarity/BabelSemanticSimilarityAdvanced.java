@@ -1,6 +1,6 @@
 package it.uniroma1.lcl.babelarity;
 
-import it.uniroma1.lcl.babelarity.test.MainTest2;
+import it.uniroma1.lcl.babelarity.exception.NotABabelSynsetException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -35,7 +35,7 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
     {
         if(maxDepthPos!=null) return maxDepthPos;
         return roots.stream()
-                .collect(Collectors.toMap(BabelSynset::getPOS,b->miniBabelNet.maxDepth(b,"has-kind"),Math::max));
+                .collect(Collectors.toMap(BabelSynset::getPOS,b->miniBabelNet.maxDepth(b,"has-kind2"),Math::max));
     }
 
     private int dijkstra(BabelSynset root, BabelSynset end, BabelSynset filterNode, Set<BabelSynset> closed)
@@ -71,7 +71,7 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
             }
 
             //go down in the tree using has-kind relations
-            for(BabelSynset child :current.getRelations("has-kind"))
+            for(BabelSynset child :current.getRelations("has-kind2"))
             {
                 //if the child is equals to the node we started in riseUp, continue to avoid loops
                 if(child.equals(filterNode)) continue;
@@ -113,14 +113,19 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
     }
 
     @Override
-    public double compute(BabelSynset s1, BabelSynset s2)
+    public double compute(LinguisticObject s1, LinguisticObject s2) throws NotABabelSynsetException
     {
-        double lcs = lcsLength(s1, s2);
+        if(!(s1 instanceof BabelSynset) || !(s2 instanceof BabelSynset))
+            throw new NotABabelSynsetException();
+
+        BabelSynset sy1 = (BabelSynset)s1;
+        BabelSynset sy2 = (BabelSynset)s2;
+
+        double lcs = lcsLength(sy1, sy2);
         if(lcs == Integer.MAX_VALUE)
         {
-            int distance = miniBabelNet.distance(s1,s2);
-            System.out.println(distance);
-            return 1.0/(distance+1);
+            double result = 1.0/(miniBabelNet.distance(sy1,sy2)+1);
+            return Double.isInfinite(result) ? 0 : result;
         }
         return map(-Math.log(Math.pow(lcs,2)/(2*averageDepth)), 0, 1);
     }

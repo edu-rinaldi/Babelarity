@@ -11,7 +11,7 @@ public class BabelSynset implements Synset
     private PartOfSpeech pos;
     private List<String> words;
     private List<String> glosses;
-    private Map<String, HashSet<BabelSynset>> relations;
+    private Map<String, List<BabelSynset>> relations;
     private int dist;
 
 
@@ -33,8 +33,16 @@ public class BabelSynset implements Synset
 
     public Set<BabelSynset> getRelations(String typeRel)
     {
-        Set<BabelSynset> r = relations.get(typeRel);
-        return r!=null ? r: new HashSet<>();
+        List<BabelSynset> r = relations.get(typeRel);
+        return r!=null ? new HashSet<>(r): new HashSet<>();
+    }
+
+    public Set<BabelSynset> getRelations(String... typeRel)
+    {
+        return Arrays.stream(typeRel)
+                .filter(t->relations.get(t)!=null)
+                .flatMap(t->relations.get(t).stream())
+                .collect(Collectors.toSet());
     }
 
     public Set<BabelSynset> getRelations()
@@ -46,7 +54,7 @@ public class BabelSynset implements Synset
 
     public void addRelation(String typeRel, BabelSynset node)
     {
-        relations.merge(typeRel, new HashSet<>(Set.of(node)), (v1,v2)->
+        relations.merge(typeRel, new ArrayList<>(List.of(node)), (v1,v2)->
         {
             v1.addAll(v2);
             return v1;
@@ -77,8 +85,23 @@ public class BabelSynset implements Synset
     {
         String lems = String.join(";", words);
         String glos = String.join(";", glosses);
-        return id+"\t"+lems;
-//        return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
+        String rels = relations.entrySet()
+                .stream()
+                .filter(e->!e.getKey().equals("has-kind2"))
+                .flatMap(e->e.getValue().stream().map(v->v.getID()+"_"+e.getKey()))
+                .collect(joining(";"));
+//        return id+"\t"+lems;
+        return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
+    }
+
+    public static BabelSynset randomNode(Collection<BabelSynset> s)
+    {
+        //mappo la collezione in lista
+        List<BabelSynset> keys = new ArrayList<>(s);
+        //numero a random che fungera' da indice
+        int ran = new Random().nextInt(keys.size());
+        //prendi un elemento a caso nella lista
+        return keys.get(ran);
     }
 
 }

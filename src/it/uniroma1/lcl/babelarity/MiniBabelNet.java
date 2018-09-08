@@ -22,7 +22,9 @@ public class MiniBabelNet implements Iterable<Synset>
     private Set<String> lemmas;
     private Map<String, Synset> synsetMap;
 
-    private BabelLexicalSimilarityAdvanced bl;
+    private BabelLexicalSimilarity babelLexicalSimilarity;
+    private BabelSemanticSimilarity babelSemanticSimilarity;
+    private BabelDocumentSimilarity babelDocumentSimilarity;
 
     private MiniBabelNet()
     {
@@ -40,8 +42,18 @@ public class MiniBabelNet implements Iterable<Synset>
     public static MiniBabelNet getInstance()
     {
         if (instance == null)
+        {
             instance = new MiniBabelNet();
+            instance.setLexicalSimilarityStrategy(new BabelLexicalSimilarityAdvanced(instance));
+            instance.setSemanticSimilarityStrategy(new BabelSemanticSimilarityAdvanced(instance));
+            instance.setDocumentSimilarityStrategy(new BabelDocumentSimilarityAdvanced(instance));
+        }
         return instance;
+    }
+
+    public List<BabelSynset> getSynsets(Collection<String> words)
+    {
+        return words.stream().filter(w->getSynsets(w).size()>0).map(w->getSynsets(w).get(0)).collect(Collectors.toList());
     }
 
     public List<BabelSynset> getSynsets(String word)
@@ -86,21 +98,21 @@ public class MiniBabelNet implements Iterable<Synset>
         return s.toString();
     }
 
-    public void setLexicalSimilarityStrategy() { this.bl = new BabelLexicalSimilarityAdvanced(this); }
-
-    public void setSemanticSimilarityStrategy()
-    {
-        //da fare robe...
-    }
-
-    public void setDocumentSimilarityStrategy()
-    {
-        //da fare robe...
-    }
+    public void setLexicalSimilarityStrategy(BabelLexicalSimilarity babelLexicalSimilarity) {this.babelLexicalSimilarity =  babelLexicalSimilarity; }
+    public void setSemanticSimilarityStrategy(BabelSemanticSimilarity babelSemanticSimilarity) {this.babelSemanticSimilarity = babelSemanticSimilarity; }
+    public void setDocumentSimilarityStrategy(BabelDocumentSimilarity babelDocumentSimilarity) {this.babelDocumentSimilarity = babelDocumentSimilarity; }
 
     public double computeSimilarity(LinguisticObject o1, LinguisticObject o2)
     {
-        //da fare robe...
+        SimilarityStrategy strategy = (v1,v2)->0;
+        if(o1 instanceof Word && o2 instanceof Word) strategy = this.babelLexicalSimilarity;
+        if(o1 instanceof BabelSynset && o2 instanceof BabelSynset) strategy = this.babelSemanticSimilarity;
+        if(o1 instanceof Document && o2 instanceof Document) strategy = this.babelDocumentSimilarity;
+        try {
+            return strategy.compute(o1,o2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 
@@ -173,11 +185,13 @@ public class MiniBabelNet implements Iterable<Synset>
         try(Stream<String> stream = Files.lines(BabelPath.RELATIONS_FILE_PATH.getPath()))
         {
             stream.map(line->line.split("\t"))
-                    .filter(rel->!rel[1].equals(rel[0]))
+                    //.filter(rel->!rel[1].equals(rel[0]))
                     .forEach(rel-> {
                         getSynset(rel[0]).addRelation(rel[2], getSynset(rel[1]));
                         if(rel[2].equals("is-a"))
-                            getSynset(rel[1]).addRelation("has-kind", getSynset(rel[0]));
+                            getSynset(rel[1]).addRelation("has-kind2", getSynset(rel[0]));
+                        if(rel[2].equals("has-kind"))
+                            getSynset(rel[0]).addRelation("has-kind2", getSynset(rel[1]));
                     });
         }
         catch (IOException e) {e.printStackTrace(); }
@@ -283,5 +297,7 @@ public class MiniBabelNet implements Iterable<Synset>
         closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
         return -1;
     }
+
+
 
 }
