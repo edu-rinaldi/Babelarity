@@ -40,6 +40,7 @@ public class CorpusManager implements Iterable<Document>
     }
 
     public Document parseDocument(String path) {return parseDocument(Paths.get(path)); }
+
     public Document loadDocument(String id) {return documents.get(id); }
     public void saveDocument(Document document) {documents.put(document.getId(), document); }
 

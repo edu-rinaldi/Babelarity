@@ -1,6 +1,7 @@
 package it.uniroma1.lcl.babelarity;
 
 import it.uniroma1.lcl.babelarity.exception.NotABabelSynsetException;
+import it.uniroma1.lcl.babelarity.utils.RangeMapper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,11 +25,6 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
         double maxAbsoluteDepth = Math.pow(maxDepthPos.values().stream().mapToInt(Integer::intValue).max().orElse(0),2);
         lowRange = -Math.log(maxAbsoluteDepth /(2*averageDepth));
         highRange = -Math.log(1.0/(2*averageDepth));
-    }
-
-    public double map(double x, double out_min, double out_max)
-    {
-        return (x - lowRange) * (out_max - out_min) / (highRange - lowRange) + out_min;
     }
 
     public Map<PartOfSpeech, Integer> getMaxDepthPos()
@@ -127,7 +123,7 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
             double result = 1.0/(miniBabelNet.distance(sy1,sy2)+1);
             return Double.isInfinite(result) ? 0 : result;
         }
-        return map(-Math.log(Math.pow(lcs,2)/(2*averageDepth)), 0, 1);
+        return RangeMapper.map(-Math.log(Math.pow(lcs,2)/(2*averageDepth)), lowRange, highRange, 0, 1);
     }
 
 

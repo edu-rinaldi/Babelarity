@@ -1,10 +1,11 @@
 package it.uniroma1.lcl.babelarity;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Document implements LinguisticObject
+public class Document implements LinguisticObject, Serializable
 {
     private String id;
     private String title;
