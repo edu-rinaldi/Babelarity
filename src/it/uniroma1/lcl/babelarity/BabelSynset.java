@@ -11,8 +11,7 @@ public class BabelSynset implements Synset
     private PartOfSpeech pos;
     private List<String> words;
     private List<String> glosses;
-    private Map<String, List<BabelSynset>> relations;
-    private int dist;
+    private Map<String, List<Synset>> relations;
 
 
     public BabelSynset(String id, List<String> words)
@@ -22,22 +21,26 @@ public class BabelSynset implements Synset
         this.words = words;
         this.glosses = new ArrayList<>();
         this.relations = new HashMap<>();
-        this.dist = Integer.MAX_VALUE;
     }
 
     @Override
     public String getID() {return id; }
+
+    @Override
     public PartOfSpeech getPOS() {return pos;}
+
+    @Override
     public List<String> getLemmas() {return words;}
 
-
-    public Set<BabelSynset> getRelations(String typeRel)
+    @Override
+    public Set<Synset> getRelations(String typeRel)
     {
-        List<BabelSynset> r = relations.get(typeRel);
+        List<Synset> r = relations.get(typeRel);
         return r!=null ? new HashSet<>(r): new HashSet<>();
     }
 
-    public Set<BabelSynset> getRelations(String... typeRel)
+    @Override
+    public Set<Synset> getRelations(String... typeRel)
     {
         return Arrays.stream(typeRel)
                 .filter(t->relations.get(t)!=null)
@@ -45,28 +48,24 @@ public class BabelSynset implements Synset
                 .collect(Collectors.toSet());
     }
 
-    public Set<BabelSynset> getRelations()
+    @Override
+    public Set<Synset> getRelations()
     {
         return relations.entrySet().stream().flatMap(e->e.getValue().stream())
                 .collect(toSet());
     }
 
-
-    public void addRelation(String typeRel, BabelSynset node)
+    @Override
+    public void addRelation(String typeRel, Synset node)
     {
-        relations.merge(typeRel, new ArrayList<>(List.of(node)), (v1,v2)->
-        {
-            v1.addAll(v2);
-            return v1;
-        } );
+        relations.merge(typeRel, new ArrayList<>(List.of(node)), (v1,v2)-> { v1.addAll(v2); return v1; } );
     }
 
-    public void setDist(int x) {dist = x;}
-    public int getDist() {return dist;}
-
-
+    @Override
     public void addGlosse(String glosse) {glosses.add(glosse); }
-    public void addGlosses(List<String> glosses) {this.glosses.addAll(glosses); }
+
+    @Override
+    public void addGlosses(Collection<String> glosses) {this.glosses.addAll(glosses); }
 
     @Override
     public boolean equals(Object obj)
@@ -94,14 +93,6 @@ public class BabelSynset implements Synset
         return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
     }
 
-    public static BabelSynset randomNode(Collection<BabelSynset> s)
-    {
-        //mappo la collezione in lista
-        List<BabelSynset> keys = new ArrayList<>(s);
-        //numero a random che fungera' da indice
-        int ran = new Random().nextInt(keys.size());
-        //prendi un elemento a caso nella lista
-        return keys.get(ran);
-    }
+
 
 }

@@ -23,34 +23,34 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
 
     public BabelDocumentSimilarityAdvanced(MiniBabelNet miniBabelNet) {this(100000, miniBabelNet); }
 
-    private Set<BabelSynset> grandChilds(BabelSynset s)
+    private Set<Synset> grandChilds(Synset s)
     {
         //Inizializzo i visitati con i figli/vicini di s
-        Set<BabelSynset> v = new HashSet<>(s.getRelations());
+        Set<Synset> v = new HashSet<>(s.getRelations());
 
         //per ogni figlio aggiungo ai visitati i loro figli (nipoti di s)
-        for(BabelSynset s2: s.getRelations())
+        for(Synset s2: s.getRelations())
             v.addAll(s2.getRelations());
 
         //restituisco i vicini
         return v;
     }
 
-    private HashMap<BabelSynset, Set<BabelSynset>> getDocGraph(Set<BabelSynset> docSynsets)
+    private HashMap<Synset, Set<Synset>> getDocGraph(Set<Synset> docSynsets)
     {
 
         //inizializzo mappa del grafo
-        HashMap<BabelSynset, Set<BabelSynset>> g = new HashMap<>();
+        HashMap<Synset, Set<Synset>> g = new HashMap<>();
 
 
         /*
         Per ogni synset nel doc faccio una intersezione fra i suoi vicini a dist. 2
         e gli altri synset del doc
         */
-        for(BabelSynset s1: docSynsets)
+        for(Synset s1: docSynsets)
         {
-            Set<BabelSynset> intersection = new HashSet<>(docSynsets);
-            Set<BabelSynset> visited = grandChilds(s1);
+            Set<Synset> intersection = new HashSet<>(docSynsets);
+            Set<Synset> visited = grandChilds(s1);
             visited.remove(s1);
             intersection.retainAll(visited);
 
@@ -58,11 +58,11 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
             Se c'e intersezione, metto s1 in collegamento con
             gli altri nodi (quelli nel set) e viceversa, cosi'
             da avere un grafo bidirezionale.
-             */
+            */
             if(!intersection.isEmpty())
             {
                 g.merge(s1, intersection,(v1,v2)->{ v1.addAll(v2); return v1; });
-                for(BabelSynset s: intersection)
+                for(Synset s: intersection)
                     g.merge(s, new HashSet<>(Set.of(s1)), (v1,v2)->{ v1.addAll(v2); return v1; });
             }
         }
@@ -70,18 +70,17 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
     }
 
     //random walk del doc
-    private int[] randomWalk(Map<BabelSynset, Set<BabelSynset>> graph, Map<BabelSynset, Integer> indexMap)
+    private int[] randomWalk(Map<Synset, Set<Synset>> graph, Map<Synset, Integer> indexMap)
     {
         int[] v = new int[indexMap.size()];
-        BabelSynset start = BabelSynset.randomNode(graph.keySet());
+        Synset start = Synset.randomNode(graph.keySet());
         for (int i=0; i<maxIteration;i++)
         {
             double random = Math.random();
-            if(random<restartProb) start = BabelSynset.randomNode(graph.keySet());
+            if(random<restartProb) start = Synset.randomNode(graph.keySet());
             v[indexMap.get(start)]++;
-            start = BabelSynset.randomNode(graph.get(start));
+            start = Synset.randomNode(graph.get(start));
         }
-
         return v;
     }
 
@@ -93,19 +92,19 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         Document d1 = (Document)o1;
         Document d2 = (Document)o2;
 
-        Set<BabelSynset> synsetsDoc1 = new HashSet<>(miniBabelNet.getSynsets(d1.getWords(stopWords)));
-        Set<BabelSynset> synsetsDoc2 = new HashSet<>(miniBabelNet.getSynsets(d2.getWords(stopWords)));
+        Set<Synset> synsetsDoc1 = new HashSet<>(miniBabelNet.getSynsets(d1.getWords(stopWords)));
+        Set<Synset> synsetsDoc2 = new HashSet<>(miniBabelNet.getSynsets(d2.getWords(stopWords)));
+        System.out.println(synsetsDoc1.size()+" "+synsetsDoc2.size());
+        HashMap<Synset, Set<Synset>> g1 = getDocGraph(synsetsDoc1);
+        HashMap<Synset, Set<Synset>> g2 = getDocGraph(synsetsDoc2);
 
-        HashMap<BabelSynset, Set<BabelSynset>> g1 = getDocGraph(synsetsDoc1);
-        HashMap<BabelSynset, Set<BabelSynset>> g2 = getDocGraph(synsetsDoc2);
-
-        Set<BabelSynset> graphsNodes = g1.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
+        Set<Synset> graphsNodes = g1.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
         graphsNodes.addAll(g2.values().stream().flatMap(Collection::stream).collect(Collectors.toSet()));
 
         //creo una mappa di indici per i due vettori che mi serviranno dopo
-        Map<BabelSynset, Integer> indexMap = new HashMap<>();
+        Map<Synset, Integer> indexMap = new HashMap<>();
         int index = 0;
-        for(BabelSynset b : graphsNodes)
+        for(Synset b : graphsNodes)
             indexMap.put(b,index++);
 
         //randomWalk() su i due grafi

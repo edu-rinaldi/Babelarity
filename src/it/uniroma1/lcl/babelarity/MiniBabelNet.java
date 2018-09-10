@@ -17,7 +17,7 @@ public class MiniBabelNet implements Iterable<Synset>
 
     private static MiniBabelNet instance;
 
-    private Map<Word, List<BabelSynset>> wordToSynsets;
+    private Map<Word, List<Synset>> wordToSynsets;
     private Map<Word, String> wordToLemma;
     private Set<String> lemmas;
     private Map<String, Synset> synsetMap;
@@ -51,27 +51,23 @@ public class MiniBabelNet implements Iterable<Synset>
         return instance;
     }
 
-    public List<BabelSynset> getSynsets(Collection<String> words)
+    public List<Synset> getSynsets(Collection<String> words)
     {
         return words.stream().filter(w->getSynsets(w).size()>0).map(w->getSynsets(w).get(0)).collect(Collectors.toList());
     }
 
-    public List<BabelSynset> getSynsets(String word)
+    public List<Synset> getSynsets(String word)
     {
-        List<BabelSynset> ls = wordToSynsets.get(Word.fromString(word));
+        List<Synset> ls = wordToSynsets.get(Word.fromString(word));
         return ls!=null ? ls : new ArrayList<>();
     }
 
-    public List<BabelSynset> getSynsets()
+    public List<Synset> getSynsets()
     {
         return synsetMap.entrySet().stream().map(e->getSynset(e.getKey())).collect(Collectors.toList());
     }
 
-    public BabelSynset getSynset(String id)
-    {
-        Synset s = synsetMap.get(id);
-        return s instanceof BabelSynset ? (BabelSynset)s : null;
-    }
+    public Synset getSynset(String id) { return synsetMap.get(id); }
 
     public String getLemmas(String word) {return wordToLemma.get(Word.fromString(word)); }
 
@@ -117,10 +113,7 @@ public class MiniBabelNet implements Iterable<Synset>
     }
 
     @Override
-    public Iterator<Synset> iterator()
-    {
-        return synsetMap.values().iterator();
-    }
+    public Iterator<Synset> iterator() { return synsetMap.values().iterator(); }
 
     private void parseDictionary()
     {
@@ -131,7 +124,7 @@ public class MiniBabelNet implements Iterable<Synset>
                 //prendo ogni riga, la splitto per "\t"
                 List<String> infos = new ArrayList<>(List.of(br.readLine().toLowerCase().split("\t")));
 
-                BabelSynset babelSynset = new BabelSynset(infos.remove(0), infos);
+                Synset babelSynset = new BabelSynset(infos.remove(0), infos);
                 synsetMap.put(babelSynset.getID(), babelSynset);
                 for(String info : infos)
                 {
@@ -156,18 +149,6 @@ public class MiniBabelNet implements Iterable<Synset>
             }
         }catch (IOException e){e.printStackTrace();}
     }
-
-
-    private void loadAllLemmas2()
-    {
-        try(Stream<String> stream = Files.lines(BabelPath.LEMMATIZATION_FILE_PATH.getPath()))
-        {
-            wordToLemma = stream.map(l->l.split("\t"))
-                    .collect(toMap(l->Word.fromString(l[0].toLowerCase()),l->l[1].toLowerCase(),(v1,v2)->v1));
-        }
-        catch (IOException e){e.printStackTrace();}
-    }
-
 
     private void parseGlosses()
     {
@@ -197,26 +178,29 @@ public class MiniBabelNet implements Iterable<Synset>
         catch (IOException e) {e.printStackTrace(); }
     }
 
-    public Set<BabelSynset> getRoots()
+    public Set<Synset> getRoots()
     {
         return synsetMap.entrySet()
                 .stream()
-                .map(e-> (BabelSynset)e.getValue())
+                .map(Map.Entry::getValue)
                 .filter(b->b.getRelations("is-a").isEmpty() && !b.getRelations("has-kind").isEmpty())
                 .collect(Collectors.toSet());
     }
 
-    public int maxDepth(BabelSynset root, String downRelation)
+    public int maxDepth(Synset root, String downRelation)
     {
         //set default max
         int max = Integer.MIN_VALUE;
 
         //creating closed and open set
-        Set<BabelSynset> closedSet = new HashSet<>();
-        LinkedList<BabelSynset> openSet = new LinkedList<>();
+        Set<Synset> closedSet = new HashSet<>();
+        LinkedList<Synset> openSet = new LinkedList<>();
+
+        //Distance map
+        HashMap<Synset, Integer> distanceMap = new HashMap<>();
 
         //set distance from root (0)
-        root.setDist(0);
+        distanceMap.put(root,0);
 
         //add root to open set
         openSet.add(root);
@@ -224,45 +208,44 @@ public class MiniBabelNet implements Iterable<Synset>
         while (!openSet.isEmpty())
         {
             //pop a synset
-            BabelSynset current = openSet.pop();
+            Synset current = openSet.pop();
 
             //add current to closed set
             closedSet.add(current);
 
-            for(BabelSynset child : current.getRelations(downRelation))
+            for(Synset child : current.getRelations(downRelation))
             {
                 //set child distance from root (current.distance+1)
-                child.setDist(current.getDist()+1);
-
+                distanceMap.put(child, distanceMap.get(current)+1);
                 //if not in closed set then add to open set because it must be visited
                 if(!closedSet.contains(child)) openSet.add(child);
 
                 //if it finds a distance that is higher then actual, replace it
-                if(max<child.getDist()) max = child.getDist();
+                if(max<distanceMap.get(child)) max = distanceMap.get(child);
             }
         }
-        //reset distance from root
-        closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
         return max;
     }
 
-    public int distance(BabelSynset start, BabelSynset end)
+    public int distance(Synset start, Synset end)
     {
         //Queue of node that must be visited
-        LinkedList<BabelSynset> openSet = new LinkedList<>();
+        LinkedList<Synset> openSet = new LinkedList<>();
         //Set of nodes that have been already visited
-        Set<BabelSynset> closedSet = new HashSet<>();
+        Set<Synset> closedSet = new HashSet<>();
+
+        //distance map
+        HashMap<Synset, Integer> distanceMap = new HashMap<>();
 
         //set distance from root
-        start.setDist(0);
-
+        distanceMap.put(start, 0);
         //add to openSet the root
         openSet.add(start);
 
         while (!openSet.isEmpty())
         {
             //get from the openSet the node with lower distance
-            BabelSynset current = openSet.stream().min(Comparator.comparing(BabelSynset::getDist)).get();
+            Synset current = openSet.stream().min(Comparator.comparing(distanceMap::get)).get();
 
             //remove from openSet the current node and add it to closed
             openSet.remove(current);
@@ -270,31 +253,24 @@ public class MiniBabelNet implements Iterable<Synset>
 
             //if we found the end node
             if(current.equals(end))
-            {
-                //get current distance from root
-                int dist = current.getDist();
-                //reset current distance from root
-                closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
-                return dist;
-            }
+                return distanceMap.get(current);
 
             //go down in the tree using has-kind relations
-            for(BabelSynset child :current.getRelations())
+            for(Synset child :current.getRelations())
             {
 
                 //childs distance
-                int newDist = current.getDist()+1;
+                int newDist = distanceMap.get(current)+1;
 
                 //check if child has been already visited
-                if(newDist<child.getDist() && !closedSet.contains(child))
+                if(newDist<distanceMap.getOrDefault(child, Integer.MAX_VALUE) && !closedSet.contains(child))
                 {
                     openSet.add(child);
-                    child.setDist(newDist);
+                    distanceMap.put(child, newDist);
                 }
             }
         }
-        //reset distance
-        closedSet.forEach(b->b.setDist(Integer.MAX_VALUE));
+
         return -1;
     }
 

@@ -10,15 +10,15 @@ import java.util.stream.Collectors;
 
 public class MainTest3
 {
-    public static Set<BabelSynset> getParole(Document d, Set<String> sw)
+    /*public static Set<BabelSynset> getParole(Document d, Set<String> sw)
     {
         MiniBabelNet b = MiniBabelNet.getInstance();
-        /*
+        *//*
             1) Prende le singole parole
             2) Trimma
             3) mappa in synset
             4) mette tutto in un set
-         */
+         *//*
         return Arrays.stream(d.getContent().replaceAll("^[A-Za-z0-9]"," ").toLowerCase().split(" "))
                 .map(String::trim)
                 .filter(w-> !sw.contains(w) && b.getSynsets(w).size()>0)
@@ -43,7 +43,7 @@ public class MainTest3
         return visited;
     }
 
-    //TODO: Usa questo al posto di bfsDist()
+
     public static Set<BabelSynset> vicini(BabelSynset s)
     {
         //Inizializzo i visitati con i figli/vicini di s
@@ -64,10 +64,10 @@ public class MainTest3
         HashMap<BabelSynset, Set<BabelSynset>> g1 = new HashMap<>();
 
 
-        /*
+        *//*
             Per ogni synset nel doc faccio una intersezione fra i suoi vicini a dist. 2
             e gli altri synset del doc
-         */
+         *//*
         for(BabelSynset s1: bsd)
         {
             Set<BabelSynset> intersection = new HashSet<>(bsd);
@@ -76,11 +76,11 @@ public class MainTest3
             visited.remove(s1);
             intersection.retainAll(visited);
 
-            /*
+            *//*
                 Se c'e intersezione, metto s1 in collegamento con
                 gli altri nodi (quelli nel set) e viceversa, cosi'
                 da avere un grafo bidirezionale.
-             */
+             *//*
             if(!intersection.isEmpty())
             {
                 g1.merge(s1, intersection,(v1,v2)->{
@@ -97,7 +97,7 @@ public class MainTest3
         return g1;
     }
 
-    /*public static BabelSynset randomNode(Collection<BabelSynset> s)
+    *//*public static BabelSynset randomNode(Collection<BabelSynset> s)
     {
         //mappo la collezione in lista
         List<BabelSynset> keys = new ArrayList<>(s);
@@ -105,7 +105,7 @@ public class MainTest3
         int ran = new Random().nextInt(keys.size());
         //prendi un elemento a caso nella lista
         return keys.get(ran);
-    }*/
+    }*//*
 
     //random walk del doc
     public static int[] randomWalk(double r, int k, Map<BabelSynset, Set<BabelSynset>> graph, Map<BabelSynset, Integer> indexMap)
@@ -121,7 +121,7 @@ public class MainTest3
             k--;
         }
         return v;
-    }
+    }*/
 
     public static void main(String[] args)
     {
@@ -160,11 +160,8 @@ public class MainTest3
             Document d1 = cm.parseDocument("resources/documents/"+s1);
             Document d2 = cm.parseDocument("resources/documents/"+s2);
 
-            try {
-                System.out.println(ba.compute(d1,d2));
-            } catch (NotADocumentException e) {
-                e.printStackTrace();
-            }
+            try { System.out.println(ba.compute(d1,d2)); }
+            catch (NotADocumentException e) {e.printStackTrace(); }
 
             /*//istanza di StopWords
             StopWords sw = new StopWords();

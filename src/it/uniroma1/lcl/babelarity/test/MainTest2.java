@@ -8,6 +8,7 @@ import java.util.*;
 
 public class MainTest2
 {
+/*
     public static Set<BabelSynset> closed = new HashSet<>();
 
     public static List<BabelSynset> constructPath(BabelSynset node, Map<BabelSynset,BabelSynset> meta)
@@ -132,24 +133,25 @@ public class MainTest2
         }
         return maxDepth;
     }
+*/
 
 
     public static void main(String[] args) {
         MiniBabelNet b = MiniBabelNet.getInstance();
 
 
-        BabelSynset s1 = b.getSynset("bn:00034472n");
-        BabelSynset s2 = b.getSynset("bn:00015008n");
-        BabelSynset s3 = b.getSynset("bn:00081546n");
-        BabelSynset s4 = b.getSynset("bn:00070528n");
-        BabelSynset ss = b.getSynset("bn:00036821n");
+        Synset s1 = b.getSynset("bn:00034472n");
+        Synset s2 = b.getSynset("bn:00015008n");
+        Synset s3 = b.getSynset("bn:00081546n");
+        Synset s4 = b.getSynset("bn:00070528n");
+        Synset ss = b.getSynset("bn:00036821n");
 
-        BabelSynset s5 = b.getSynset("bn:00024712n");
-        BabelSynset s6 = b.getSynset("bn:00029345n");
-        BabelSynset s7 = b.getSynset("bn:00035023n");
-        BabelSynset s8 = b.getSynset("bn:00010605n");
+        Synset s5 = b.getSynset("bn:00024712n");
+        Synset s6 = b.getSynset("bn:00029345n");
+        Synset s7 = b.getSynset("bn:00035023n");
+        Synset s8 = b.getSynset("bn:00010605n");
 
-        List<Pair<BabelSynset,BabelSynset>> tests = List.of(
+        List<Pair<Synset,Synset>> tests = List.of(
                 new Pair<>(ss,ss),
                 new Pair<>(s1,s2),
                 new Pair<>(s1,s3),
@@ -162,7 +164,7 @@ public class MainTest2
         );
 
         BabelSemanticSimilarityAdvanced bss = new BabelSemanticSimilarityAdvanced(b);
-        for(Pair<BabelSynset,BabelSynset> p: tests) {
+        for(Pair<Synset,Synset> p: tests) {
             try {
                 System.out.println(bss.compute(p.getKey(),p.getValue()));
             } catch (NotABabelSynsetException e) {
