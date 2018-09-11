@@ -44,9 +44,9 @@ public class MiniBabelNet implements Iterable<Synset>
         if (instance == null)
         {
             instance = new MiniBabelNet();
-            instance.setLexicalSimilarityStrategy(new BabelLexicalSimilarityAdvanced(instance));
-            instance.setSemanticSimilarityStrategy(new BabelSemanticSimilarityAdvanced(instance));
-            instance.setDocumentSimilarityStrategy(new BabelDocumentSimilarityAdvanced(instance));
+//            instance.setLexicalSimilarityStrategy(new BabelLexicalSimilarityAdvanced(instance));
+//            instance.setSemanticSimilarityStrategy(new BabelSemanticSimilarityAdvanced(instance));
+//            instance.setDocumentSimilarityStrategy(new BabelDocumentSimilarityAdvanced(instance));
         }
         return instance;
     }

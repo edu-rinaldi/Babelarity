@@ -1,7 +1,7 @@
 package it.uniroma1.lcl.babelarity.test;
 
 import it.uniroma1.lcl.babelarity.*;
-import it.uniroma1.lcl.babelarity.exception.NotABabelSynsetException;
+import it.uniroma1.lcl.babelarity.exception.NotASynsetException;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -167,7 +167,7 @@ public class MainTest2
         for(Pair<Synset,Synset> p: tests) {
             try {
                 System.out.println(bss.compute(p.getKey(),p.getValue()));
-            } catch (NotABabelSynsetException e) {
+            } catch (NotASynsetException e) {
                 e.printStackTrace();
             }
         }

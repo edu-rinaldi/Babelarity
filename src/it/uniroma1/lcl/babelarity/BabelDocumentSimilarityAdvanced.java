@@ -94,7 +94,6 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
 
         Set<Synset> synsetsDoc1 = new HashSet<>(miniBabelNet.getSynsets(d1.getWords(stopWords)));
         Set<Synset> synsetsDoc2 = new HashSet<>(miniBabelNet.getSynsets(d2.getWords(stopWords)));
-        System.out.println(synsetsDoc1.size()+" "+synsetsDoc2.size());
         HashMap<Synset, Set<Synset>> g1 = getDocGraph(synsetsDoc1);
         HashMap<Synset, Set<Synset>> g2 = getDocGraph(synsetsDoc2);
 
