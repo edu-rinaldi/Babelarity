@@ -13,15 +13,15 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
     private int maxIteration;
     private MiniBabelNet miniBabelNet;
 
-    public BabelDocumentSimilarityAdvanced(int maxIteration, MiniBabelNet miniBabelNet)
+    public BabelDocumentSimilarityAdvanced(int maxIteration)
     {
         this.stopWords = new StopWords().toSet();
-        this.restartProb = 0.9;
+        this.restartProb = 0.1;
         this.maxIteration = maxIteration;
-        this.miniBabelNet = miniBabelNet;
+        this.miniBabelNet = MiniBabelNet.getInstance();
     }
 
-    public BabelDocumentSimilarityAdvanced(MiniBabelNet miniBabelNet) {this(100000, miniBabelNet); }
+    public BabelDocumentSimilarityAdvanced() {this(100000); }
 
     private Set<Synset> grandChilds(Synset s)
     {
@@ -77,7 +77,7 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         for (int i=0; i<maxIteration;i++)
         {
             double random = Math.random();
-            if(random<restartProb) start = Synset.randomNode(graph.keySet());
+            if(restartProb>random) start = Synset.randomNode(graph.keySet());
             v[indexMap.get(start)]++;
             start = Synset.randomNode(graph.get(start));
         }

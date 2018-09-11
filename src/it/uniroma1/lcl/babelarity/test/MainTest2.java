@@ -163,7 +163,7 @@ public class MainTest2
                 new Pair<>(s6,s8)
         );
 
-        BabelSemanticSimilarityAdvanced bss = new BabelSemanticSimilarityAdvanced(b);
+        BabelSemanticSimilarityAdvanced bss = new BabelSemanticSimilarityAdvanced();
         for(Pair<Synset,Synset> p: tests) {
             try {
                 System.out.println(bss.compute(p.getKey(),p.getValue()));

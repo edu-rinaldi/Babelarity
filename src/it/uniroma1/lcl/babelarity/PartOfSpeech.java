@@ -7,7 +7,7 @@ public enum PartOfSpeech
 
     NOUN('n'), ADV('r'), ADJ('a'), VERB('v');
 
-    char c;
+    private char c;
 
     PartOfSpeech(char c)
     {

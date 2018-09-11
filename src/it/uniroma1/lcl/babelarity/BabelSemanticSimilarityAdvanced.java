@@ -15,11 +15,12 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
     private double lowRange;
     private double highRange;
 
-    public BabelSemanticSimilarityAdvanced(MiniBabelNet miniBabelNet)
+    public BabelSemanticSimilarityAdvanced()
     {
-        this.miniBabelNet = miniBabelNet;
+        this.miniBabelNet = MiniBabelNet.getInstance();
         roots = miniBabelNet.getRoots();
         maxDepthPos = getMaxDepthPos();
+
         averageDepth = (double)maxDepthPos.values().stream().reduce(Integer::sum).orElse(0)/(maxDepthPos.size()+1);
 
         double maxAbsoluteDepth = maxDepthPos.values().stream().mapToInt(Integer::intValue).max().orElse(0);
@@ -27,7 +28,7 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
         highRange = lch(1, averageDepth);
     }
 
-    public Map<PartOfSpeech, Integer> getMaxDepthPos()
+    private Map<PartOfSpeech, Integer> getMaxDepthPos()
     {
         if(maxDepthPos!=null) return maxDepthPos;
         return roots.stream()
@@ -105,8 +106,7 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
     @Override
     public double compute(LinguisticObject s1, LinguisticObject s2) throws NotASynsetException
     {
-        if(!(s1 instanceof Synset) || !(s2 instanceof Synset))
-            throw new NotASynsetException();
+        if(!(s1 instanceof Synset) || !(s2 instanceof Synset)) throw new NotASynsetException();
 
         Synset sy1 = (Synset) s1;
         Synset sy2 = (Synset) s2;

@@ -1,6 +1,7 @@
 package it.uniroma1.lcl.babelarity;
 
 import it.uniroma1.lcl.babelarity.utils.BabelPath;
+import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,15 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toMap;
 
 public class MiniBabelNet implements Iterable<Synset>
 {
-
     private static MiniBabelNet instance;
 
-    private Map<Word, List<Synset>> wordToSynsets;
-    private Map<Word, String> wordToLemma;
+    private Map<String, List<Synset>> wordToSynsets;
+    private Map<String, String> wordToLemma;
     private Set<String> lemmas;
     private Map<String, Synset> synsetMap;
 
@@ -28,12 +27,15 @@ public class MiniBabelNet implements Iterable<Synset>
 
     private MiniBabelNet()
     {
-        wordToSynsets = new HashMap<>();
-        wordToLemma = new HashMap<>();
-        lemmas = new HashSet<>();
-        synsetMap = new HashMap<>();
-        parseDictionary();
-        loadAllLemmas();
+
+        Pair<Map<String,Synset>, Map<String,List<Synset>>> pkg = parseDictionary();
+        synsetMap = pkg.getKey();
+        wordToSynsets = pkg.getValue();
+
+        Pair<Map<String,String>,Set<String>> pkg2 = parseLemmas();
+        wordToLemma = pkg2.getKey();
+        lemmas = pkg2.getValue();
+
         parseGlosses();
         parseRelations();
     }
@@ -44,11 +46,81 @@ public class MiniBabelNet implements Iterable<Synset>
         if (instance == null)
         {
             instance = new MiniBabelNet();
-//            instance.setLexicalSimilarityStrategy(new BabelLexicalSimilarityAdvanced(instance));
-//            instance.setSemanticSimilarityStrategy(new BabelSemanticSimilarityAdvanced(instance));
-//            instance.setDocumentSimilarityStrategy(new BabelDocumentSimilarityAdvanced(instance));
+            instance.setLexicalSimilarityStrategy(new BabelLexicalSimilarityAdvanced());
+            instance.setSemanticSimilarityStrategy(new BabelSemanticSimilarityAdvanced());
+            instance.setDocumentSimilarityStrategy(new BabelDocumentSimilarityAdvanced());
         }
         return instance;
+    }
+
+    private Pair<Map<String,Synset>, Map<String, List<Synset>>> parseDictionary()
+    {
+        Map<String, Synset> synsetMap = new HashMap<>();
+        Map<String, List<Synset>> wordToSynsets = new HashMap<>();
+        try(BufferedReader br = Files.newBufferedReader(BabelPath.DICTIONARY_FILE_PATH.getPath()))
+        {
+            while(br.ready())
+            {
+                //prendo ogni riga, la splitto per "\t"
+                List<String> infos = new ArrayList<>(List.of(br.readLine().toLowerCase().split("\t")));
+
+                Synset babelSynset = new BabelSynset(infos.remove(0), infos);
+                synsetMap.put(babelSynset.getID(), babelSynset);
+                for(String info : infos)
+                {
+                    if (wordToSynsets.containsKey(info)) wordToSynsets.get(info).add(babelSynset);
+                    else wordToSynsets.put(info, new ArrayList<>(List.of(babelSynset)));
+                }
+            }
+        }
+        catch(IOException e) {e.printStackTrace();}
+        return new Pair<>(synsetMap, wordToSynsets);
+    }
+
+    private Pair<Map<String, String>, Set<String>> parseLemmas()
+    {
+        Map<String, String> wordToLemma = new HashMap<>();
+        Set<String> lemmas = new HashSet<>();
+
+        try(BufferedReader br = Files.newBufferedReader(BabelPath.LEMMATIZATION_FILE_PATH.getPath()))
+        {
+            while (br.ready())
+            {
+                String[] line = br.readLine().split("\t");
+                wordToLemma.merge(line[0].toLowerCase(),line[1].toLowerCase(),(v1,v2)->v1);
+                lemmas.add(line[1].toLowerCase());
+            }
+        }
+        catch (IOException e){e.printStackTrace();}
+        return new Pair<>(wordToLemma, lemmas);
+    }
+
+    private void parseGlosses()
+    {
+        try(Stream<String> stream = Files.lines(BabelPath.GLOSSES_FILE_PATH.getPath()))
+        {
+            stream.map(l->new ArrayList<>(List.of(l.split("\t"))))
+                    .filter(l-> l.get(0).startsWith("bn:"))
+                    .forEach(l->getSynset(l.remove(0)).addGlosses(l));
+        }
+        catch (IOException e) {e.printStackTrace(); }
+    }
+
+    private void parseRelations()
+    {
+        try(Stream<String> stream = Files.lines(BabelPath.RELATIONS_FILE_PATH.getPath()))
+        {
+            stream.map(line->line.split("\t"))
+                    //.filter(rel->!rel[1].equals(rel[0]))
+                    .forEach(rel-> {
+                        getSynset(rel[0]).addRelation(rel[2], getSynset(rel[1]));
+                        if(rel[2].equals("is-a"))
+                            getSynset(rel[1]).addRelation("has-kind2", getSynset(rel[0]));
+                        if(rel[2].equals("has-kind"))
+                            getSynset(rel[0]).addRelation("has-kind2", getSynset(rel[1]));
+                    });
+        }
+        catch (IOException e) {e.printStackTrace(); }
     }
 
     public List<Synset> getSynsets(Collection<String> words)
@@ -58,7 +130,7 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public List<Synset> getSynsets(String word)
     {
-        List<Synset> ls = wordToSynsets.get(Word.fromString(word));
+        List<Synset> ls = wordToSynsets.get(word);
         return ls!=null ? ls : new ArrayList<>();
     }
 
@@ -69,30 +141,15 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public Synset getSynset(String id) { return synsetMap.get(id); }
 
-    public String getLemmas(String word) {return wordToLemma.get(Word.fromString(word)); }
+    public String getSynsetSummary(Synset s) { return s.toString(); }
+
+    public String getLemmas(String word) {return wordToLemma.get(word); }
 
     public boolean isLemma(String word) {return lemmas.contains(word); }
 
     public int size() {return synsetMap.size(); }
 
-    /**
-     * Restituisce le informazioni inerenti al Synset fornito in input sotto forma di stringa.
-     * Il formato della stringa è il seguente:
-     * ID\tPOS\tLEMMI\tGLOSSE\tRELAZIONI
-     * Le componenti LEMMI, GLOSSE e RELAZIONI possono contenere più elementi, questi sono separati dal carattere ";"
-     * Le relazioni devono essere condificate nel seguente formato:
-     * TARGETSYNSET_RELNAME   es. bn:00081546n_has-kind
-     *
-     * es: bn:00047028n	NOUN	word;intelligence;news;tidings	Information about recent and important events	bn:0000001n_has-kind;bn:0000001n_is-a
-     *
-     * @param s
-     * @return
-     */
-    public String getSynsetSummary(Synset s)
-    {
-        //da fare robe...
-        return s.toString();
-    }
+
 
     public void setLexicalSimilarityStrategy(BabelLexicalSimilarity babelLexicalSimilarity) {this.babelLexicalSimilarity =  babelLexicalSimilarity; }
     public void setSemanticSimilarityStrategy(BabelSemanticSimilarity babelSemanticSimilarity) {this.babelSemanticSimilarity = babelSemanticSimilarity; }
@@ -115,68 +172,6 @@ public class MiniBabelNet implements Iterable<Synset>
     @Override
     public Iterator<Synset> iterator() { return synsetMap.values().iterator(); }
 
-    private void parseDictionary()
-    {
-        try(BufferedReader br = Files.newBufferedReader(BabelPath.DICTIONARY_FILE_PATH.getPath()))
-        {
-            while(br.ready())
-            {
-                //prendo ogni riga, la splitto per "\t"
-                List<String> infos = new ArrayList<>(List.of(br.readLine().toLowerCase().split("\t")));
-
-                Synset babelSynset = new BabelSynset(infos.remove(0), infos);
-                synsetMap.put(babelSynset.getID(), babelSynset);
-                for(String info : infos)
-                {
-                    Word word = Word.fromString(info);
-                    if (wordToSynsets.containsKey(word)) wordToSynsets.get(word).add(babelSynset);
-                    else wordToSynsets.put(word, new ArrayList<>(List.of(babelSynset)));
-                }
-            }
-        }
-        catch(IOException e) {e.printStackTrace();}
-    }
-
-    private void loadAllLemmas()
-    {
-        try(BufferedReader br = Files.newBufferedReader(BabelPath.LEMMATIZATION_FILE_PATH.getPath()))
-        {
-            while (br.ready())
-            {
-                String[] line = br.readLine().split("\t");
-                wordToLemma.merge(Word.fromString(line[0].toLowerCase()),line[1].toLowerCase(),(v1,v2)->v1);
-                lemmas.add(line[1].toLowerCase());
-            }
-        }catch (IOException e){e.printStackTrace();}
-    }
-
-    private void parseGlosses()
-    {
-        try(Stream<String> stream = Files.lines(BabelPath.GLOSSES_FILE_PATH.getPath()))
-        {
-                    stream.map(l->new ArrayList<>(List.of(l.split("\t"))))
-                            .filter(l-> l.get(0).startsWith("bn:"))
-                            .forEach(l->getSynset(l.remove(0)).addGlosses(l));
-        }
-        catch (IOException e) {e.printStackTrace(); }
-    }
-
-    private void parseRelations()
-    {
-        try(Stream<String> stream = Files.lines(BabelPath.RELATIONS_FILE_PATH.getPath()))
-        {
-            stream.map(line->line.split("\t"))
-                    //.filter(rel->!rel[1].equals(rel[0]))
-                    .forEach(rel-> {
-                        getSynset(rel[0]).addRelation(rel[2], getSynset(rel[1]));
-                        if(rel[2].equals("is-a"))
-                            getSynset(rel[1]).addRelation("has-kind2", getSynset(rel[0]));
-                        if(rel[2].equals("has-kind"))
-                            getSynset(rel[0]).addRelation("has-kind2", getSynset(rel[1]));
-                    });
-        }
-        catch (IOException e) {e.printStackTrace(); }
-    }
 
     public Set<Synset> getRoots()
     {
@@ -270,7 +265,6 @@ public class MiniBabelNet implements Iterable<Synset>
                 }
             }
         }
-
         return -1;
     }
 

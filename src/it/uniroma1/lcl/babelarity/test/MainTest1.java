@@ -220,7 +220,7 @@ public class MainTest1 {
                 new Pair<>("car","bus"),
                 new Pair<>("bike","dog"));
         try {
-            BabelLexicalSimilarityAdvanced bl = new BabelLexicalSimilarityAdvanced(b);
+            BabelLexicalSimilarityAdvanced bl = new BabelLexicalSimilarityAdvanced();
             for(Pair<String,String> p : testString)
             {
                 String w1 = p.getKey();

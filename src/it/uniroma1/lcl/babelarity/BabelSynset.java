@@ -89,7 +89,6 @@ public class BabelSynset implements Synset
                 .filter(e->!e.getKey().equals("has-kind2"))
                 .flatMap(e->e.getValue().stream().map(v->v.getID()+"_"+e.getKey()))
                 .collect(joining(";"));
-//        return id+"\t"+lems;
         return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;
     }
 

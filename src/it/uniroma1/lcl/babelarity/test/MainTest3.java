@@ -147,7 +147,7 @@ public class MainTest3
                                                 new Pair<>(paths[10], paths[1]), //Java_virtual_machine & java_programming
                                                 new Pair<>(paths[9], paths[1])); //European_Union_law & java_programming-
 
-        BabelDocumentSimilarityAdvanced ba = new BabelDocumentSimilarityAdvanced(mb);
+        BabelDocumentSimilarityAdvanced ba = new BabelDocumentSimilarityAdvanced();
 
         for(Pair<String,String> p: tests)
         {

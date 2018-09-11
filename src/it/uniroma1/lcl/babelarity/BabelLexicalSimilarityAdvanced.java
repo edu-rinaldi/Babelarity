@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
 {
@@ -22,15 +24,15 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     private Set<String> sw;
     private MiniBabelNet miniBabelNet;
 
-    public BabelLexicalSimilarityAdvanced(MiniBabelNet miniBabelNet)
+    public BabelLexicalSimilarityAdvanced()
     {
-        this("resources/corpus/", miniBabelNet);
+        this("resources/corpus/");
     }
 
-    public BabelLexicalSimilarityAdvanced(String corpusPath, MiniBabelNet miniBabelNet)
+    public BabelLexicalSimilarityAdvanced(String corpusPath)
     {
         this.corpusPath = corpusPath;
-        this.miniBabelNet = miniBabelNet;
+        this.miniBabelNet = MiniBabelNet.getInstance();
 
         System.out.println("Caricamento stopwords");
         sw = new StopWords().toSet();
@@ -42,10 +44,10 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
         indexMap = getIndexMap();
 
         System.out.println("Calcolo cooccorenze");
-        calculateCoOccurences();
+        coOcc = calculateCoOccurences();
 
         System.out.println("calcolo pmi");
-        calculatePMI();
+        pmi = calculatePMI();
     }
 
     private String checkString(String s) throws LemmaNotFoundException {
@@ -60,19 +62,13 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
 
     private List<List<String>> getDocumentsFiltered()
     {
-        if(docList==null) docList = createDocumentsFilteredList();
-        return docList;
-    }
-
-    private List<List<String>> createDocumentsFilteredList()
-    {
         occ = new HashMap<>();
         List<List<String>> documents = new ArrayList<>();
         File corpus = new File(corpusPath);
         try
         {
             if(corpus.exists() && corpus.canRead())
-                for(File f : corpus.listFiles())
+                for(File f : Objects.requireNonNull(corpus.listFiles()))
                 {
                     //read text and filter it
                     String txt = new String(Files.readAllBytes(f.toPath())).replaceAll("\\W"," ");
@@ -98,7 +94,7 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
         return documents;
     }
 
-    private HashMap<String, Integer> createIndexMap()
+    private HashMap<String,Integer> getIndexMap()
     {
         int id = 0;
         v = new ArrayList<>();
@@ -113,65 +109,76 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
         return indexMap;
     }
 
-    private HashMap<String,Integer> getIndexMap()
+    private short[][] calculateCoOccurences()
     {
-        if(indexMap == null) indexMap = createIndexMap();
-        System.out.println(indexMap.size());
-        return indexMap;
-    }
-
-    private void calculateCoOccurences()
-    {
-        coOcc = new short[indexMap.size()][indexMap.size()];
+        short[][] coOccurances = new short[indexMap.size()][indexMap.size()];
+        HashSet<String> counted = new HashSet<>();
         for(int i=0; i<docList.size();i++)
-            for(int j=0; j<docList.get(i).size(); j++)
+            for(String w1: docList.get(i))
             {
-                String w = docList.get(i).get(j);
-                int i1 = indexMap.get(w);
-                for(int k=0; k<docList.get(i).size(); k++)
+                counted.add(w1);
+                int i1 = indexMap.get(w1);
+                for(String w2: docList.get(i))
                 {
-                    String w2 = docList.get(i).get(k);
-                    if(j!=k) coOcc[i1][indexMap.get(w2)]+=1;
+                    if(counted.contains(w2)) continue;
+                    int i2 = indexMap.get(w2);
+                    coOccurances[Math.min(i1,i2)][Math.max(i1,i2)]+=1;
                 }
             }
-
+        return coOccurances;
     }
 
-    private void calculatePMI()
+    private float[][] calculatePMI()
     {
         int numDocuments = docList.size();
+
         docList = null;
-        pmi = new float[coOcc.length][coOcc.length];
+
+        float[][] pmi = new float[coOcc.length][coOcc.length];
+
+        HashSet<Integer> counted = new HashSet<>();
+
         for(int n=0; n<v.size();n++)
+        {
             for(int k=0; k<v.size(); k++)
             {
-                int i = indexMap.get(v.get(n));
-                int j = indexMap.get(v.get(k));
+                if(counted.contains(k)) continue;
+                int i = Math.min(indexMap.get(v.get(n)), indexMap.get(v.get(k)));
+                int j = Math.max(indexMap.get(v.get(k)), indexMap.get(v.get(n)));
                 float pxy = i==j ? occ.get(v.get(n)) : coOcc[i][j];
 
                 pmi[i][j] = Math.max((float)Math.log((pxy/numDocuments)/
                         (((float)occ.get(v.get(n))/numDocuments)*((float)occ.get(v.get(k))/numDocuments))), 0);
             }
+            counted.add(n);
+        }
         coOcc = null;
+        return pmi;
     }
 
 
-    private double cosineSimilarity(String s1, String s2)
+    private double stringSimilarity(String s1, String s2)
     {
         int indexW1 = indexMap.get(s1);
         int indexW2 = indexMap.get(s2);
+
+        return cosineSimilarity(pmi[indexW1], pmi[indexW2]);
+    }
+
+    private double cosineSimilarity(float[] v1, float[] v2)
+    {
         double numerator = 0;
         double sqrt1 = 0;
         double sqrt2 = 0;
-        for(int i=0; i<pmi.length; i++)
+
+        for(int i=0; i<v1.length; i++)
         {
-            double val1 = pmi[i][indexW1];
-            double val2 = pmi[i][indexW2];
+            double val1 = v1[i];
+            double val2 = v2[i];
 
             numerator += val1*val2;
             sqrt1 += val1*val1;
             sqrt2 += val2*val2;
-
         }
         sqrt1 = Math.sqrt(sqrt1);
         sqrt2 = Math.sqrt(sqrt2);
@@ -184,7 +191,7 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     {
         String wo1 = checkString(w1.toString());
         String wo2 = checkString(w2.toString());
-        return wo1.equals(wo2)? 1 : cosineSimilarity(wo1,wo2);
+        return wo1.equals(wo2)? 1 : stringSimilarity(wo1,wo2);
     }
 
 }
