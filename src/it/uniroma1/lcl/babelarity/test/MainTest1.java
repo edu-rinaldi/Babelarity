@@ -192,11 +192,8 @@ public class MainTest1
 */
 package it.uniroma1.lcl.babelarity.test;
 
-
-import it.uniroma1.lcl.babelarity.BabelLexicalSimilarityAdvanced;
 import it.uniroma1.lcl.babelarity.MiniBabelNet;
 import it.uniroma1.lcl.babelarity.Word;
-import it.uniroma1.lcl.babelarity.exception.LemmaNotFoundException;
 import javafx.util.Pair;
 
 import java.util.List;

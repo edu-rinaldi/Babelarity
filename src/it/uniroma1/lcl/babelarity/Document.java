@@ -2,6 +2,7 @@ package it.uniroma1.lcl.babelarity;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -45,4 +46,16 @@ public class Document implements LinguisticObject, Serializable
     {
         return getWords(Set.of());
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj==this) return true;
+        if(obj==null || this.getClass()!=obj.getClass()) return false;
+        Document d = (Document) obj;
+        return this.id.equals(d.id);
+    }
+
+    @Override
+    public int hashCode() {return id.hashCode();}
 }

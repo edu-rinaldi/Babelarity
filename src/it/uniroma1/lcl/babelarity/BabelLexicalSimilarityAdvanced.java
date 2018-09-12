@@ -15,7 +15,6 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
 {
 
     private HashMap<String, Integer> indexMap;
-    private List<String> v;
     private HashMap<String, Integer> occ;
     private List<List<String>> docList;
     private short[][] coOcc;
@@ -34,19 +33,11 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
         this.corpusPath = corpusPath;
         this.miniBabelNet = MiniBabelNet.getInstance();
 
-        System.out.println("Caricamento stopwords");
         sw = new StopWords().toSet();
 
-        System.out.println("Caricamento docs");
         docList = getDocumentsFiltered();
-
-        System.out.println("Caricamento indexmap");
         indexMap = getIndexMap();
-
-        System.out.println("Calcolo cooccorenze");
         coOcc = calculateCoOccurences();
-
-        System.out.println("calcolo pmi");
         pmi = calculatePMI();
     }
 
@@ -64,14 +55,14 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     {
         occ = new HashMap<>();
         List<List<String>> documents = new ArrayList<>();
-        File corpus = new File(corpusPath);
+        File[] corpus = new File(corpusPath).listFiles();
         try
         {
-            if(corpus.exists() && corpus.canRead())
-                for(File f : corpus.listFiles())
+            if(corpus!=null)
+                for(int i=0; i<corpus.length;i++)
                 {
                     //read text and filter it
-                    String txt = new String(Files.readAllBytes(f.toPath())).replaceAll("\\W"," ");
+                    String txt = new String(Files.readAllBytes(corpus[i].toPath())).replaceAll("\\W"," ");
 
                     //split into words
                     documents.add(Arrays.stream(txt.split(" "))
@@ -97,15 +88,11 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     private HashMap<String,Integer> getIndexMap()
     {
         int id = 0;
-        v = new ArrayList<>();
         HashMap<String, Integer> indexMap = new HashMap<>();
         for(int i=0; i<docList.size(); i++)
             for (int j=0; j<docList.get(i).size(); j++)
                 if(!indexMap.containsKey(docList.get(i).get(j)))
-                {
                     indexMap.put(docList.get(i).get(j), id++);
-                    v.add(docList.get(i).get(j));
-                }
         return indexMap;
     }
 
@@ -136,21 +123,20 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
 
         float[][] pmi = new float[coOcc.length][coOcc.length];
 
-        HashSet<Integer> counted = new HashSet<>();
-
-        for(int n=0; n<v.size();n++)
+        HashSet<String> counted = new HashSet<>();
+        List<String> v = new ArrayList<>(indexMap.keySet());
+        for(String w1: v)
         {
-            for(int k=0; k<v.size(); k++)
+            for(String w2: v)
             {
-                if(counted.contains(k)) continue;
-                int i = Math.min(indexMap.get(v.get(n)), indexMap.get(v.get(k)));
-                int j = Math.max(indexMap.get(v.get(k)), indexMap.get(v.get(n)));
-                float pxy = i==j ? occ.get(v.get(n)) : coOcc[i][j];
-
+                if(counted.contains(w2)) continue;
+                int i = Math.min(indexMap.get(w1), indexMap.get(w2));
+                int j = Math.max(indexMap.get(w1), indexMap.get(w2));
+                float pxy = i==j ? occ.get(w1) : coOcc[i][j];
                 pmi[i][j] = Math.max((float)Math.log((pxy/numDocuments)/
-                        (((float)occ.get(v.get(n))/numDocuments)*((float)occ.get(v.get(k))/numDocuments))), 0);
+                        (((float)occ.get(w1)/numDocuments)*((float)occ.get(w2)/numDocuments))), 0);
             }
-            counted.add(n);
+            counted.add(w1);
         }
         coOcc = null;
         return pmi;

@@ -73,11 +73,11 @@ public class BabelSynset implements Synset
         if(obj==this) return true;
         if(obj==null || obj.getClass() != this.getClass()) return false;
         BabelSynset b = (BabelSynset)obj;
-        return this.getID().equals(b.getID());
+        return this.getID().equals(b.getID()) && this.pos==b.pos;
     }
 
     @Override
-    public int hashCode() {return getID().hashCode(); }
+    public int hashCode() {return Objects.hash(id,pos); }
 
     @Override
     public String toString()

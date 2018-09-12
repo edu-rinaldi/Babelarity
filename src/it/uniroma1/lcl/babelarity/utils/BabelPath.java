@@ -20,4 +20,5 @@ public enum BabelPath
     public Path getPath() {
         return path;
     }
+    public String getPathString(){return path.toString(); }
 }
