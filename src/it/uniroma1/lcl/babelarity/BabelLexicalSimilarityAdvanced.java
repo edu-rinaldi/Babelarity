@@ -68,7 +68,7 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
         try
         {
             if(corpus.exists() && corpus.canRead())
-                for(File f : Objects.requireNonNull(corpus.listFiles()))
+                for(File f : corpus.listFiles())
                 {
                     //read text and filter it
                     String txt = new String(Files.readAllBytes(f.toPath())).replaceAll("\\W"," ");

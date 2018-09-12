@@ -111,7 +111,6 @@ public class MiniBabelNet implements Iterable<Synset>
         try(Stream<String> stream = Files.lines(BabelPath.RELATIONS_FILE_PATH.getPath()))
         {
             stream.map(line->line.split("\t"))
-                    //.filter(rel->!rel[1].equals(rel[0]))
                     .forEach(rel-> {
                         getSynset(rel[0]).addRelation(rel[2], getSynset(rel[1]));
                         if(rel[2].equals("is-a"))

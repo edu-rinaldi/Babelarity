@@ -84,6 +84,27 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         return v;
     }
 
+    private double cosineSimilarity(int[] v1, int[] v2)
+    {
+        double numerator = 0;
+        double sqrt1 = 0;
+        double sqrt2 = 0;
+        for(int i=0; i<v1.length; i++)
+        {
+            double val1 = v1[i];
+            double val2 = v2[i];
+
+            numerator += val1*val2;
+            sqrt1 += val1*val1;
+            sqrt2 += val2*val2;
+        }
+
+        sqrt1 = Math.sqrt(sqrt1);
+        sqrt2 = Math.sqrt(sqrt2);
+
+        return numerator/(sqrt1*sqrt2);
+    }
+
     @Override
     public double compute(LinguisticObject o1, LinguisticObject o2) throws NotADocumentException
     {
@@ -111,25 +132,6 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         int[] v2 = randomWalk(g2, indexMap);
 
         //cosine similarity
-        //todo: fare funzione generale
-        double numerator = 0;
-        double sqrt1 = 0;
-        double sqrt2 = 0;
-        for(int i=0; i<v1.length; i++)
-        {
-            double val1 = v1[i];
-            double val2 = v2[i];
-
-            numerator += val1*val2;
-            sqrt1 += val1*val1;
-            sqrt2 += val2*val2;
-        }
-
-        sqrt1 = Math.sqrt(sqrt1);
-        sqrt2 = Math.sqrt(sqrt2);
-
-        double result = numerator/(sqrt1*sqrt2);
-
-        return result;
+        return cosineSimilarity(v1, v2);
     }
 }
