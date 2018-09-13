@@ -13,30 +13,25 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
     private int maxIteration;
     private MiniBabelNet miniBabelNet;
 
+    private Map<Document, Map<Synset, Set<Synset>>> documentsGraph;
+
     public BabelDocumentSimilarityAdvanced(int maxIteration)
     {
         this.stopWords = new StopWords().toSet();
         this.restartProb = 0.1;
         this.maxIteration = maxIteration;
         this.miniBabelNet = MiniBabelNet.getInstance();
+        documentsGraph =  new HashMap<>();
     }
 
     public BabelDocumentSimilarityAdvanced() {this(100000); }
 
     private Set<Synset> grandChilds(Synset s)
     {
-        //Inizializzo i visitati con i figli/vicini di s
-        Set<Synset> v = new HashSet<>(s.getRelations());
-
-        //per ogni figlio aggiungo ai visitati i loro figli (nipoti di s)
-        for(Synset s2: s.getRelations())
-            v.addAll(s2.getRelations());
-
-        //restituisco i vicini
-        return v;
+        return s.getRelations().stream().flatMap(s2->s2.getRelations().stream()).collect(Collectors.toSet());
     }
 
-    private HashMap<Synset, Set<Synset>> getDocGraph(Set<Synset> docSynsets)
+    private HashMap<Synset, Set<Synset>> createDocGraph(Set<Synset> docSynsets)
     {
 
         //inizializzo mappa del grafo
@@ -105,6 +100,14 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         return numerator/(sqrt1*sqrt2);
     }
 
+    public Map<Synset, Set<Synset>> getDocumentGraph(Document d)
+    {
+        if(documentsGraph.containsKey(d)) return documentsGraph.get(d);
+        Set<Synset> synsetsDoc1 = new HashSet<>(miniBabelNet.getSynsets(d.getWords(stopWords)));
+        documentsGraph.put(d, createDocGraph(synsetsDoc1));
+        return documentsGraph.get(d);
+    }
+
     @Override
     public double compute(LinguisticObject o1, LinguisticObject o2) throws NotADocumentException
     {
@@ -113,13 +116,11 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         Document d1 = (Document)o1;
         Document d2 = (Document)o2;
 
-        Set<Synset> synsetsDoc1 = new HashSet<>(miniBabelNet.getSynsets(d1.getWords(stopWords)));
-        Set<Synset> synsetsDoc2 = new HashSet<>(miniBabelNet.getSynsets(d2.getWords(stopWords)));
-        HashMap<Synset, Set<Synset>> g1 = getDocGraph(synsetsDoc1);
-        HashMap<Synset, Set<Synset>> g2 = getDocGraph(synsetsDoc2);
+        Map<Synset, Set<Synset>> g1 = getDocumentGraph(d1);
+        Map<Synset, Set<Synset>> g2 = getDocumentGraph(d2);
 
-        Set<Synset> graphsNodes = g1.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
-        graphsNodes.addAll(g2.values().stream().flatMap(Collection::stream).collect(Collectors.toSet()));
+        Set<Synset> graphsNodes = new HashSet<>(g1.keySet());
+        graphsNodes.addAll(g2.keySet());
 
         //creo una mappa di indici per i due vettori che mi serviranno dopo
         Map<Synset, Integer> indexMap = new HashMap<>();

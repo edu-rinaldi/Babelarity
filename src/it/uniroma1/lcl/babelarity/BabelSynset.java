@@ -13,6 +13,10 @@ public class BabelSynset implements Synset
     private List<String> glosses;
     private Map<String, List<Synset>> relations;
 
+    public BabelSynset(String id)
+    {
+        this(id, new ArrayList<>());
+    }
 
     public BabelSynset(String id, List<String> words)
     {
@@ -22,6 +26,7 @@ public class BabelSynset implements Synset
         this.glosses = new ArrayList<>();
         this.relations = new HashMap<>();
     }
+
 
     @Override
     public String getID() {return id; }
@@ -36,7 +41,7 @@ public class BabelSynset implements Synset
     public Set<Synset> getRelations(String typeRel)
     {
         List<Synset> r = relations.get(typeRel);
-        return r!=null ? new HashSet<>(r): new HashSet<>();
+        return r!=null ? new HashSet<>(r) : new HashSet<>();
     }
 
     @Override
@@ -51,14 +56,14 @@ public class BabelSynset implements Synset
     @Override
     public Set<Synset> getRelations()
     {
-        return relations.entrySet().stream().flatMap(e->e.getValue().stream())
-                .collect(toSet());
+        return getRelations("allType");
     }
 
     @Override
     public void addRelation(String typeRel, Synset node)
     {
         relations.merge(typeRel, new ArrayList<>(List.of(node)), (v1,v2)-> { v1.addAll(v2); return v1; } );
+        relations.merge("allType", new ArrayList<>(List.of(node)), (v1,v2)-> { v1.addAll(v2); return v1; });
     }
 
     @Override
@@ -68,16 +73,23 @@ public class BabelSynset implements Synset
     public void addGlosses(Collection<String> glosses) {this.glosses.addAll(glosses); }
 
     @Override
+    public void addLemma(String lemma) {words.add(lemma); }
+
+    @Override
+    public void addLemmas(Collection<String> lemmas) {words.addAll(lemmas); }
+
+
+    @Override
     public boolean equals(Object obj)
     {
         if(obj==this) return true;
         if(obj==null || obj.getClass() != this.getClass()) return false;
         BabelSynset b = (BabelSynset)obj;
-        return this.getID().equals(b.getID()) && this.pos==b.pos;
+        return this.getID().equals(b.getID()) && this.pos==b.pos && this.words.equals(b.words);
     }
 
     @Override
-    public int hashCode() {return Objects.hash(id,pos); }
+    public int hashCode() {return Objects.hash(id,pos, words); }
 
     @Override
     public String toString()
@@ -86,7 +98,7 @@ public class BabelSynset implements Synset
         String glos = String.join(";", glosses);
         String rels = relations.entrySet()
                 .stream()
-                .filter(e->!e.getKey().equals("has-kind2"))
+                .filter(e->!e.getKey().equals("has-kind2") && !e.getKey().equals("allType"))
                 .flatMap(e->e.getValue().stream().map(v->v.getID()+"_"+e.getKey()))
                 .collect(joining(";"));
         return id+"\t"+pos+"\t"+lems+"\t"+glos+"\t"+rels;

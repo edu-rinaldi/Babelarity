@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f75d4ad-c395-43e1-b04c-494f3448e841" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest4.java" afterDir="false" />
+    <list default="true" id="8f75d4ad-c395-43e1-b04c-494f3448e841" name="Default Changelist" comment="added getLemma">
+      <change afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotALinguisticObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelDocumentSimilarityAdvanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelDocumentSimilarityAdvanced.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSemanticSimilarityAdvanced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSemanticSimilarityAdvanced.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Document.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Document.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/utils/BabelPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/utils/BabelPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/PartOfSpeech.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/PartOfSpeech.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/SimilarityStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/SimilarityStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Synset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Synset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/LemmaNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NoLemmaFormException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotADocumentException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotADocumentException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotASynsetException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotASynsetException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest4.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,6 +28,11 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Babelarity$BabelarityTest_testDocumentSimilarity1.ic" NAME="BabelarityTest.testDocumentSimilarity1 Coverage Results" MODIFIED="1536857311757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>it.uniroma1.lcl.babelarity.test.*</FILTER>
+    </SUITE>
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-939740909">
@@ -56,74 +72,39 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1246595077">
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="51" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="51" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="20" />
+          <entry key="java" value="9937" />
+          <entry key="txt" value="14" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="9937" />
+          <entry key="PLAIN_TEXT" value="34" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2970">
-              <caret line="144" column="18" selection-start-line="144" selection-start-column="18" selection-end-line="144" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1276">
-              <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Document.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="658">
-              <caret line="59" column="49" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="79" column="53" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1056">
-              <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest4.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
+            <state relative-caret-position="211">
+              <caret line="218" column="4" selection-start-line="218" selection-start-column="4" selection-end-line="218" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -140,24 +121,38 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src</dir>
+    </dirStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest2.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSemanticSimilarityAdvanced.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest3.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelDocumentSimilarityAdvanced.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest1.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/utils/BabelPath.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest4.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest2.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest4.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Document.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelDocumentSimilarityAdvanced.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSemanticSimilarityAdvanced.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Synset.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotALinguisticObject.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NoLemmaFormException.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotADocumentException.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotASynsetException.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/SimilarityStrategy.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/PartOfSpeech.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" />
       </list>
     </option>
   </component>
@@ -167,18 +162,17 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="974" />
-    <option name="height" value="527" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1920" />
+    <option name="height" value="991" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -190,12 +184,6 @@
               <item name="Babelarity" type="b2602c69:ProjectViewProjectNode" />
               <item name="Babelarity" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Babelarity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Babelarity" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="documents" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Babelarity" type="b2602c69:ProjectViewProjectNode" />
@@ -212,8 +200,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -222,9 +210,128 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536744192146" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536867845621" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelDocumentSimilarityAdvanced.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Document.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest1.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/utils/BabelPath.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest4.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -239,59 +346,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.BabelarityTest">
-    <configuration name="MainTest1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.uniroma1.lcl.babelarity.test.MainTest1" />
-      <module name="Babelarity" />
-      <option name="VM_PARAMETERS" value="-Xmx4g" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.uniroma1.lcl.babelarity.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MainTest2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.uniroma1.lcl.babelarity.test.MainTest2" />
-      <module name="Babelarity" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.uniroma1.lcl.babelarity.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MainTest3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.uniroma1.lcl.babelarity.test.MainTest3" />
-      <module name="Babelarity" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.uniroma1.lcl.babelarity.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MainTest4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.uniroma1.lcl.babelarity.test.MainTest4" />
-      <module name="Babelarity" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.uniroma1.lcl.babelarity.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="BabelarityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Babelarity" />
       <extension name="coverage">
@@ -309,20 +363,90 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BabelarityTest.testDocumentSimilarity1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Babelarity" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.uniroma1.lcl.babelarity.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.uniroma1.lcl.babelarity.test" />
+      <option name="MAIN_CLASS_NAME" value="it.uniroma1.lcl.babelarity.test.BabelarityTest" />
+      <option name="METHOD_NAME" value="testDocumentSimilarity1" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea -Xmx4g" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BabelarityTest.testMiniBabelNet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Babelarity" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.uniroma1.lcl.babelarity.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.uniroma1.lcl.babelarity.test" />
+      <option name="MAIN_CLASS_NAME" value="it.uniroma1.lcl.babelarity.test.BabelarityTest" />
+      <option name="METHOD_NAME" value="testMiniBabelNet" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea -Xmx4g" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BabelarityTest.testSemanticSimilarity2 (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Babelarity" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.uniroma1.lcl.babelarity.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.uniroma1.lcl.babelarity.test" />
+      <option name="MAIN_CLASS_NAME" value="it.uniroma1.lcl.babelarity.test.BabelarityTest" />
+      <option name="METHOD_NAME" value="testSemanticSimilarity2" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea -Xmx4g" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BabelarityTest.testSemanticSimilarity2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Babelarity" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.uniroma1.lcl.babelarity.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.uniroma1.lcl.babelarity.test" />
+      <option name="MAIN_CLASS_NAME" value="it.uniroma1.lcl.babelarity.test.BabelarityTest" />
+      <option name="METHOD_NAME" value="testSemanticSimilarity2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="Application.MainTest2" />
-      <item itemvalue="Application.MainTest3" />
-      <item itemvalue="Application.MainTest1" />
-      <item itemvalue="Application.MainTest4" />
       <item itemvalue="JUnit.BabelarityTest" />
+      <item itemvalue="JUnit.BabelarityTest.testSemanticSimilarity2" />
+      <item itemvalue="JUnit.BabelarityTest.testDocumentSimilarity1" />
+      <item itemvalue="JUnit.BabelarityTest.testSemanticSimilarity2 (1)" />
+      <item itemvalue="JUnit.BabelarityTest.testMiniBabelNet" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.BabelarityTest" />
-        <item itemvalue="Application.MainTest4" />
-        <item itemvalue="Application.MainTest1" />
-        <item itemvalue="Application.MainTest3" />
-        <item itemvalue="Application.MainTest2" />
+        <item itemvalue="JUnit.BabelarityTest.testMiniBabelNet" />
+        <item itemvalue="JUnit.BabelarityTest.testSemanticSimilarity2 (1)" />
+        <item itemvalue="JUnit.BabelarityTest.testDocumentSimilarity1" />
+        <item itemvalue="JUnit.BabelarityTest.testSemanticSimilarity2" />
       </list>
     </recent_temporary>
   </component>
@@ -355,31 +479,50 @@
       <option name="project" value="LOCAL" />
       <updated>1536735940752</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added getLemma">
+      <created>1536832810406</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1536832810406</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BabelarityTest - 2018.09.12 at 09h 46m 58s.xml">
+    <history-entry file="BabelarityTest - 2018.09.13 at 18h 48m 56s.xml">
       <configuration name="BabelarityTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BabelarityTest - 2018.09.12 at 10h 28m 08s.xml">
+    <history-entry file="BabelarityTest - 2018.09.13 at 18h 52m 29s.xml">
       <configuration name="BabelarityTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BabelarityTest - 2018.09.12 at 10h 37m 35s.xml">
+    <history-entry file="BabelarityTest - 2018.09.13 at 19h 00m 11s.xml">
       <configuration name="BabelarityTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BabelarityTest - 2018.09.12 at 10h 45m 42s.xml">
+    <history-entry file="BabelarityTest_testSemanticSimilarity2_(1) - 2018.09.13 at 19h 02m 07s.xml">
+      <configuration name="BabelarityTest.testSemanticSimilarity2 (1)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BabelarityTest - 2018.09.13 at 19h 03m 22s.xml">
       <configuration name="BabelarityTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BabelarityTest - 2018.09.12 at 11h 00m 21s.xml">
+    <history-entry file="BabelarityTest - 2018.09.13 at 19h 03m 54s.xml">
       <configuration name="BabelarityTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BabelarityTest - 2018.09.12 at 11h 15m 05s.xml">
+    <history-entry file="BabelarityTest - 2018.09.13 at 19h 11m 23s.xml">
+      <configuration name="BabelarityTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BabelarityTest_testMiniBabelNet - 2018.09.13 at 19h 12m 42s.xml">
+      <configuration name="BabelarityTest.testMiniBabelNet" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BabelarityTest - 2018.09.13 at 20h 03m 15s.xml">
+      <configuration name="BabelarityTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BabelarityTest - 2018.09.13 at 20h 18m 39s.xml">
       <configuration name="BabelarityTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15951000" />
+    <option name="totallyTimeSpent" value="48688000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -391,9 +534,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="23" width="1920" height="991" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13059701" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21831736" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -402,16 +546,17 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.329718" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3003337" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.329718" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32925472" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32925472" />
+      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.32960597" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -422,6 +567,36 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Maven Projects" order="8" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17039403" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32925472" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.329718" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32925472" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32925472" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -432,23 +607,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="some fix" />
     <MESSAGE value="Added cosineSimilarity function to BabelDocumentSimilarity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added cosineSimilarity function to BabelDocumentSimilarity" />
+    <MESSAGE value="added getLemma" />
+    <option name="LAST_COMMIT_MESSAGE" value="added getLemma" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/regex/Matcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4423">
-          <caret line="1174" column="18" selection-start-line="1174" selection-start-column="18" selection-end-line="1174" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="2124" column="58" selection-start-line="2124" selection-start-column="58" selection-end-line="2124" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/regex/Matcher.java" />
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/lang/String.java" />
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/LinguisticObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -463,27 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3718">
-          <caret line="175" column="8" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelDocumentSimilarityAdvanced.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2860">
-          <caret line="134" column="40" selection-start-line="134" selection-start-column="40" selection-end-line="134" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSemanticSimilarityAdvanced.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1406">
-          <caret line="117" column="39" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest1.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -494,13 +637,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/io/File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4760">
-          <caret line="1125" column="20" selection-start-line="1125" selection-start-column="20" selection-end-line="1125" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/io/File.java" />
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/utils/BabelPath.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -508,16 +645,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/storedDocs/00014377.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/Iterator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-242">
-          <caret line="57" column="17" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/storedDocs/00014377.txt" />
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/Iterator.java" />
     <entry file="file://$PROJECT_DIR$/resources/documents/C_programming_language.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -525,37 +654,107 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/storedDocs/00014377.ser">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.java">
+    <entry file="file://$PROJECT_DIR$/resources/storedDocs/00014377.ser" />
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelDocumentSimilarity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1056">
-          <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
+        <state relative-caret-position="44">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSemanticSimilarity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/HashSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="117" column="11" selection-start-line="117" selection-start-column="11" selection-end-line="117" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-401">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/PriorityQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1787">
+          <caret line="163" column="11" selection-start-line="163" selection-start-column="11" selection-end-line="163" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/MainTest4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
+        <state relative-caret-position="308">
+          <caret line="14" column="25" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/HashMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2970">
-          <caret line="144" column="18" selection-start-line="144" selection-start-column="18" selection-end-line="144" selection-end-column="18" />
+        <state relative-caret-position="-1231">
+          <caret line="1268" column="13" selection-start-line="1268" selection-start-column="13" selection-end-line="1268" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/CorpusManager.java">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelDocumentSimilarityAdvanced.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="-134">
+          <caret line="107" column="36" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Document.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-284">
+          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSemanticSimilarityAdvanced.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1540">
+          <caret line="70" column="50" selection-start-line="70" selection-start-column="50" selection-end-line="70" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -564,8 +763,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1276">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+        <state relative-caret-position="149">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1100">
+          <caret line="53" column="91" selection-start-line="53" selection-start-column="91" selection-end-line="53" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -574,29 +783,73 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Synset.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Word.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-310">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/Document.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="59" column="49" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
+        <state relative-caret-position="272">
+          <caret line="87" column="69" selection-start-line="87" selection-start-column="69" selection-end-line="87" selection-end-column="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/BabelSynset.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="79" column="53" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+        <state relative-caret-position="1452">
+          <caret line="78" column="76" selection-start-line="78" selection-start-column="76" selection-end-line="78" selection-end-column="76" />
+          <folding>
+            <element signature="e#392#393#0" expanded="true" />
+            <element signature="e#411#412#0" expanded="true" />
+            <element signature="e#1326#1327#0" expanded="true" />
+            <element signature="e#1372#1373#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/SimilarityStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="17" column="57" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotALinguisticObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="51" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NoLemmaFormException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="62" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotADocumentException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="63" selection-start-line="2" selection-start-column="63" selection-end-line="2" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/exception/NotASynsetException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="61" selection-start-line="2" selection-start-column="61" selection-end-line="2" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/PartOfSpeech.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="24" column="74" selection-start-line="24" selection-start-column="74" selection-end-line="24" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="218" column="4" selection-start-line="218" selection-start-column="4" selection-end-line="218" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

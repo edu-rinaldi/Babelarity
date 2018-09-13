@@ -1,6 +1,6 @@
 package it.uniroma1.lcl.babelarity;
 
-import it.uniroma1.lcl.babelarity.exception.LemmaNotFoundException;
+import it.uniroma1.lcl.babelarity.exception.NoLemmaFormException;
 import it.uniroma1.lcl.babelarity.utils.StopWords;
 
 import java.io.File;
@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
 {
@@ -41,11 +39,11 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
         pmi = calculatePMI();
     }
 
-    private String checkString(String s) throws LemmaNotFoundException {
+    private String checkString(String s) throws NoLemmaFormException {
         if(miniBabelNet.getLemma(s)==null)
         {
             if(!miniBabelNet.isLemma(s))
-                throw new LemmaNotFoundException();
+                throw new NoLemmaFormException();
         }
         else { s = miniBabelNet.getLemma(s); }
         return s;
@@ -173,7 +171,7 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     }
 
     @Override
-    public double compute(LinguisticObject w1, LinguisticObject w2) throws LemmaNotFoundException
+    public double compute(LinguisticObject w1, LinguisticObject w2) throws NoLemmaFormException
     {
         String wo1 = checkString(w1.toString());
         String wo2 = checkString(w2.toString());

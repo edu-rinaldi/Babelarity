@@ -46,7 +46,6 @@ class BabelarityTest {
         assertEquals(id, "bn:00081546n");
         assertEquals(pos, "NOUN");
         assertTrue(glosse.length == 6);
-        System.out.println(relations.length);
         assertTrue(relations.length == 749);
         assertEquals(relations[2], "bn:00000239n_has-kind");
     }
@@ -141,7 +140,6 @@ class BabelarityTest {
 
     public void testSimilarityIdentity(LinguisticObject o1) {
         double sim0 = miniBabelNet.computeSimilarity(o1, o1);
-        System.out.println(sim0);
         assertTrue(Double.compare(sim0, 1.0) == 0);
     }
 
