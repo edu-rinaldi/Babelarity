@@ -17,7 +17,7 @@ public class MiniBabelNet implements Iterable<Synset>
     private static MiniBabelNet instance;
 
     private Map<String, List<Synset>> wordToSynsets;
-    private Map<String, String> wordToLemma;
+    private Map<String, List<String>> wordToLemma;
     private Set<String> lemmas;
     private Map<String, Synset> synsetMap;
 
@@ -32,7 +32,7 @@ public class MiniBabelNet implements Iterable<Synset>
         synsetMap = pkg.getKey();
         wordToSynsets = pkg.getValue();
 
-        Pair<Map<String,String>,Set<String>> pkg2 = parseLemmas();
+        Pair<Map<String,List<String>>,Set<String>> pkg2 = parseLemmas();
         wordToLemma = pkg2.getKey();
         lemmas = pkg2.getValue();
 
@@ -77,9 +77,9 @@ public class MiniBabelNet implements Iterable<Synset>
         return new Pair<>(synsetMap, wordToSynsets);
     }
 
-    private Pair<Map<String, String>, Set<String>> parseLemmas()
+    private Pair<Map<String, List<String>>, Set<String>> parseLemmas()
     {
-        Map<String, String> wordToLemma = new HashMap<>();
+        Map<String, List<String>> wordToLemma = new HashMap<>();
         Set<String> lemmas = new HashSet<>();
 
         try(BufferedReader br = Files.newBufferedReader(BabelPath.LEMMATIZATION_FILE_PATH.getPath()))
@@ -87,7 +87,9 @@ public class MiniBabelNet implements Iterable<Synset>
             while (br.ready())
             {
                 String[] line = br.readLine().split("\t");
-                wordToLemma.merge(line[0].toLowerCase(),line[1].toLowerCase(),(v1,v2)->v1);
+                wordToLemma.merge(line[0].toLowerCase(),
+                        new ArrayList<>(List.of(line[1].toLowerCase())),
+                        (v1,v2)->{v1.addAll(v2); return v1;});
                 lemmas.add(line[1].toLowerCase());
             }
         }
@@ -142,8 +144,16 @@ public class MiniBabelNet implements Iterable<Synset>
 
     public String getSynsetSummary(Synset s) { return s.toString(); }
 
-    public String getLemmas(String word) {return wordToLemma.get(word); }
-
+    public List<String> getLemmas(String word)
+    {
+        List<String> lemmas = wordToLemma.get(word);
+        return lemmas==null ? new ArrayList<>() : lemmas;
+    }
+    public String getLemma(String word)
+    {
+        List<String> lemmas = getLemmas(word);
+        return lemmas.isEmpty() ? null : lemmas.get(0);
+    }
     public boolean isLemma(String word) {return lemmas.contains(word); }
 
     public int size() {return synsetMap.size(); }

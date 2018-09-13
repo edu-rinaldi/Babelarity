@@ -42,12 +42,12 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
     }
 
     private String checkString(String s) throws LemmaNotFoundException {
-        if(miniBabelNet.getLemmas(s)==null)
+        if(miniBabelNet.getLemma(s)==null)
         {
             if(!miniBabelNet.isLemma(s))
                 throw new LemmaNotFoundException();
         }
-        else { s = miniBabelNet.getLemmas(s); }
+        else { s = miniBabelNet.getLemma(s); }
         return s;
     }
 
@@ -69,11 +69,11 @@ public class BabelLexicalSimilarityAdvanced implements BabelLexicalSimilarity
                             .filter(w->{
                                 String w1 = w.trim();
                                 //get only words that are not SW and have a lemma form
-                                return !sw.contains(w1) && (miniBabelNet.getLemmas(w1)!=null || miniBabelNet.isLemma(w1));
+                                return !sw.contains(w1) && (miniBabelNet.getLemma(w1)!=null || miniBabelNet.isLemma(w1));
                             })
                             .map(w->{
                                 //map into lemma and count single occurrence for each word
-                                String s = miniBabelNet.isLemma(w.trim()) ? w.trim() : miniBabelNet.getLemmas(w.trim());
+                                String s = miniBabelNet.isLemma(w.trim()) ? w.trim() : miniBabelNet.getLemma(w.trim());
                                 occ.merge(s,1,(v1,v2)->v1+v2);
                                 return s;
                             })
