@@ -77,13 +77,11 @@ public class MiniBabelNet implements Iterable<Synset>
                 //prendo ogni riga, la splitto per "\t"
                 List<String> infos = new ArrayList<>(List.of(br.readLine().toLowerCase().split("\t")));
 
+                //la prima info è il synset ID, il resto sono i concetti del Synset
                 Synset babelSynset = new BabelSynset(infos.remove(0), infos);
                 synsetMap.put(babelSynset.getID(), babelSynset);
                 for(String info : infos)
-                {
-                    if (wordToSynsets.containsKey(info)) wordToSynsets.get(info).add(babelSynset);
-                    else wordToSynsets.put(info, new ArrayList<>(List.of(babelSynset)));
-                }
+                    wordToSynsets.merge(info, new ArrayList<>(List.of(babelSynset)),(v1,v2)->{v1.addAll(v2); return v1;});
             }
         }
         catch(IOException e) {e.printStackTrace();}

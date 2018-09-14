@@ -1,4 +1,4 @@
-package it.uniroma1.lcl.babelarity.utils;
+package it.uniroma1.lcl.babelarity.utils.stopword;
 
 
 import java.io.BufferedReader;
@@ -36,7 +36,7 @@ public class StopWords
     /**
      * Costruttore di oggetti {@code StopWords} con riferimento di default ad un file.
      */
-    public StopWords() {this(Paths.get("resources/utils/english-stop-words-large.txt")); }
+    public StopWords() {this(Paths.get("src/it/uniroma1/lcl/babelarity/utils/stopword/english-stop-words-large.txt")); }
 
     /**
      * Metodo di utilità che indica se una certa stringa è una stop word.

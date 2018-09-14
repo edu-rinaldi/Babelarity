@@ -18,7 +18,7 @@ public class CorpusManager implements Iterable<Document>
     private static CorpusManager instance;
     private final Path STORAGE_PATH;
 
-    private CorpusManager(){ this.STORAGE_PATH = Paths.get("resources/storedDocs/");}
+    private CorpusManager(){ this.STORAGE_PATH = Paths.get("resources/documents/");}
 
     /**
      * Questo metodo ci consente di applicare il pattern Singleton

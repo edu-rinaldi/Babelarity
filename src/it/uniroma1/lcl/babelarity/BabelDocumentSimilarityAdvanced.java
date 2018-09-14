@@ -1,7 +1,7 @@
 package it.uniroma1.lcl.babelarity;
 
 import it.uniroma1.lcl.babelarity.exception.NotADocumentException;
-import it.uniroma1.lcl.babelarity.utils.StopWords;
+import it.uniroma1.lcl.babelarity.utils.stopword.StopWords;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package it.uniroma1.lcl.babelarity.test;
+package it.uniroma1.lcl.babelarity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import it.uniroma1.lcl.babelarity.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -140,8 +139,6 @@ class BabelarityTest {
 
     public void testSimilarityIdentity(LinguisticObject o1) {
         double sim0 = miniBabelNet.computeSimilarity(o1, o1);
-        System.out.println(o1.getClass());
-        System.out.println("sim identity "+sim0);
         assertTrue(Double.compare(sim0, 1.0) == 0);
     }
 
@@ -150,8 +147,7 @@ class BabelarityTest {
         double sim2 = miniBabelNet.computeSimilarity(o3, o4);
         double sim3 = miniBabelNet.computeSimilarity(o1, o3);
         double sim4 = miniBabelNet.computeSimilarity(o2, o4);
-        System.out.println(o1.getClass());
-        System.out.println("Sim1 "+sim1+"\nSim2 "+sim2+"\nSim3 "+sim3+"\nSim4 "+sim4);
+        System.out.println("sim1 "+sim1+"\nsim2 "+sim2+"\nsim3 "+sim3+"\nsim4 "+sim4);
         assertTrue(sim1 > sim3 && sim2 > sim4);
     }
 
