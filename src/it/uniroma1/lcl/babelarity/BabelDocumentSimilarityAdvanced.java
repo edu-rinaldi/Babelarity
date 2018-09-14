@@ -6,6 +6,15 @@ import it.uniroma1.lcl.babelarity.utils.StopWords;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static it.uniroma1.lcl.babelarity.utils.CosineSimilarity.cosineSimilarity;
+
+/**
+ * Questa classe è una implementazione di una metrica avanzata per il
+ * calcolo della similarità fra {@code Document}.
+ *
+ * Implementa l'interfaccia {@code BabelDocumentSimilarity} e quindi
+ * deve implementare il metodo {@code compute(LinguisticObject o1, LinguisticObject o2)}.
+ */
 public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity {
 
     private Set<String> stopWords;
@@ -15,6 +24,14 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
 
     private Map<Document, Map<Synset, Set<Synset>>> documentsGraph;
 
+    /**
+     * Un oggetto di questa classe può essere costruito a partire
+     * da un parametro che specifica il numero di iterazioni massime
+     * da far eseguire al metodo {@code randomWalk()}, più questo numero
+     * è alto e più la precisione dei risultati potrebbe aumentare.
+     * @param maxIteration Numero di iterazioni massime da far eseguire
+     *                     al metodo {@code randomWalk()}
+     */
     public BabelDocumentSimilarityAdvanced(int maxIteration)
     {
         this.stopWords = new StopWords().toSet();
@@ -24,19 +41,37 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         documentsGraph =  new HashMap<>();
     }
 
+    /**
+     * Se non viene specificato nessun parametro, il campo maxIteration,
+     * di default viene settato a {@code 100000}.
+     */
     public BabelDocumentSimilarityAdvanced() {this(100000); }
 
+    /**
+     * Questo metodo restituisce un {@code Set} contenente tutti i figli
+     * e nipoti di un {@code Synset} senza dover fare una visita BFS a distanza 2
+     * che richiederebbe molto più tempo.
+     * @param s {@code Synset} dal quale prendere i figli e i nipoti.
+     * @return {@code Set} contenente tutti i figli e nipoti.
+     */
     private Set<Synset> grandChilds(Synset s)
     {
-        return s.getRelations().stream().flatMap(s2->s2.getRelations().stream()).collect(Collectors.toSet());
+        return s.getRelations()
+                .stream()
+                .flatMap(s2->s2.getRelations().stream())
+                .collect(Collectors.toSet());
     }
 
+    /**
+     * Crea il grafo del documento sottoforma di mappa
+     * @param docSynsets {@code Set} che contiene tutti i {@code Synset} in un documento.
+     * @return Grafo del documento sottoforma di mappa; synset->set_di_vicini.
+     */
     private HashMap<Synset, Set<Synset>> createDocGraph(Set<Synset> docSynsets)
     {
 
-        //inizializzo mappa del grafo
+        //Inizializzo mappa del grafo
         HashMap<Synset, Set<Synset>> g = new HashMap<>();
-
 
         /*
         Per ogni synset nel doc faccio una intersezione fra i suoi vicini a dist. 2
@@ -64,7 +99,15 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         return g;
     }
 
-    //random walk del doc
+    /**
+     * Metodo randomWalk che passa da un nodo a un altro in modo casuale e tiene
+     * il conteggio di quante volte passa su ogni nodo
+     * @param graph Grafo del documento sottoforma di mappa.
+     * @param indexMap Mappa indici dei Synset per creare un vettore che mantiene
+     *                 il conteggio delle visite a un nodo.
+     * @return Vettore che contiene per ciascuna posizione il conteggio di quante volte
+     * tramite randomWalk si è capitati in un certo nodo.
+     */
     private int[] randomWalk(Map<Synset, Set<Synset>> graph, Map<Synset, Integer> indexMap)
     {
         int[] v = new int[indexMap.size()];
@@ -79,28 +122,13 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         return v;
     }
 
-    private double cosineSimilarity(int[] v1, int[] v2)
-    {
-        double numerator = 0;
-        double sqrt1 = 0;
-        double sqrt2 = 0;
-        for(int i=0; i<v1.length; i++)
-        {
-            double val1 = v1[i];
-            double val2 = v2[i];
-
-            numerator += val1*val2;
-            sqrt1 += val1*val1;
-            sqrt2 += val2*val2;
-        }
-
-        sqrt1 = Math.sqrt(sqrt1);
-        sqrt2 = Math.sqrt(sqrt2);
-
-        return numerator/(sqrt1*sqrt2);
-    }
-
-    public Map<Synset, Set<Synset>> getDocumentGraph(Document d)
+    /**
+     * Metodo che restituisce un grafo del documento passato come parametro, però
+     * se già è stato crato lo preleva dalla memoria, altrimenti lo crea sul momento.
+     * @param d Documento del quale vogliamo il grafo
+     * @return Un grafo del documento passato come parametro.
+     */
+    private Map<Synset, Set<Synset>> getDocumentGraph(Document d)
     {
         if(documentsGraph.containsKey(d)) return documentsGraph.get(d);
         Set<Synset> synsetsDoc1 = new HashSet<>(miniBabelNet.getSynsets(d.getWords(stopWords)));
@@ -108,6 +136,10 @@ public class BabelDocumentSimilarityAdvanced implements BabelDocumentSimilarity 
         return documentsGraph.get(d);
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public double compute(LinguisticObject o1, LinguisticObject o2) throws NotADocumentException
     {

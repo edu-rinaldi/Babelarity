@@ -1,7 +1,8 @@
 package it.uniroma1.lcl.babelarity.exception;
 
 /**
- * Thrown whenever in miniBabelNet there isn't a word's lemma
+ * Eccezione lanciata quando non c'è nessun lemma per una certa parola.
  */
-public class NoLemmaFormException extends NotALinguisticObject {
+public class NoLemmaFormException extends NotALinguisticObject
+{
 }

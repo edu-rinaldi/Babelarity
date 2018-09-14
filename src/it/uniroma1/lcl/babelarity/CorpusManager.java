@@ -6,21 +6,40 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-
+/**
+ * Questa classe si occupa della gestione dei documenti
+ * rappresentati con la classe {@code Document}.
+ *
+ * Implementa l'intefaccia {@code Iterable} così che è possibile
+ * iterare con un forEach sui Documenti contenuti nel {@code CorpusManager}.
+ */
 public class CorpusManager implements Iterable<Document>
 {
     private static CorpusManager instance;
-    public final Path STORAGE_PATH;
+    private final Path STORAGE_PATH;
 
-    private CorpusManager(Path STORAGE_PATH){ this.STORAGE_PATH = STORAGE_PATH;}
+    private CorpusManager(){ this.STORAGE_PATH = Paths.get("resources/storedDocs/");}
 
-    public static CorpusManager getInstance() { return getInstance(Paths.get("resources/storedDocs/")); }
-    public static CorpusManager getInstance(Path STORAGE_PATH)
+    /**
+     * Questo metodo ci consente di applicare il pattern Singleton
+     * su questa classe, così da evitare istanze multiple di {@code CorpusManager}.
+     * @return Un'unica istanza di {@code CorpusManager}.
+     */
+    public static CorpusManager getInstance()
     {
-        if(instance==null) instance = new CorpusManager(STORAGE_PATH);
+        if(instance==null) instance = new CorpusManager();
         return instance;
     }
 
+
+    /**
+     * Metodo che consente il parse di un documento.
+     * Il documento da parsare DEVE avere il seguente formato:
+     * Sulla prima riga ci devono essere: TITOLO\tID_DOCUMENTO
+     * Dalla seconda riga ci deve essere il contenuto del documento.
+     * @param path Percorso al documento da parsare.
+     * @return Una nuova istanza di {@code Document}.
+     */
     public Document parseDocument(Path path)
     {
         Document d = null;
@@ -37,8 +56,19 @@ public class CorpusManager implements Iterable<Document>
         return d;
     }
 
+    /**
+     * Overload del metodo {@code parseDocument(Path path)}, qui è possibile
+     * specificare il path tramite stringa.
+     * @param path Stringa che rappresenta il path al documento da parsare.
+     * @return Una nuova istanza di {@code Document}.
+     */
     public Document parseDocument(String path) {return parseDocument(Paths.get(path)); }
 
+    /**
+     * Carica da disco un oggetto {@code Document} ricercandolo per id.
+     * @param id Identificativo del documento da caricare.
+     * @return Un oggetto {@code Document} ricercato per id.
+     */
     public Document loadDocument(String id)
     {
         Document d = null;
@@ -51,6 +81,11 @@ public class CorpusManager implements Iterable<Document>
         return d;
     }
 
+    /**
+     * Questo metodo salva su disco, nel percorso {@code STORAGE_PATH +"/id_doc.ser"}
+     * l'oggetto {@code Document} che gli viene passato come parametro.
+     * @param document Documento da salvare su disco.
+     */
     public void saveDocument(Document document)
     {
         try (FileOutputStream fileOut = new FileOutputStream(STORAGE_PATH.resolve(document.getId()+".ser").toString());
@@ -61,6 +96,10 @@ public class CorpusManager implements Iterable<Document>
         catch (IOException e){ e.printStackTrace();}
     }
 
+    /**
+     * Questo metodo restituisce un iteratore sui documenti salvati su disco dal Corpus.
+     * @return Iteratore sui documenti salvati su disco dal Corpus.
+     */
     @Override
     public Iterator<Document> iterator()
     {

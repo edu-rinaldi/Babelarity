@@ -1,4 +1,8 @@
 package it.uniroma1.lcl.babelarity.exception;
 
-public class NotASynsetException extends NotALinguisticObject {
+/**
+ * Eccezione lanciata quando un oggetto non è un {@code Synset}.
+ */
+public class NotASynsetException extends NotALinguisticObject
+{
 }

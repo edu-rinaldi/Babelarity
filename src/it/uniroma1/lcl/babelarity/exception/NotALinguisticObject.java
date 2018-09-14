@@ -1,4 +1,9 @@
 package it.uniroma1.lcl.babelarity.exception;
 
-public class NotALinguisticObject extends Exception {
+/**
+ * Eccezione lanciata quando un certo oggetto non è un {@code LinguisticObject}
+ * e quindi non può essere utilizzato per calcoli di similarità.
+ */
+public class NotALinguisticObject extends Exception
+{
 }

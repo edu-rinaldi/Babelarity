@@ -5,6 +5,10 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
+/**
+ * Classe che rappresenta un BabelSynset ovvero una implementazione
+ * dell'interfaccia {@code Synset}.
+ */
 public class BabelSynset implements Synset
 {
     private String id;
@@ -13,11 +17,23 @@ public class BabelSynset implements Synset
     private List<String> glosses;
     private Map<String, List<Synset>> relations;
 
+    /**
+     * Costruttore di un {@code BabelSynset} che richiede
+     * l'identificativo del {@code Synset}
+     * @param id Identificativo del {@code Synset}.
+     */
     public BabelSynset(String id)
     {
         this(id, new ArrayList<>());
     }
 
+    /**
+     * Overload del costruttore di un {@code BabelSynset}
+     * che richiede l'identificativo del {@code Synset} e
+     * una lista dei suoi concetti.
+     * @param id Identificativo del {@code Synset}.
+     * @param words Lista di concetti del {@code Synset}.
+     */
     public BabelSynset(String id, List<String> words)
     {
         this.id = id;
@@ -27,16 +43,31 @@ public class BabelSynset implements Synset
         this.relations = new HashMap<>();
     }
 
-
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public String getID() {return id; }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public PartOfSpeech getPOS() {return pos;}
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getLemmas() {return words;}
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public Set<Synset> getRelations(String typeRel)
     {
@@ -44,21 +75,34 @@ public class BabelSynset implements Synset
         return r!=null ? new HashSet<>(r) : new HashSet<>();
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public Set<Synset> getRelations(String... typeRel)
     {
+        if(typeRel.length==0) return getRelations();
         return Arrays.stream(typeRel)
                 .filter(t->relations.get(t)!=null)
                 .flatMap(t->relations.get(t).stream())
                 .collect(Collectors.toSet());
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public Set<Synset> getRelations()
     {
         return getRelations("allType");
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public void addRelation(String typeRel, Synset node)
     {
@@ -66,19 +110,38 @@ public class BabelSynset implements Synset
         relations.merge("allType", new ArrayList<>(List.of(node)), (v1,v2)-> { v1.addAll(v2); return v1; });
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public void addGlosse(String glosse) {glosses.add(glosse); }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public void addGlosses(Collection<String> glosses) {this.glosses.addAll(glosses); }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public void addLemma(String lemma) {words.add(lemma); }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public void addLemmas(Collection<String> lemmas) {words.addAll(lemmas); }
 
-
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -88,9 +151,17 @@ public class BabelSynset implements Synset
         return this.getID().equals(b.getID()) && this.pos==b.pos && this.words.equals(b.words);
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {return Objects.hash(id,pos, words); }
 
+    /**
+     *  Questo metodo restituisce una stringa che rappresenta lo stato del {@code BabelSynset}.
+     *  Con formato id\tpos\tlemma1;lemma2;lemmaN\tglosse1;glosse2;glosseN\trel1;rel2;relN
+     */
     @Override
     public String toString()
     {
