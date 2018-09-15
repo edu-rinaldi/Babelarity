@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"it.uniroma1.lcl.babelarity"},{"l":"it.uniroma1.lcl.babelarity.exception"},{"l":"it.uniroma1.lcl.babelarity.utils"},{"l":"it.uniroma1.lcl.babelarity.utils.stopword"}]

@@ -113,6 +113,7 @@ public class MiniBabelNet implements Iterable<Synset>
         try(Stream<String> stream = Files.lines(BabelPath.GLOSSES_FILE_PATH.getPath()))
         {
             stream.map(l->new ArrayList<>(List.of(l.split("\t"))))
+                    //nel file relations.txt c'è una nuova riga che non inizia per bn:
                     .filter(l-> l.get(0).startsWith("bn:"))
                     .forEach(l->getSynset(l.remove(0)).addGlosses(l));
         }
@@ -145,7 +146,10 @@ public class MiniBabelNet implements Iterable<Synset>
      */
     public List<Synset> getSynsets(Collection<String> words)
     {
-        return words.stream().filter(w->getSynsets(w).size()>0).map(w->getSynsets(w).get(0)).collect(Collectors.toList());
+        return words.stream()
+                .filter(w->!getSynsets(w).isEmpty())
+                .map(w->getSynsets(w).get(0))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -190,6 +194,7 @@ public class MiniBabelNet implements Iterable<Synset>
      * Metodo che restituisce per una stringa le sue forme "lemma" in una lista.
      * @param word Stringa da lemmatizzare.
      * @return Lista contenente tutte le forme lemma del parametro @{@code word}.
+     * Se non ci sono lemmi restituisce una lista vuota.
      */
     public List<String> getLemmas(String word)
     {
@@ -264,11 +269,9 @@ public class MiniBabelNet implements Iterable<Synset>
         if(o1 instanceof Word && o2 instanceof Word) strategy = this.babelLexicalSimilarity;
         else if(o1 instanceof BabelSynset && o2 instanceof BabelSynset) strategy = this.babelSemanticSimilarity;
         else if(o1 instanceof Document && o2 instanceof Document) strategy = this.babelDocumentSimilarity;
-        try {
-            return strategy.compute(o1,o2);
-        } catch (NotALinguisticObject e) {
-            e.printStackTrace();
-        }
+
+        try {return strategy.compute(o1,o2); }
+        catch (NotALinguisticObject e) {e.printStackTrace(); }
         return 0;
     }
 
