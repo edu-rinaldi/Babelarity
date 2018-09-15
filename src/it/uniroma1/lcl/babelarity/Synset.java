@@ -27,26 +27,26 @@ public interface Synset extends LinguisticObject
     List<String> getLemmas();
 
     /**
-     * Metodo che restituisce un {@code Set} contenente tutti i synset che hanno una
+     * Metodo che restituisce una lista contenente tutti i synset che hanno una
      * relazione di qualunque tipo con questo synset.
-     * @return Set contenente tutti i synset che hanno una relazione di qualunque tipo con questo synset.
+     * @return Lista contenente tutti i synset che hanno una relazione di qualunque tipo con questo synset.
      */
     List<Synset> getRelations();
 
     /**
-     * Metodo che restituisce un {@code Set} contenente tutti i synset che hanno una relazione
+     * Metodo che restituisce una lista contenente tutti i synset che hanno una relazione
      * di tipo {@code String typeRel}.
      * @param typeRel Stringa che definisce il tipo di relazioni da cercare.
-     * @return {@code Set} contenente tutti i synset che hanno una relazione
+     * @return Lista contenente tutti i synset che hanno una relazione
      *         di tipo {@code String typeRel}.
      */
     List<Synset> getRelations(String typeRel);
 
     /**
-     * Metodo che restituisce un {@code Set} contenente tutti i synset che hanno una relazione
+     * Metodo che restituisce una lista contenente tutti i synset che hanno una relazione
      * con almeno un tipo definito dall'array {@code typeRel}.
      * @param typeRel Definisce i tipi di relazioni da cercare.
-     * @return {@code Set} contenente tutti i synset che hanno una relazione
+     * @return Lista contenente tutti i synset che hanno una relazione
      *         con almeno un tipo definito dall'array {@code typeRel}.
      */
     List<Synset> getRelations(String... typeRel);

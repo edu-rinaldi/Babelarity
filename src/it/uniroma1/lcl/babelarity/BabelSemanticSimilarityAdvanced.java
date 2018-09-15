@@ -14,8 +14,6 @@ import java.util.*;
 public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
 {
     private MiniBabelNet miniBabelNet;
-    private Set<Synset> roots;
-    private Map<PartOfSpeech, Integer> maxDepthPos;
     private double averageDepth;
     private double lowRange;
     private double highRange;
@@ -31,11 +29,10 @@ public class BabelSemanticSimilarityAdvanced implements BabelSemanticSimilarity
     public BabelSemanticSimilarityAdvanced()
     {
         this.miniBabelNet = MiniBabelNet.getInstance();
-        roots = miniBabelNet.getHypernymTrees();
-        maxDepthPos = miniBabelNet.getMaxDepthHypernymTrees();
+        Map<PartOfSpeech, Integer> maxDepthPos = miniBabelNet.getMaxDepthHypernymTrees();
 
         //profondità media fra le profondità massime di ogni pos
-        averageDepth = (double)maxDepthPos.values().stream().reduce(Integer::sum).orElse(0)/(maxDepthPos.size()+1);
+        averageDepth = (double) maxDepthPos.values().stream().reduce(Integer::sum).orElse(0)/(maxDepthPos.size()+1);
 
         //profondità massima fra le profondità massime di ogni pos
         double maxAbsoluteDepth = maxDepthPos.values().stream().mapToInt(Integer::intValue).max().orElse(0);
