@@ -1,114 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f75d4ad-c395-43e1-b04c-494f3448e841" name="Default Changelist" comment="Genarata la documentazione javadoc&#10;Aggiunto qualche commento in MiniBabelNet.java&#10;Aggiunto file stopword nel suo package">
-      <change afterPath="$PROJECT_DIR$/javadoc/allclasses-frame.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/allclasses-noframe.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/constant-values.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/deprecated-list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/element-list" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/help-doc.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-10.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-11.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-12.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-13.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-14.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-15.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-16.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-17.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-18.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-3.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-4.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-5.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-6.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-7.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-8.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index-files/index-9.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/BabelDocumentSimilarity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/BabelDocumentSimilarityAdvanced.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/BabelLexicalSimilarity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/BabelLexicalSimilarityAdvanced.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/BabelSemanticSimilarity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/BabelSemanticSimilarityAdvanced.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/BabelSynset.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/CorpusManager.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/Document.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/LinguisticObject.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/MiniBabelNet.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/PartOfSpeech.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/SimilarityStrategy.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/Synset.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/Word.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/exception/NoLemmaFormException.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/exception/NotADocumentException.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/exception/NotALinguisticObject.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/exception/NotASynsetException.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/exception/package-frame.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/exception/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/exception/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/package-frame.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/BabelPath.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/CosineSimilarity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/RangeMapper.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/package-frame.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/stopword/StopWords.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/stopword/package-frame.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/stopword/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/it/uniroma1/lcl/babelarity/utils/stopword/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/external/jquery/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-bg_flat_0_aaaaaa_40x100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-bg_flat_75_ffffff_40x100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-bg_glass_55_fbf9ee_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-bg_glass_65_ffffff_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-bg_glass_75_dadada_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-bg_glass_75_e6e6e6_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-bg_glass_95_fef1ec_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-icons_222222_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-icons_2e83ff_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-icons_454545_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-icons_888888_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/images/ui-icons_cd0a0a_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jquery-1.10.2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jquery-ui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jquery-ui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jquery-ui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jquery-ui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jquery-ui.structure.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jquery-ui.structure.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jszip-utils/dist/jszip-utils-ie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jszip-utils/dist/jszip-utils-ie.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jszip-utils/dist/jszip-utils.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jszip-utils/dist/jszip-utils.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jszip/dist/jszip.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/jquery/jszip/dist/jszip.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/member-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/member-search-index.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/overview-frame.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/overview-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/overview-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/package-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/package-search-index.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/resources/glass.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/resources/x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/search.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/serialized-form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/stylesheet.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/type-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javadoc/type-search-index.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/utils/stopword/english-stop-words-large.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8f75d4ad-c395-43e1-b04c-494f3448e841" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/MiniBabelNet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/utils/BabelPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/utils/BabelPath.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.idea/shelf/" />
@@ -180,13 +74,13 @@
         <counts>
           <entry key="dummy" value="20" />
           <entry key="java" value="33458" />
-          <entry key="txt" value="199" />
+          <entry key="txt" value="317" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="33458" />
-          <entry key="PLAIN_TEXT" value="219" />
+          <entry key="PLAIN_TEXT" value="337" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -204,7 +98,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
+            <state relative-caret-position="348">
               <caret line="150" column="47" selection-start-line="150" selection-start-column="47" selection-end-line="150" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -333,6 +227,12 @@
               <item name="Babelarity" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Babelarity" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Babelarity" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="babelarity" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -346,7 +246,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536992776739" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536993030445" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -425,7 +325,7 @@
       <workItem from="1536735874341" duration="8306000" />
       <workItem from="1536905858608" duration="14504000" />
       <workItem from="1536953864781" duration="3619000" />
-      <workItem from="1536989860102" duration="2887000" />
+      <workItem from="1536989860102" duration="3140000" />
     </task>
     <task id="LOCAL-00001" summary="some fix">
       <created>1536334425466</created>
@@ -469,7 +369,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536957508626</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Javadoc generated&#10;Added some comments in MiniBabelNet.java&#10;Added stopword file to its own package.">
+      <created>1536992994354</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1536992994354</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -505,7 +412,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69783000" />
+    <option name="totallyTimeSpent" value="70036000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -518,9 +425,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="991" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22470714" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22470714" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -529,12 +435,12 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32925472" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3003337" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3003337" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32925472" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32925472" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32925472" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32925472" />
@@ -604,7 +510,8 @@
     <MESSAGE value="added getLemma" />
     <MESSAGE value="Fixati problemi con i test&#10;&#10;Aggiunto qualche javadoc" />
     <MESSAGE value="Creata la documentazione javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creata la documentazione javadoc" />
+    <MESSAGE value="Javadoc generated&#10;Added some comments in MiniBabelNet.java&#10;Added stopword file to its own package." />
+    <option name="LAST_COMMIT_MESSAGE" value="Javadoc generated&#10;Added some comments in MiniBabelNet.java&#10;Added stopword file to its own package." />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/regex/Matcher.java" />
@@ -875,7 +782,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma1/lcl/babelarity/test/BabelarityTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
+        <state relative-caret-position="348">
           <caret line="150" column="47" selection-start-line="150" selection-start-column="47" selection-end-line="150" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
