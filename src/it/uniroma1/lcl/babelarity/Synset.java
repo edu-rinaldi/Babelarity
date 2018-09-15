@@ -31,7 +31,7 @@ public interface Synset extends LinguisticObject
      * relazione di qualunque tipo con questo synset.
      * @return Set contenente tutti i synset che hanno una relazione di qualunque tipo con questo synset.
      */
-    Set<Synset> getRelations();
+    List<Synset> getRelations();
 
     /**
      * Metodo che restituisce un {@code Set} contenente tutti i synset che hanno una relazione
@@ -40,7 +40,7 @@ public interface Synset extends LinguisticObject
      * @return {@code Set} contenente tutti i synset che hanno una relazione
      *         di tipo {@code String typeRel}.
      */
-    Set<Synset> getRelations(String typeRel);
+    List<Synset> getRelations(String typeRel);
 
     /**
      * Metodo che restituisce un {@code Set} contenente tutti i synset che hanno una relazione
@@ -49,7 +49,7 @@ public interface Synset extends LinguisticObject
      * @return {@code Set} contenente tutti i synset che hanno una relazione
      *         con almeno un tipo definito dall'array {@code typeRel}.
      */
-    Set<Synset> getRelations(String... typeRel);
+    List<Synset> getRelations(String... typeRel);
 
     /**
      * Metodo che consente l'aggiunta di una nuova relazione al synset.

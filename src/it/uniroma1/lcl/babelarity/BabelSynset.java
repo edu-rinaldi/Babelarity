@@ -69,10 +69,10 @@ public class BabelSynset implements Synset
      * {@inheritDoc}
      */
     @Override
-    public Set<Synset> getRelations(String typeRel)
+    public List<Synset> getRelations(String typeRel)
     {
         List<Synset> r = relations.get(typeRel);
-        return r!=null ? new HashSet<>(r) : new HashSet<>();
+        return r!=null ? r.stream().distinct().collect(toList()) : new ArrayList<>();
     }
 
     /**
@@ -80,13 +80,14 @@ public class BabelSynset implements Synset
      * {@inheritDoc}
      */
     @Override
-    public Set<Synset> getRelations(String... typeRel)
+    public List<Synset> getRelations(String... typeRel)
     {
         if(typeRel.length==0) return getRelations();
         return Arrays.stream(typeRel)
                 .filter(t->relations.get(t)!=null)
                 .flatMap(t->relations.get(t).stream())
-                .collect(Collectors.toSet());
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     /**
@@ -94,7 +95,7 @@ public class BabelSynset implements Synset
      * {@inheritDoc}
      */
     @Override
-    public Set<Synset> getRelations()
+    public List<Synset> getRelations()
     {
         return getRelations("allType");
     }
