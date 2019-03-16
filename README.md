@@ -7,3 +7,12 @@
 4. Da IntelliJ tasto destro sulla cartella ```src -> mark directory as source root```.
 5. Sempre da IntelliJ tasto destro sulla cartella ```Babelarity_rinaldi.1797800``` e cliccare su "build module".
 6. Se richiede una cartella di output, specificarne una a piacere.
+
+
+## Struttura del progetto 
+### Il progetto consiste nello sviluppo di: 
+ 
+1. un sistema di caricamento e memorizzazione dei documenti di testo.
+2. una misura di similarità lessicale tra parole nella rete miniBabelNet.
+3. una misura di similarità semantica tra concetti (synset) nella rete miniBabelNet.
+4. l’implementazione di una misura di similarità tra documenti.
